@@ -1,0 +1,42 @@
+export const modules = [
+  {
+    code: 'profile', name: '用户与基础', english: 'Personal profile', owner: '成员 A',
+    route: '/profile', color: 'green', icon: 'profile',
+    description: '让每一次记录，都从了解自己开始。',
+    features: ['个人健康档案', '健康目标管理', '生活偏好配置'],
+    detail: '集中管理身高、体重、既往病史、过敏史与用药信息，并设定自己的健康目标。',
+    next: '建立个人档案后，其他模块的记录将关联到同一份档案。',
+  },
+  {
+    code: 'diet', name: '饮食营养', english: 'Food & nutrition', owner: '成员 B',
+    route: '/diet', color: 'orange', icon: 'diet',
+    description: '记下三餐，慢慢认识自己的饮食习惯。',
+    features: ['手动饮食记录', '按日期查看', '每日热量汇总'],
+    detail: '按早餐、午餐、晚餐和加餐记录食物、份量与可选的热量信息。',
+    next: '下一版支持饮食记录的新增、编辑、删除和每日汇总。',
+  },
+  {
+    code: 'exercise', name: '运动健身', english: 'Movement & activity', owner: '成员 C',
+    route: '/exercise', color: 'blue', icon: 'exercise',
+    description: '每一段活动，都值得被好好记录。',
+    features: ['运动记录', '运动强度标记', '每日时长汇总'],
+    detail: '记录运动类型、时长和主观强度，回看每日活动情况。',
+    next: '下一版支持运动记录的新增、编辑、删除和时长汇总。',
+  },
+  {
+    code: 'sleep', name: '睡眠监测', english: 'Sleep & rest', owner: '成员 D',
+    route: '/sleep', color: 'purple', icon: 'sleep',
+    description: '把好好休息，也放进日常计划。',
+    features: ['入睡与醒来记录', '睡眠时长计算', '主观睡眠评分'],
+    detail: '手动记录入睡和醒来时间，并用 1–5 分描述自己的睡眠感受。',
+    next: '下一版支持跨夜睡眠记录，时长由实际起止时间计算。',
+  },
+  {
+    code: 'cycle', name: '生理期管理', english: 'Cycle & wellbeing', owner: '成员 E',
+    route: '/cycle', color: 'rose', icon: 'cycle',
+    description: '关注身体节奏，也照顾自己的感受。',
+    features: ['经期起止记录', '流量与症状记录', '情绪备注'],
+    detail: '记录每次经期的起止日期、流量、症状与情绪，保留自己的周期历史。',
+    next: '下一版支持经期记录管理；本阶段仅做记录，不提供周期预测。',
+  },
+]

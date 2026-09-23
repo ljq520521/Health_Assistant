@@ -1,0 +1,38 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.egg-info/
+
+# Frontend
+node_modules/
+dist/
+coverage/
+.vite/
+
+# Local configuration: examples stay in Git
+.env
+.env.*
+!.env.example
+
+# Local health data, logs, temporary files
+backend/data/*
+!backend/data/.gitkeep
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+*.sqlite3-*
+*.log
+*.tmp
+*.swp
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+artifacts/
