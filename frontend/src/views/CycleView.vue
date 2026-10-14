@@ -189,7 +189,7 @@ onMounted(loadData)
       <p>平均周期：{{ prediction.avg_cycle_days }} 天</p>
             <p>排卵日：{{ prediction.ovulation_date }}</p>
 <p>易孕期：{{ prediction.fertile_start }} ~ {{ prediction.fertile_end }}</p>
-      <p>预测下次：<strong>{{ prediction.predicted_next }}</strong></p>
+      <p>预测下次经期：<strong>{{ prediction.predicted_next }}</strong></p>
 
 
       <div v-if="phaseInfo" class="phase-box">
