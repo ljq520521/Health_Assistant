@@ -42,3 +42,9 @@ export async function getCyclePrediction() {
   if (!response.ok) throw new Error(`服务返回 ${response.status}`)
   return response.json()
 }
+
+export async function getCycleReport() {
+  const response = await fetch(`${baseUrl}/api/cycle-records/report`)
+  if (!response.ok) throw new Error(`服务返回 ${response.status}`)
+  return response.json()
+}
