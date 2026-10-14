@@ -68,11 +68,23 @@ def predict_next_cycle():
     d2 = date.fromisoformat(rows[1]["start_date"])
     interval = (d1 - d2).days
     next_date = d1 + timedelta(days=interval)
+
+    # 排卵日 = 下次经期 - 14 天
+    ovulation = next_date - timedelta(days=14)
+    # 易孕期 = 排卵日前 5 天 ~ 排卵日后 1 天
+    fertile_start = ovulation - timedelta(days=5)
+    fertile_end = ovulation + timedelta(days=1)
+
     return {
         "last_start": d1.isoformat(),
         "avg_cycle_days": interval,
         "predicted_next": next_date.isoformat(),
+        "ovulation_date": ovulation.isoformat(),
+        "fertile_start": fertile_start.isoformat(),
+        "fertile_end": fertile_end.isoformat(),
     }
+
+
 def generate_report():
     settings = get_settings()
     with connect(settings.database_path) as conn:
@@ -90,16 +102,13 @@ def generate_report():
     from datetime import date
     dates = [date.fromisoformat(r["start_date"]) for r in rows]
 
-    # 相邻记录间隔
     intervals = [(dates[i + 1] - dates[i]).days for i in range(len(dates) - 1)]
-    # 过滤异常值（21~40 天视为合理）
     valid = [d for d in intervals if 21 <= d <= 40]
 
     avg = round(sum(valid) / len(valid)) if valid else 0
     shortest = min(valid) if valid else 0
     longest = max(valid) if valid else 0
 
-    # 规律性：标准差
     if valid:
         mean = sum(valid) / len(valid)
         variance = sum((x - mean) ** 2 for x in valid) / len(valid)
@@ -114,7 +123,6 @@ def generate_report():
         std = 0
         regularity = "数据不足"
 
-    # 平均经期长度
     lengths = []
     for r in rows:
         if r["end_date"]:
