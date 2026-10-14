@@ -187,7 +187,10 @@ onMounted(loadData)
       <h3>周期预测</h3>
       <p>上次经期：{{ prediction.last_start }}</p>
       <p>平均周期：{{ prediction.avg_cycle_days }} 天</p>
+            <p>排卵日：{{ prediction.ovulation_date }}</p>
+<p>易孕期：{{ prediction.fertile_start }} ~ {{ prediction.fertile_end }}</p>
       <p>预测下次：<strong>{{ prediction.predicted_next }}</strong></p>
+
 
       <div v-if="phaseInfo" class="phase-box">
         <p>当前周期第 <strong>{{ phaseInfo.dayInCycle }}</strong> 天，处于
