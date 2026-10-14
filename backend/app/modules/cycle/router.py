@@ -24,3 +24,6 @@ def delete_record(record_id: int):
 def predict():
     return service.predict_next_cycle()
 
+@router.get("/report")
+def report():
+    return service.generate_report()
