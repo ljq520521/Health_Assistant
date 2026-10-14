@@ -13,3 +13,32 @@ export async function getHealth() {
     clearTimeout(timeout)
   }
 }
+export async function getCycleRecords() {
+  const response = await fetch(`${baseUrl}/api/cycle-records`)
+  if (!response.ok) throw new Error(`服务返回 ${response.status}`)
+  return response.json()
+}
+
+export async function createCycleRecord(data) {
+  const response = await fetch(`${baseUrl}/api/cycle-records`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+  if (!response.ok) throw new Error(`服务返回 ${response.status}`)
+  return response.json()
+}
+
+export async function deleteCycleRecord(id) {
+  const response = await fetch(`${baseUrl}/api/cycle-records/${id}`, {
+    method: 'DELETE',
+  })
+  if (!response.ok) throw new Error(`服务返回 ${response.status}`)
+  return response.json()
+}
+
+export async function getCyclePrediction() {
+  const response = await fetch(`${baseUrl}/api/cycle-records/predict`)
+  if (!response.ok) throw new Error(`服务返回 ${response.status}`)
+  return response.json()
+}
