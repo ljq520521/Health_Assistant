@@ -6,10 +6,12 @@ import {
   createCycleRecord,
   deleteCycleRecord,
   getCyclePrediction,
+  getCycleReport,
 } from '../api/client'
 
 const records = ref([])
 const prediction = ref(null)
+const report = ref(null)
 const loading = ref(false)
 const errorMsg = ref('')
 
@@ -24,6 +26,47 @@ const form = ref({
 
 const flowLabels = { light: '少量', medium: '中等', heavy: '较多' }
 
+const PHASES = [
+  { key: 'menstrual', name: '月经期', range: [1, 5], tip: '经期中，多喝温水，避免剧烈运动，注意保暖。' },
+  { key: 'follicular', name: '卵泡期', range: [6, 13], tip: '卵泡期，身体状态回升，适合适度运动。' },
+  { key: 'ovulation', name: '排卵期', range: [14, 14], tip: '排卵期，注意身体变化，保持规律作息。' },
+  { key: 'luteal', name: '黄体期', range: [15, 28], tip: '黄体期，可能出现情绪波动，注意休息与饮食。' },
+]
+
+const phaseInfo = computed(() => {
+  if (!prediction.value || !prediction.value.last_start || !prediction.value.avg_cycle_days) return null
+  const lastStart = new Date(prediction.value.last_start)
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  lastStart.setHours(0, 0, 0, 0)
+  const daysSince = Math.floor((today - lastStart) / 86400000)
+  const cycleLen = prediction.value.avg_cycle_days || 28
+  const dayInCycle = ((daysSince % cycleLen) + cycleLen) % cycleLen + 1
+
+  const phase = PHASES.find(p => dayInCycle >= p.range[0] && dayInCycle <= p.range[1])
+    || PHASES[PHASES.length - 1]
+
+  const cyclesPassed = Math.max(1, Math.ceil((daysSince + 1) / cycleLen))
+  const nextStart = new Date(lastStart)
+  nextStart.setDate(nextStart.getDate() + cycleLen * cyclesPassed)
+  const daysToNext = Math.ceil((nextStart - today) / 86400000)
+
+  return {
+    phase,
+    dayInCycle,
+    daysToNext: daysToNext >= 0 ? daysToNext : 0,
+  }
+})
+
+const careTip = computed(() => {
+  if (!phaseInfo.value) return ''
+  const { phase, daysToNext } = phaseInfo.value
+  if (daysToNext <= 3 && daysToNext > 0) {
+    return `距离下次经期还有 ${daysToNext} 天，注意保暖，提前准备好用品。`
+  }
+  return phase.tip
+})
+
 async function loadData() {
   loading.value = true
   errorMsg.value = ''
@@ -33,6 +76,11 @@ async function loadData() {
       prediction.value = await getCyclePrediction()
     } catch {
       prediction.value = null
+    }
+    try {
+      report.value = await getCycleReport()
+    } catch {
+      report.value = null
     }
   } catch (e) {
     errorMsg.value = e.message
@@ -140,8 +188,36 @@ onMounted(loadData)
       <p>上次经期：{{ prediction.last_start }}</p>
       <p>平均周期：{{ prediction.avg_cycle_days }} 天</p>
       <p>预测下次：<strong>{{ prediction.predicted_next }}</strong></p>
+
+      <div v-if="phaseInfo" class="phase-box">
+        <p>当前周期第 <strong>{{ phaseInfo.dayInCycle }}</strong> 天，处于
+          <strong>{{ phaseInfo.phase.name }}</strong>
+        </p>
+        <p v-if="phaseInfo.daysToNext > 0">距离下次经期还有
+          <strong>{{ phaseInfo.daysToNext }}</strong> 天
+        </p>
+      </div>
     </div>
     <p v-else class="hint">至少记录两次经期后，这里会显示周期预测。</p>
+
+    <!-- 关怀提醒 -->
+    <div v-if="careTip" class="care-card">
+      <span class="care-icon"><AppIcon name="cycle" /></span>
+      <p>{{ careTip }}</p>
+    </div>
+
+    <!-- 周期报告 -->
+    <div v-if="report && report.total_records >= 2" class="report-card">
+      <h3>周期报告</h3>
+      <div class="report-grid">
+        <div><span>记录次数</span><strong>{{ report.total_records }}</strong></div>
+        <div><span>平均周期</span><strong>{{ report.avg_cycle_days }} 天</strong></div>
+        <div><span>最短周期</span><strong>{{ report.shortest_cycle }} 天</strong></div>
+        <div><span>最长周期</span><strong>{{ report.longest_cycle }} 天</strong></div>
+        <div><span>平均经期</span><strong>{{ report.avg_period_length }} 天</strong></div>
+        <div><span>规律性</span><strong>{{ report.regularity }}</strong></div>
+      </div>
+    </div>
 
     <!-- 历史记录 -->
     <div class="section-heading">
@@ -174,6 +250,7 @@ onMounted(loadData)
     </section>
   </div>
 </template>
+
 <style scoped>
 .error-banner {
   margin: 1rem 0;
@@ -224,10 +301,65 @@ onMounted(loadData)
   margin: 0.25rem 0;
   font-size: 0.9rem;
 }
+.phase-box {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed #f3c6d0;
+}
+.phase-box p {
+  margin: 0.25rem 0;
+}
 .hint {
   color: #888;
   font-size: 0.9rem;
   margin-bottom: 1.5rem;
+}
+.care-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  background: #fff7f9;
+  border-left: 3px solid #e8a5b5;
+  border-radius: 8px;
+}
+.care-card p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #6b4a52;
+}
+.care-icon {
+  color: #d98ba0;
+  flex-shrink: 0;
+}
+.report-card {
+  padding: 1.25rem 1.5rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  margin-bottom: 1.5rem;
+}
+.report-card h3 {
+  margin: 0 0 1rem;
+}
+.report-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+}
+.report-grid div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.report-grid span {
+  font-size: 0.8rem;
+  color: #888;
+}
+.report-grid strong {
+  font-size: 1.1rem;
+  color: #b23a52;
 }
 .cycle-list {
   display: flex;
