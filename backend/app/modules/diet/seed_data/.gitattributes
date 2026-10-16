@@ -1,0 +1,4 @@
+# Seed manifests and approval evidence are byte-hashed. Preserve their exact
+# bytes on every platform, including Windows clones with core.autocrlf=true.
+usda_v2/** -text
+usda_v3_course_demo/** -text
