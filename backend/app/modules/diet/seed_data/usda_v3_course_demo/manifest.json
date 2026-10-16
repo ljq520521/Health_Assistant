@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "package_id": "common-food-cn-course-demo",
+  "package_version": 3,
+  "purpose": "course_demo",
+  "review_status": "approved",
+  "reviewer": "食物板块负责人",
+  "reviewed_at": "2026-10-15T23:41:09+08:00",
+  "mapping_policy": "usda-per100-v1",
+  "format": "json",
+  "sources": [
+    {
+      "path": "sources/FoodData_Central_foundation_food_json_2026-04-30.zip",
+      "sha256": "ae5365ac99b7d6396ca79e24170ef0c1c1fb097d30d86acfa704a51e47e51dc8",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_foundation_food_json_2026-04-30.zip",
+      "release": "2026-04-30",
+      "data_type": "Foundation",
+      "retrieved_at": "2026-10-14T14:52:38.310403+00:00"
+    },
+    {
+      "path": "sources/FoodData_Central_sr_legacy_food_json_2018-04.zip",
+      "sha256": "dd4cb623cdfa76ecac40469636f3eb0c1e6b9e59446643a2dd1dca3f48124724",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_json_2018-04.zip",
+      "release": "2018-04",
+      "data_type": "SR Legacy",
+      "retrieved_at": "2026-10-14T14:52:38.310403+00:00"
+    }
+  ],
+  "documentation": [
+    {
+      "path": "approval-record.json",
+      "sha256": "1d6c729ff138382b6862c22921d6e77211b1b6e10378dde4c6af645df6f41a93"
+    },
+    {
+      "path": "PROVENANCE.json",
+      "sha256": "7116581085cbc3c458cf59818864942aec675191617d44e885b5a1b3f09262ee"
+    },
+    {
+      "path": "LICENSE-SOURCES.md",
+      "sha256": "0e848a08df6fdb24503d81fc50a4c734f8f414759c4f84ad49fb350d34c9f4c8"
+    },
+    {
+      "path": "provenance/original-manifest.json",
+      "sha256": "bdc647117fe396ee04d7bac93bd0ef5b1d1cf22e7b8fd02047565470bb2321a6"
+    },
+    {
+      "path": "provenance/v2-seed-manifest.json",
+      "sha256": "2391951c2738a0b5ca181c441a216d872731f9eed8fc8290b2e6001610f4e29b"
+    },
+    {
+      "path": "provenance/v2-PROVENANCE.json",
+      "sha256": "4ff4d931c2a6399bb6a03f19f4bbc4f423ab57870c4494c1266ef68823f5ce48"
+    },
+    {
+      "path": "provenance/approval-record.preview.json",
+      "sha256": "3e20e7a8cb8dde8444d32a0ce606da824ba207c8f4f19b3b576f964f8c01721b"
+    },
+    {
+      "path": "provenance/source-record-sha256.json",
+      "sha256": "13d9dda8dbd4e49ba8c76e87ce416e2958e3b7dd23471c6418baa37f726fbf5a"
+    }
+  ],
+  "files": {
+    "foods": {
+      "path": "foods.json",
+      "sha256": "ea7082e14836ce7b0a0cef5e0c6d923ece46576484b80878147f05cbe43aa742"
+    },
+    "recipes": {
+      "path": "recipes.json",
+      "sha256": "e494e7e31d5f055186dbc14220ca340eaa6692d88ecde00bb407bc33a4c2b989"
+    }
+  }
+}

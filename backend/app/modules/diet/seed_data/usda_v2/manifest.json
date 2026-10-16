@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "package_id": "common-food-cn-preview-compact",
+  "package_version": 2,
+  "purpose": "temporary_review",
+  "review_status": "pending_final_confirmation",
+  "reviewer": "Codex：A类文字已按用户授权澄清，全部候选仍待用户最终确认",
+  "reviewed_at": "2026-10-15T02:13:30.079321+00:00",
+  "mapping_policy": "usda-per100-v1",
+  "format": "json",
+  "sources": [
+    {
+      "path": "sources/FoodData_Central_foundation_food_json_2026-04-30.zip",
+      "sha256": "ae5365ac99b7d6396ca79e24170ef0c1c1fb097d30d86acfa704a51e47e51dc8",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_foundation_food_json_2026-04-30.zip",
+      "release": "2026-04-30",
+      "data_type": "Foundation",
+      "retrieved_at": "2026-10-14T14:52:38.310403+00:00"
+    },
+    {
+      "path": "sources/FoodData_Central_sr_legacy_food_json_2018-04.zip",
+      "sha256": "dd4cb623cdfa76ecac40469636f3eb0c1e6b9e59446643a2dd1dca3f48124724",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_json_2018-04.zip",
+      "release": "2018-04",
+      "data_type": "SR Legacy",
+      "retrieved_at": "2026-10-14T14:52:38.310403+00:00"
+    }
+  ],
+  "documentation": [
+    {
+      "path": "PROVENANCE.json",
+      "sha256": "4ff4d931c2a6399bb6a03f19f4bbc4f423ab57870c4494c1266ef68823f5ce48"
+    },
+    {
+      "path": "provenance/original-manifest.json",
+      "sha256": "bdc647117fe396ee04d7bac93bd0ef5b1d1cf22e7b8fd02047565470bb2321a6"
+    },
+    {
+      "path": "provenance/source-record-sha256.json",
+      "sha256": "13d9dda8dbd4e49ba8c76e87ce416e2958e3b7dd23471c6418baa37f726fbf5a"
+    },
+    {
+      "path": "LICENSE-SOURCES.md",
+      "sha256": "48d592e475508bb422be5a7cb4e38f4d34e9eb43dfefeed8be5f3d6560b32296"
+    }
+  ],
+  "files": {
+    "foods": {
+      "path": "foods.json",
+      "sha256": "a46e5a14fabf1cd62a3c943ad06b3fa144e13f2734e59f7c9fd530e74eba70cc"
+    },
+    "recipes": {
+      "path": "recipes.json",
+      "sha256": "729bb1506adb8ffcfc23d496dc26f7299978dbd2444bee4f6c8f4cf30299f780"
+    }
+  }
+}

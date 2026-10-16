@@ -1,0 +1,422 @@
+[
+  {
+    "recipe_key": "health-assistant:recipe:daily-cn-007",
+    "recipe_version": 1,
+    "name": "玉米牛奶鸡蛋组合",
+    "category": "早餐",
+    "description": "临时审核配方，待团队确认。营养按对应可食状态的投料估算，非成品实测；加工配料与过敏原未完整核对。",
+    "servings": 1,
+    "preparation_minutes": null,
+    "time_evidence": null,
+    "source_note": "项目团队自编，AI辅助草案，待审核；仅在临时数据库验证，营养按食材投料估算，非成品实测。 未经实际试做。",
+    "ingredients": [
+      {
+        "food_source_key": "usda:fdc:169999",
+        "amount_g": 120
+      },
+      {
+        "food_source_key": "usda:fdc:171265",
+        "amount_g": 200
+      },
+      {
+        "food_source_key": "usda:fdc:173424",
+        "amount_g": 50
+      }
+    ],
+    "steps": [
+      "玉米使用水煮后沥干的可食玉米粒，鸡蛋煮熟去壳。",
+      "按食材表称取熟重，牛奶按克称量。",
+      "分别食用；不把带玉米芯重量或鸡蛋带壳重量计入。"
+    ],
+    "review_status": "pending_final_confirmation"
+  },
+  {
+    "recipe_key": "health-assistant:recipe:daily-cn-009",
+    "recipe_version": 1,
+    "name": "番茄鸡蛋盖饭",
+    "category": "午餐",
+    "description": "临时审核配方，待团队确认。营养按对应可食状态的投料估算，非成品实测；加工配料与过敏原未完整核对。",
+    "servings": 1,
+    "preparation_minutes": null,
+    "time_evidence": null,
+    "source_note": "项目团队自编，AI辅助草案，待审核；仅在临时数据库验证，营养按食材投料估算，非成品实测。 未经实际试做。",
+    "ingredients": [
+      {
+        "food_source_key": "usda:fdc:168930",
+        "amount_g": 150
+      },
+      {
+        "food_source_key": "usda:fdc:171287",
+        "amount_g": 100
+      },
+      {
+        "food_source_key": "usda:fdc:170457",
+        "amount_g": 200
+      },
+      {
+        "food_source_key": "usda:fdc:172336",
+        "amount_g": 8
+      },
+      {
+        "food_source_key": "usda:fdc:173468",
+        "amount_g": 1
+      }
+    ],
+    "steps": [
+      "米饭按熟重称量，鸡蛋去壳，番茄切块。",
+      "用所列油炒熟蛋液，再加入番茄炒软，加盐。",
+      "盖在米饭上；所列用油全部计入估算，不额外补油。"
+    ],
+    "review_status": "pending_final_confirmation"
+  },
+  {
+    "recipe_key": "health-assistant:recipe:daily-cn-011",
+    "recipe_version": 1,
+    "name": "青椒肉丝米饭",
+    "category": "午餐",
+    "description": "临时审核配方，待团队确认。营养按对应可食状态的投料估算，非成品实测；加工配料与过敏原未完整核对。",
+    "servings": 1,
+    "preparation_minutes": null,
+    "time_evidence": null,
+    "source_note": "项目团队自编，AI辅助草案，待审核；仅在临时数据库验证，营养按食材投料估算，非成品实测。 未经实际试做。",
+    "ingredients": [
+      {
+        "food_source_key": "usda:fdc:168230",
+        "amount_g": 120
+      },
+      {
+        "food_source_key": "usda:fdc:2258588",
+        "amount_g": 150
+      },
+      {
+        "food_source_key": "usda:fdc:168930",
+        "amount_g": 150
+      },
+      {
+        "food_source_key": "usda:fdc:172336",
+        "amount_g": 6
+      },
+      {
+        "food_source_key": "usda:fdc:174277",
+        "amount_g": 5
+      },
+      {
+        "food_source_key": "usda:fdc:174158",
+        "amount_g": 30
+      }
+    ],
+    "steps": [
+      "米饭称熟重，猪瘦肉和青椒切丝并称生重。",
+      "用所列油先炒肉丝，再加入青椒、水及酱油烹熟。",
+      "连同可食汤汁配米饭；酱油配料及过敏原信息需另行核对。"
+    ],
+    "review_status": "pending_final_confirmation"
+  },
+  {
+    "recipe_key": "health-assistant:recipe:daily-cn-015",
+    "recipe_version": 1,
+    "name": "鹰嘴豆杂蔬糙米碗",
+    "category": "午餐",
+    "description": "临时审核配方，待团队确认。营养按对应可食状态的投料估算，非成品实测；加工配料与过敏原未完整核对。",
+    "servings": 1,
+    "preparation_minutes": null,
+    "time_evidence": null,
+    "source_note": "项目团队自编，AI辅助草案，待审核；仅在临时数据库验证，营养按食材投料估算，非成品实测。 未经实际试做。",
+    "ingredients": [
+      {
+        "food_source_key": "usda:fdc:173757",
+        "amount_g": 120
+      },
+      {
+        "food_source_key": "usda:fdc:169704",
+        "amount_g": 100
+      },
+      {
+        "food_source_key": "usda:fdc:2346406",
+        "amount_g": 100
+      },
+      {
+        "food_source_key": "usda:fdc:170457",
+        "amount_g": 100
+      },
+      {
+        "food_source_key": "usda:fdc:171413",
+        "amount_g": 5
+      },
+      {
+        "food_source_key": "usda:fdc:173468",
+        "amount_g": 0.5
+      }
+    ],
+    "steps": [
+      "鹰嘴豆使用水煮后沥干熟重，糙米饭也称熟重。",
+      "黄瓜和番茄洗净切块，按可食生重称量。",
+      "混合豆、米饭、蔬菜与所列橄榄油、盐。"
+    ],
+    "review_status": "pending_final_confirmation"
+  },
+  {
+    "recipe_key": "health-assistant:recipe:daily-cn-016",
+    "recipe_version": 1,
+    "name": "清蒸鳕鱼配米饭",
+    "category": "午餐",
+    "description": "临时审核配方，待团队确认。营养按对应可食状态的投料估算，非成品实测；加工配料与过敏原未完整核对。",
+    "servings": 1,
+    "preparation_minutes": null,
+    "time_evidence": null,
+    "source_note": "项目团队自编，AI辅助草案，待审核；仅在临时数据库验证，营养按食材投料估算，非成品实测。 未经实际试做。",
+    "ingredients": [
+      {
+        "food_source_key": "usda:fdc:174191",
+        "amount_g": 150
+      },
+      {
+        "food_source_key": "usda:fdc:168930",
+        "amount_g": 150
+      },
+      {
+        "food_source_key": "usda:fdc:170379",
+        "amount_g": 150
+      },
+      {
+        "food_source_key": "usda:fdc:169231",
+        "amount_g": 5
+      },
+      {
+        "food_source_key": "usda:fdc:174277",
+        "amount_g": 5
+      }
+    ],
+    "steps": [
+      "鳕鱼取可食鱼肉生重，加入称好的姜及酱油。",
+      "鱼蒸至熟；西兰花另行蒸熟，按投料生重估算。",
+      "配熟重米饭。蒸锅用水不食用，不计为配方食材；可食鱼汁计入整份。"
+    ],
+    "review_status": "pending_final_confirmation"
+  },
+  {
+    "recipe_key": "health-assistant:recipe:daily-cn-019",
+    "recipe_version": 1,
+    "name": "香菇蒸鸡腿肉",
+    "category": "晚餐",
+    "description": "临时审核配方，待团队确认。营养按对应可食状态的投料估算，非成品实测；加工配料与过敏原未完整核对。",
+    "servings": 1,
+    "preparation_minutes": null,
+    "time_evidence": null,
+    "source_note": "项目团队自编，AI辅助草案，待审核；仅在临时数据库验证，营养按食材投料估算，非成品实测。 未经实际试做。",
+    "ingredients": [
+      {
+        "food_source_key": "usda:fdc:173627",
+        "amount_g": 180
+      },
+      {
+        "food_source_key": "usda:fdc:169242",
+        "amount_g": 100
+      },
+      {
+        "food_source_key": "usda:fdc:169231",
+        "amount_g": 5
+      },
+      {
+        "food_source_key": "usda:fdc:174277",
+        "amount_g": 5
+      },
+      {
+        "food_source_key": "usda:fdc:174158",
+        "amount_g": 30
+      }
+    ],
+    "steps": [
+      "鸡腿取去皮去骨可食肉生重，香菇切片，姜切丝。",
+      "将食材与所列酱油、用水混合放入蒸盘，蒸至熟。",
+      "可食蒸汁计入；蒸锅额外用水不作为摄入食材。"
+    ],
+    "review_status": "pending_final_confirmation"
+  },
+  {
+    "recipe_key": "health-assistant:recipe:daily-cn-021",
+    "recipe_version": 2,
+    "name": "卷心菜炒瘦肉",
+    "category": "晚餐",
+    "description": "临时审核配方，待团队确认。营养按对应可食状态的投料估算，非成品实测；加工配料与过敏原未完整核对。",
+    "servings": 1,
+    "preparation_minutes": null,
+    "time_evidence": null,
+    "source_note": "项目团队自编，AI辅助草案，待审核；仅在临时数据库验证，营养按食材投料估算，非成品实测。 未经实际试做。",
+    "ingredients": [
+      {
+        "food_source_key": "usda:fdc:2346407",
+        "amount_g": 200
+      },
+      {
+        "food_source_key": "usda:fdc:168230",
+        "amount_g": 100
+      },
+      {
+        "food_source_key": "usda:fdc:172336",
+        "amount_g": 6
+      },
+      {
+        "food_source_key": "usda:fdc:173468",
+        "amount_g": 1
+      }
+    ],
+    "steps": [
+      "卷心菜和猪瘦肉洗净，按可食生重称量并切丝。",
+      "所列油炒熟肉丝，再加入卷心菜翻炒至熟。",
+      "加入所列盐，整份菜按投料估算。 这是一道菜，晚餐分类不表示完整一餐。"
+    ],
+    "review_status": "pending_final_confirmation"
+  },
+  {
+    "recipe_key": "health-assistant:recipe:daily-cn-022",
+    "recipe_version": 1,
+    "name": "三文鱼土豆拼盘",
+    "category": "晚餐",
+    "description": "临时审核配方，待团队确认。营养按对应可食状态的投料估算，非成品实测；加工配料与过敏原未完整核对。",
+    "servings": 1,
+    "preparation_minutes": null,
+    "time_evidence": null,
+    "source_note": "项目团队自编，AI辅助草案，待审核；仅在临时数据库验证，营养按食材投料估算，非成品实测。 未经实际试做。",
+    "ingredients": [
+      {
+        "food_source_key": "usda:fdc:175167",
+        "amount_g": 150
+      },
+      {
+        "food_source_key": "usda:fdc:170440",
+        "amount_g": 180
+      },
+      {
+        "food_source_key": "usda:fdc:170379",
+        "amount_g": 150
+      },
+      {
+        "food_source_key": "usda:fdc:171413",
+        "amount_g": 5
+      },
+      {
+        "food_source_key": "usda:fdc:173468",
+        "amount_g": 1
+      }
+    ],
+    "steps": [
+      "三文鱼按可食生重称量，土豆使用去皮水煮熟重。",
+      "用所列橄榄油烹熟三文鱼；西兰花另行蒸熟。",
+      "按表中盐调味并拼盘；鱼为生料估算，土豆为熟食条目，不混用。"
+    ],
+    "review_status": "pending_final_confirmation"
+  },
+  {
+    "recipe_key": "health-assistant:recipe:daily-cn-026",
+    "recipe_version": 1,
+    "name": "香蕉牛奶杯",
+    "category": "加餐",
+    "description": "临时审核配方，待团队确认。营养按对应可食状态的投料估算，非成品实测；加工配料与过敏原未完整核对。",
+    "servings": 1,
+    "preparation_minutes": null,
+    "time_evidence": null,
+    "source_note": "项目团队自编，AI辅助草案，待审核；仅在临时数据库验证，营养按食材投料估算，非成品实测。 未经实际试做。",
+    "ingredients": [
+      {
+        "food_source_key": "usda:fdc:173944",
+        "amount_g": 100
+      },
+      {
+        "food_source_key": "usda:fdc:171265",
+        "amount_g": 200
+      }
+    ],
+    "steps": [
+      "香蕉去皮称重，牛奶按克称量。",
+      "将香蕉切块，与牛奶搅拌或一起食用。",
+      "不额外加糖；本配方不包含体积到重量的假定换算。"
+    ],
+    "review_status": "pending_final_confirmation"
+  },
+  {
+    "recipe_key": "health-assistant:recipe:daily-cn-027",
+    "recipe_version": 1,
+    "name": "橙子核桃组合",
+    "category": "加餐",
+    "description": "临时审核配方，待团队确认。营养按对应可食状态的投料估算，非成品实测；加工配料与过敏原未完整核对。",
+    "servings": 1,
+    "preparation_minutes": null,
+    "time_evidence": null,
+    "source_note": "项目团队自编，AI辅助草案，待审核；仅在临时数据库验证，营养按食材投料估算，非成品实测。 未经实际试做。",
+    "ingredients": [
+      {
+        "food_source_key": "usda:fdc:169097",
+        "amount_g": 150
+      },
+      {
+        "food_source_key": "usda:fdc:2346394",
+        "amount_g": 15
+      }
+    ],
+    "steps": [
+      "橙子去皮去籽，称取可食果肉。",
+      "核桃仅称核桃仁，去除硬壳。",
+      "按所列份量组合食用，核桃过敏及交叉接触风险需自行核对。"
+    ],
+    "review_status": "pending_final_confirmation"
+  },
+  {
+    "recipe_key": "health-assistant:recipe:daily-cn-029",
+    "recipe_version": 1,
+    "name": "水煮鸡蛋黄瓜组合",
+    "category": "加餐",
+    "description": "临时审核配方，待团队确认。营养按对应可食状态的投料估算，非成品实测；加工配料与过敏原未完整核对。",
+    "servings": 1,
+    "preparation_minutes": null,
+    "time_evidence": null,
+    "source_note": "项目团队自编，AI辅助草案，待审核；仅在临时数据库验证，营养按食材投料估算，非成品实测。 未经实际试做。",
+    "ingredients": [
+      {
+        "food_source_key": "usda:fdc:173424",
+        "amount_g": 50
+      },
+      {
+        "food_source_key": "usda:fdc:2346406",
+        "amount_g": 150
+      }
+    ],
+    "steps": [
+      "鸡蛋水煮熟后去壳，按熟重称量。",
+      "黄瓜带皮洗净，按可食生重称量切段。",
+      "按所列量食用，不加未登记蘸料。"
+    ],
+    "review_status": "pending_final_confirmation"
+  },
+  {
+    "recipe_key": "health-assistant:recipe:daily-cn-030",
+    "recipe_version": 2,
+    "name": "红小豆牛奶羹",
+    "category": "加餐",
+    "description": "临时审核配方，待团队确认。营养按对应可食状态的投料估算，非成品实测；加工配料与过敏原未完整核对。",
+    "servings": 1,
+    "preparation_minutes": null,
+    "time_evidence": null,
+    "source_note": "项目团队自编，AI辅助草案，待审核；仅在临时数据库验证，营养按食材投料估算，非成品实测。 未经实际试做。",
+    "ingredients": [
+      {
+        "food_source_key": "usda:fdc:173728",
+        "amount_g": 100
+      },
+      {
+        "food_source_key": "usda:fdc:171265",
+        "amount_g": 200
+      },
+      {
+        "food_source_key": "usda:fdc:174158",
+        "amount_g": 50
+      }
+    ],
+    "steps": [
+      "红小豆先水煮熟并沥干，按熟重称量。",
+      "加入所列牛奶和用水，加热搅匀，部分红豆可压碎。",
+      "不加糖；项目团队自编、AI辅助草案，待审核。营养按已核验食材投料估算，非成品实测。"
+    ],
+    "review_status": "pending_final_confirmation"
+  }
+]

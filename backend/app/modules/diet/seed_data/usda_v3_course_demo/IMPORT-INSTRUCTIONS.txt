@@ -1,0 +1,80 @@
+Health_Assistant v3 课程演示已批准数据包
+
+范围：134种USDA食物、12道中文菜谱、48条食材依赖。
+审批署名：食物板块负责人。
+审批记录时间：2026-10-15 23:41:09（北京时间）。
+批准用途：Health_Assistant软件工程课程设计演示。
+审批依据为本次会话确认，详见approval-record.json；未回填旧人工审批表。
+原v2目录与原始来源文件保持不变。v3需要同仓库usda_v2作为只读审批基线。
+
+用途与边界
+- manifest.purpose=course_demo，review_status=approved仅代表课程演示使用批准。
+- 原USDA营养值、FDC身份、中文名、英文名、来源URL不变。
+- 配料克重、份数、制作步骤不变；团队自编、AI辅助草案、未经实际试做。
+- 营养为食材投料估算，非成品实测；成分与过敏原未完整核验。
+- 课程批准不是医学或正式生产用途批准，也不是过敏安全证明。
+- 来源许可及署名见LICENSE-SOURCES.md。团队自编内容的对外再分发许可未在本次批准中扩展。
+- 不包含用户档案、饮食/饮水记录、数据库、密钥或完整USDA大数据集。
+- SHA256SUMS.txt覆盖包内所有其他文件；manifest.json绑定数据、审批及来源材料。
+
+Windows PowerShell（项目根目录打开终端，已安装Python 3.12 .venv及固定依赖）
+
+cd backend
+& ..\.venv\Scripts\python.exe -B -m app.modules.diet.seed_data.usda_v3_course_demo.demo_seed
+
+上述默认命令只在新TemporaryDirectory中显式初始化基础结构和001～004、
+创建明确标记为“开发演示档案（非真实用户）”的合法单档案profile_id=1并dry-run。
+预计add=146,skip=0,conflict=0；不导入食物和菜谱，退出后清理临时库。
+不使用环境默认数据库，不连接正式health.db，不补跑已有库迁移。
+
+明确要保留新的课堂演示库并导入时（不会覆盖已有库）：
+
+$resultJson = & ..\.venv\Scripts\python.exe -B -m app.modules.diet.seed_data.usda_v3_course_demo.demo_seed --create-demo --apply
+if ($LASTEXITCODE -ne 0) { throw '演示创建或导入失败，停止' }
+$result = $resultJson | ConvertFrom-Json -ErrorAction Stop
+$demoDb = $result.database_path
+$result | Format-List
+
+每次--create-demo都会建立不同的系统临时目录health-diet-course-v3-*/demo.db。
+仅接受配套SEED_DEMO_ONLY.json标记、固定v3 manifest、完整迁移、合法演示档案的库。
+外键约束开启；来源冲突、用户修改、失效计划均停止，不覆盖。
+普通app.modules.diet.import_data入口拒绝course_demo，不得改用途字段绕过保护。
+
+重复导入预览（只使用刚才输出的真实路径）：
+
+$previewJson = & ..\.venv\Scripts\python.exe -B -m app.modules.diet.seed_data.usda_v3_course_demo.demo_seed --database $demoDb
+if ($LASTEXITCODE -ne 0) { throw '预览失败，停止' }
+$preview = $previewJson | ConvertFrom-Json -ErrorAction Stop
+$preview | Format-List
+
+预计add=0,skip=146,conflict=0。如确需再次执行同一计划：
+
+& ..\.venv\Scripts\python.exe -B -m app.modules.diet.seed_data.usda_v3_course_demo.demo_seed --database $demoDb --apply --confirm-database $demoDb --expected-plan-sha256 $preview.plan_sha256
+
+网站启动（保留此终端，不使用旧v2工厂或默认app.main入口）：
+
+$env:HEALTH_DIET_SEED_DB = $demoDb
+$env:HEALTH_DB_PATH = $demoDb
+$env:DIET_APPLY_MIGRATIONS = '0'
+& ..\.venv\Scripts\python.exe -B -m uvicorn app.modules.diet.seed_data.usda_v3_course_demo.demo_seed:create_demo_app --factory --host 127.0.0.1 --port 8003
+
+另开PowerShell，进入团队项目frontend目录，使用已有锁定依赖：
+
+$env:API_PROXY_TARGET = 'http://127.0.0.1:8003'
+$env:FRONTEND_PORT = '5176'
+$env:VITE_API_BASE_URL = ''
+npm run dev
+
+打开http://127.0.0.1:5176/diet。端口已占用时不要终止其他成员进程，另选空闲配对端口。
+页面区分课程使用批准、食品来源技术核验、过敏原未核验。
+开发演示、非真实用户、非真实健康记录提示保持显示；PDF每页及PNG保留演示标记。
+原v2入口继续显示待审核。用户新建或修改过的食物/菜谱不自动继承包内批准。
+演示库初始没有饮食/饮水记录和目标，这是预期行为。
+
+种子验收（仅新建临时SQLite，测试后清理）：
+
+& ..\.venv\Scripts\python.exe -B -m unittest app.modules.diet.seed_data.usda_v3_course_demo.test_seed -v
+
+测试覆盖审批范围、原值保护、001～004、外键、幂等、冲突、正式入口拒绝、
+v2库保护、搜索、营养估算、推荐、生理期联调与其他模块数据保护。
+不要提交临时数据库、审计运行输出、导出的健康报告或虚拟环境。
