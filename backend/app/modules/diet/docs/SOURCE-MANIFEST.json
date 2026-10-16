@@ -1,0 +1,940 @@
+[
+  {
+    "path": "backend/app/modules/diet/__init__.py",
+    "bytes": 46,
+    "sha256": "5707b98ca6e53f8a0c423e7a0284096649c26d4a266824e2d02ff10052a1f4d6",
+    "symbols": [],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/app/modules/diet/build_import_preview.py",
+    "bytes": 6889,
+    "sha256": "16342e54bba6ecaebf38f410eacfcb13ca3da0ab26c00642339a1cf9e86ce936",
+    "symbols": [
+      "write",
+      "build",
+      "main"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/app/modules/diet/data/import_preparation/food.schema.json",
+    "bytes": 3282,
+    "sha256": "82ebbc5868f0d83fa76328b5a6cbdab92c0ad44ab5731374becfeeb764a3d0f4",
+    "symbols": [],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/app/modules/diet/data/import_preparation/food_candidates_150.json",
+    "bytes": 56247,
+    "sha256": "3ad69198aa7385cb70c2bf670bc7862650aa19fbd046acea23f92b84a8f2920f",
+    "symbols": [],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/app/modules/diet/data/import_preparation/food_matches.json",
+    "bytes": 62014,
+    "sha256": "fb83180b422bf112511ae69a46fca5cffba591f73aac037791e95932a2f72fbf",
+    "symbols": [],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/app/modules/diet/data/import_preparation/manifest.schema.json",
+    "bytes": 3738,
+    "sha256": "2cb399d0f16e1e3be93ad367390352ab8bd29c18006000b0eb739cadb6e341d1",
+    "symbols": [],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/app/modules/diet/data/import_preparation/recipe.schema.json",
+    "bytes": 2882,
+    "sha256": "fafb3f4e521f14474278c7e71641690baf4ec8a762a0b491058db27c4cbaccd7",
+    "symbols": [],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/app/modules/diet/data/import_preparation/recipe_drafts_30.json",
+    "bytes": 66116,
+    "sha256": "88a38152af6f56b0dd25ad18cbaf949b1b1663c3821ea3911ee91f66180956d8",
+    "symbols": [],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/app/modules/diet/demo_environment.py",
+    "bytes": 6959,
+    "sha256": "8bc6a148bc9cc95fec9774b79741dcfe3c0c7b94cda090f023b5d3e95fd830d6",
+    "symbols": [
+      "safe_path",
+      "read_context",
+      "labelled_payloads",
+      "initialize_empty",
+      "create_demo",
+      "main"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/app/modules/diet/demo_server.py",
+    "bytes": 1122,
+    "sha256": "e96f6d863b25fa828599c331185fc1ee6ec8f1f7d171dd743cc1594069d2ee75",
+    "symbols": [
+      "create_demo_app"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/app/modules/diet/dev_database.py",
+    "bytes": 1592,
+    "sha256": "8e74913ecb2898457844820fdba2ccbf276e3cea6d21ff2786a76c205ad0f912",
+    "symbols": [
+      "main"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/app/modules/diet/import_data.py",
+    "bytes": 2027,
+    "sha256": "ef20e702df5c14779f7c59734e4a583e0952d5a8bca51f9df48e3ba6455b84a0",
+    "symbols": [
+      "main"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/app/modules/diet/import_schemas.py",
+    "bytes": 3743,
+    "sha256": "4715457ea2a7eb554a13d83a10587a12570b2f2de0c2c433933d3ff43e4c7186",
+    "symbols": [
+      "Strict",
+      "FileRef",
+      "Source",
+      "Manifest",
+      "Food",
+      "Ingredient",
+      "Recipe"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/app/modules/diet/import_service.py",
+    "bytes": 19586,
+    "sha256": "da3334e6dd30589301f9a7381f02c6b726a47915ef93c72b6aec1a5414418b63",
+    "symbols": [
+      "verify_review_state",
+      "_no_bools",
+      "_csv",
+      "load_package",
+      "database",
+      "snapshot",
+      "marker",
+      "note",
+      "food_payload",
+      "recipe_payload",
+      "_category",
+      "_same_food",
+      "_same_recipe",
+      "plan",
+      "verify_audit_history",
+      "dry_run",
+      "write_audit",
+      "apply_package"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/app/modules/diet/library_router.py",
+    "bytes": 3685,
+    "sha256": "40eb146c712e824db71fd467c07b9954b0487f94bfbccb0277acb9c7ef908099",
+    "symbols": [
+      "LibraryRoute",
+      "database_path",
+      "config",
+      "categories",
+      "create_category",
+      "get_category",
+      "update_category",
+      "delete_category",
+      "foods",
+      "create_food",
+      "get_food",
+      "update_food",
+      "archive_food"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/app/modules/diet/library_schemas.py",
+    "bytes": 2027,
+    "sha256": "f16163cf27907ac105c8d5ebe5b8ebab9973ee3c79e3b6b2ccfb074f0bc5f6fb",
+    "symbols": [
+      "CategoryInput",
+      "CategoryRecord",
+      "CategoryList",
+      "FoodInput",
+      "FoodRecord",
+      "FoodList"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/app/modules/diet/library_service.py",
+    "bytes": 5925,
+    "sha256": "2cb3ffaf241b6ae14145348e8fcb6fee1c680d7608d1e186ceb999e0e8cd46c1",
+    "symbols": [
+      "LibraryError",
+      "ready",
+      "category_row",
+      "categories",
+      "get_category",
+      "save_category",
+      "delete_category",
+      "food_row",
+      "foods",
+      "get_food",
+      "save_food",
+      "save_food_in_connection",
+      "archive_food"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/app/modules/diet/migration_002.py",
+    "bytes": 3038,
+    "sha256": "634c5f6c89f93e8c1bf1a1d9796f85bbedfa7b1f85eb289ac4e59b97cae78112",
+    "symbols": [
+      "verify_schema",
+      "ready",
+      "migrate_goals",
+      "main"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/app/modules/diet/migration_003.py",
+    "bytes": 4244,
+    "sha256": "4564b63efe22650759d94ae22368905edf6def6609459cbbc20840de529e34e3",
+    "symbols": [
+      "verify_schema",
+      "ready",
+      "migrate_water",
+      "main"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/app/modules/diet/migration_004.py",
+    "bytes": 8853,
+    "sha256": "cac41e6b777a5921be22cc8af48b587048bc7474e05fecc0b1724fdeb40b4823",
+    "symbols": [
+      "verify_schema",
+      "ready",
+      "migrate_recipes",
+      "main"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/app/modules/diet/migrations.py",
+    "bytes": 8504,
+    "sha256": "953fecf25cb3cbab1a9ca81af5191b7d9f1a07d8ae133aa390ef538e569a5437",
+    "symbols": [
+      "_tables",
+      "_verify_schema",
+      "migration_ready",
+      "migrate_diet",
+      "initialize_diet_schema",
+      "main"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/app/modules/diet/nutrition_math.py",
+    "bytes": 1515,
+    "sha256": "08b143175a43399e44bbafe7dfece630f1fafa51e8e1bd97ffa0288a60ca1713",
+    "symbols": [
+      "number",
+      "scale",
+      "total",
+      "percent"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/app/modules/diet/nutrition_router.py",
+    "bytes": 1402,
+    "sha256": "b918dc8b0f83417fdaca6ca35d5aaef345516d444c13c73abeee8b12fbe6e44c",
+    "symbols": [
+      "goal",
+      "history",
+      "save",
+      "summary",
+      "record_summary"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/app/modules/diet/nutrition_schemas.py",
+    "bytes": 769,
+    "sha256": "72bc51353fed1f0463df5ae7fa79bbfd7b0cbbaa5429e9ff907883ea5acaa3cc",
+    "symbols": [
+      "GoalChanges"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/app/modules/diet/nutrition_service.py",
+    "bytes": 6720,
+    "sha256": "5fa7e985f6541f5f2c359ba91853e5f1a442e09e5af49bdeeead53c9d30aaa40",
+    "symbols": [
+      "require_goals",
+      "effective",
+      "get_goal",
+      "history",
+      "save_goal",
+      "period",
+      "summary",
+      "summarize_rows",
+      "record_summary"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/app/modules/diet/prepare_sources.py",
+    "bytes": 3972,
+    "sha256": "e972f8a54944e90cb2c2cb032362e340587901030e3460ce037e2aaecf9ebf43",
+    "symbols": [
+      "prepare",
+      "main"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/app/modules/diet/recipe_preference_router.py",
+    "bytes": 3033,
+    "sha256": "54e0981bdb9fe22859bfe44cec0c31901c34761cc9d174e432b99f0c4a5f6caf",
+    "symbols": [
+      "inventory",
+      "add_inventory",
+      "get_inventory",
+      "update_inventory",
+      "delete_inventory",
+      "resolve",
+      "terms",
+      "create_term",
+      "term",
+      "update_term",
+      "delete_term",
+      "composition",
+      "update_composition",
+      "preferences",
+      "create_preference",
+      "preference",
+      "update_preference",
+      "delete_preference"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/app/modules/diet/recipe_preference_schemas.py",
+    "bytes": 1704,
+    "sha256": "6ea06b98f197fd796f84bdd080494aa9f581241a66484c3995c20fccfc17f813",
+    "symbols": [
+      "InventoryInput",
+      "TermInput",
+      "CompositionTerm",
+      "CompositionInput",
+      "PreferenceInput"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/app/modules/diet/recipe_preference_service.py",
+    "bytes": 7941,
+    "sha256": "8b0292a155039b9e8a417c5eba5c77e2d9c8932098ed25ab55465f4f1953317c",
+    "symbols": [
+      "transaction",
+      "inventory",
+      "save_inventory",
+      "delete_inventory",
+      "term_row",
+      "terms",
+      "resolve",
+      "save_term",
+      "delete_term",
+      "composition_row",
+      "composition",
+      "save_composition",
+      "preferences",
+      "save_preference",
+      "delete_preference"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/app/modules/diet/recipe_recommendation.py",
+    "bytes": 9103,
+    "sha256": "5fadfa91d51eda5ced881f7f83ad9ccf934bac9e86146019c7d29a326fa94640",
+    "symbols": [
+      "RecommendationInput",
+      "matches",
+      "recommend"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/app/modules/diet/recipe_recommendation_router.py",
+    "bytes": 423,
+    "sha256": "dfe9b026577307beb87079e92dc6093f761b4e8ccc12f01e503bf3060d6a3b5b",
+    "symbols": [
+      "preview"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/app/modules/diet/recipe_router.py",
+    "bytes": 1978,
+    "sha256": "2b93608d0a51729d0e8cc41c5e6e466f5225136cb55c44e12d95f542aed92651",
+    "symbols": [
+      "categories",
+      "create_category",
+      "category",
+      "update_category",
+      "delete_category",
+      "recipes",
+      "create",
+      "get",
+      "update",
+      "archive",
+      "refresh"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/app/modules/diet/recipe_schemas.py",
+    "bytes": 2260,
+    "sha256": "dda2422edb73ad03036d7edd3f524c68eaf1790f2feaf63b0f0d6b6a9dc4f9d6",
+    "symbols": [
+      "Input",
+      "Revision",
+      "IngredientInput",
+      "RecipeInput"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/app/modules/diet/recipe_service.py",
+    "bytes": 8115,
+    "sha256": "a5754af41d03ddf9f9f3cecb64c1739646081254d6c78b4130bf46bcef61a398",
+    "symbols": [
+      "key",
+      "require_recipes",
+      "conflict",
+      "one",
+      "categories",
+      "category",
+      "save_category",
+      "delete_category",
+      "nutrition",
+      "detail",
+      "get",
+      "recipes",
+      "save",
+      "save_in_connection",
+      "refresh",
+      "archive"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/app/modules/diet/report_router.py",
+    "bytes": 483,
+    "sha256": "1b660fea1d81f64eea11dbe24ba64b407419978ca5ee6381de65d4b04ec50b15",
+    "symbols": [
+      "get_report"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/app/modules/diet/report_service.py",
+    "bytes": 8753,
+    "sha256": "6bff526b9d712d81fdf316eceab9e8dd4eeda4d17415d677638863b3997bab42",
+    "symbols": [
+      "today",
+      "average",
+      "report"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/app/modules/diet/router.py",
+    "bytes": 2434,
+    "sha256": "6ae45de88698704d6b87b278e1ce8a8cb2e8e1c2a2e6e23f364496b5f08efa0f",
+    "symbols": [
+      "database_path",
+      "list_records",
+      "create_record",
+      "get_record",
+      "update_record",
+      "delete_record"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/app/modules/diet/schemas.py",
+    "bytes": 2544,
+    "sha256": "14837e7c04f82c8bd90db72eb93d1ab97f16b50f3cf32c869fc39cf2ed307055",
+    "symbols": [
+      "calendar_date",
+      "DietInput",
+      "CatalogInput",
+      "DietRecord",
+      "DietList"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/app/modules/diet/service.py",
+    "bytes": 4412,
+    "sha256": "7a9aa328ecbb2b6630f695193de5928e9ff67ad334e4eec03a5937ce80c22c7e",
+    "symbols": [
+      "require_profile",
+      "find_record",
+      "list_records",
+      "get_record",
+      "save_record",
+      "delete_record"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/app/modules/diet/settings.py",
+    "bytes": 347,
+    "sha256": "f7798841363f16dde63695466ce5ec3c504e838d54140dcba2c542c6cadea4d8",
+    "symbols": [
+      "utc_now"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/app/modules/diet/source_mapping.py",
+    "bytes": 6284,
+    "sha256": "9299ccb219a199de9d74c009611f0cfb07cc2dafa407d2ef3d124f0ee53e03b3",
+    "symbols": [
+      "ImportRejected",
+      "sha",
+      "canonical",
+      "digest",
+      "_pairs",
+      "json_read",
+      "local_file",
+      "verified_bytes",
+      "archive_records",
+      "mapped_nutrients",
+      "verify_foods"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/app/modules/diet/verify_import_preview.py",
+    "bytes": 7204,
+    "sha256": "729acb8794d1f072c78f936f932ba0d3a66c4637bc8111138d65b1e1b3410eae",
+    "symbols": [
+      "verify",
+      "main"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/app/modules/diet/water_router.py",
+    "bytes": 1529,
+    "sha256": "571dd8d868bc76369ddf3ac873e5d428a84a8a920c280ef82de6dfa897abec95",
+    "symbols": [
+      "records",
+      "create",
+      "get",
+      "update",
+      "delete",
+      "summary",
+      "reminder",
+      "save_reminder"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/app/modules/diet/water_schemas.py",
+    "bytes": 2171,
+    "sha256": "bf6bfdf070080dc1067af5c60528c588e0fee57b90ede64e87bede8a6ef4e9cb",
+    "symbols": [
+      "timestamp",
+      "WaterInput",
+      "ReminderInput"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/app/modules/diet/water_service.py",
+    "bytes": 5072,
+    "sha256": "389c200ed74e5d36b504d6bad0dd73a0790f3673426ff2caa0595f8d033e5e60",
+    "symbols": [
+      "require_water",
+      "utc",
+      "boundary",
+      "row",
+      "get",
+      "records",
+      "save",
+      "delete",
+      "summary",
+      "summarize_amounts",
+      "reminder_row",
+      "get_reminder",
+      "save_reminder"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/tests/diet_import_fixtures.py",
+    "bytes": 4341,
+    "sha256": "0087deffa7ad76072e3fa479e250900a7308fe790192f731e1419d15b1588dfa",
+    "symbols": [
+      "write_json",
+      "fixture",
+      "rehash"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/tests/test_diet.py",
+    "bytes": 5975,
+    "sha256": "cccde5d2a422c84985703c531811605f72bba98de11141b496f6e71d30c3c5fc",
+    "symbols": [
+      "DietTests"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/tests/test_diet_demo.py",
+    "bytes": 5592,
+    "sha256": "b978a77dedc2b92270de6a15bd294f7dd8710a033cc2cab4c54852177592a197",
+    "symbols": [
+      "DemoTests"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/tests/test_diet_import.py",
+    "bytes": 18994,
+    "sha256": "13a11c720d1b9772632ef45d6b6ffdba6e6116d4e987252486cdbf2959489360",
+    "symbols": [
+      "ImportTests"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/tests/test_diet_import_recommendation.py",
+    "bytes": 5180,
+    "sha256": "b3a149be01223b3ec1c07862f2a9b8534fe07f0bb4e5df0bec98017fbdd33d69",
+    "symbols": [
+      "ImportedRecommendationTests"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/tests/test_diet_migrations.py",
+    "bytes": 5649,
+    "sha256": "7ed29bc6c6ed3a4435c290b4ee1660848117606dfb0d529d43468c521efd2b7a",
+    "symbols": [
+      "MigrationTests",
+      "MigratedDietTests"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/tests/test_food_library.py",
+    "bytes": 9923,
+    "sha256": "749fe6071137a9b1e9066f792be69170173635e81bb1b895beb3a88f71c388bf",
+    "symbols": [
+      "FoodLibraryTests"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/tests/test_nutrition.py",
+    "bytes": 15505,
+    "sha256": "9c3e6f99f320131a4743b9f7e5903cd1504a3b5f1b6db25bb31bfc37820ead0a",
+    "symbols": [
+      "NutritionTests",
+      "GoalsMigrationTests",
+      "FullSchemaDietTests",
+      "FullSchemaFoodTests"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/tests/test_recipe_preferences.py",
+    "bytes": 4271,
+    "sha256": "a1080a1aec5cc0db7cf5883ffdecf0b3b9875e9b04bb6b8daa11dbb1bdcfdcf1",
+    "symbols": [
+      "RecipePreferencesTests"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/tests/test_recipe_recommendation.py",
+    "bytes": 9048,
+    "sha256": "54f52dfda59eb2cf447509fd016526888076fbb08b22d1805ac823abad045993",
+    "symbols": [
+      "RecommendationTests"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/tests/test_recipes.py",
+    "bytes": 10730,
+    "sha256": "953b8f9782ebdf6bfb1d3bb6ad25e56045069bfcd55fe666a0cdfe7c36d38a86",
+    "symbols": [
+      "RecipeFixture",
+      "RecipeTests",
+      "RecipeMigrationTests"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/tests/test_reports.py",
+    "bytes": 8252,
+    "sha256": "b2863d5e891f6e63f6daa80b363a750f97fb78ebd37e77e8c7298b0d90fe2d9a",
+    "symbols": [
+      "ReportTests"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/tests/test_smoke.py",
+    "bytes": 2803,
+    "sha256": "84ebdabe23040bd7f7d8cb4f567a27bdc75cf6586f6279cb1d207e93e776c564",
+    "symbols": [
+      "ScaffoldTests"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "backend/tests/test_water.py",
+    "bytes": 11301,
+    "sha256": "9972107423982cb5ccec956290abf0b51b0e05826772c8738425aee453f1d059",
+    "symbols": [
+      "WaterTests",
+      "WaterMigrationTests"
+    ],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "frontend/src/api/diet.js",
+    "bytes": 1879,
+    "sha256": "27bec39fcf2d1d1476e06e417910b35a0a5e6e65fd9e04edf28b05a6b977516b",
+    "symbols": [],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "frontend/src/api/foodLibrary.js",
+    "bytes": 2399,
+    "sha256": "dd52d1dd8db63352260c736582150805aa616143d6e82a6f6e88a9a3bf564106",
+    "symbols": [],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "frontend/src/api/nutrition.js",
+    "bytes": 516,
+    "sha256": "d356833ebfc957a813c60edb7fb16c7604b78f9e31310712374777fa271f1dfc",
+    "symbols": [],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "frontend/src/api/recipes.js",
+    "bytes": 753,
+    "sha256": "437ef36e10e2fd332d88f220e7fb6b9de0ca4f96d090e620a4cb8b6461545848",
+    "symbols": [],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "frontend/src/api/reports.js",
+    "bytes": 141,
+    "sha256": "d02c7a08033a3e1ffab8c0b6a3924d92757e7d49cf6d6d8c4bd9269f5d31058a",
+    "symbols": [],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "frontend/src/api/water.js",
+    "bytes": 663,
+    "sha256": "c4c91d78ae0b2b566fcc876403606c05bec446797928cc420bd1b120b110dacf",
+    "symbols": [],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "frontend/src/components/diet/DailyGoalsDialog.vue",
+    "bytes": 4404,
+    "sha256": "a97c108c35c1894aceca235c8768995bbf8b37350f6920114edf70100d3c8fe1",
+    "symbols": [],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "frontend/src/components/diet/DietRecordsPanel.vue",
+    "bytes": 17501,
+    "sha256": "62470ca65f5deabf413892c5c05df91a62cecd6bc42799d81977514b869ac566",
+    "symbols": [],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "frontend/src/components/diet/DietReportPanel.vue",
+    "bytes": 10846,
+    "sha256": "60407983a8bc57c3eb1e1267247daf76651d0a14c41b2792c09e5d0d0e0b79ba",
+    "symbols": [],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "frontend/src/components/diet/FoodLibraryPanel.vue",
+    "bytes": 17346,
+    "sha256": "49c7d9c25ad928cc801b96e033990e0bea361e596b02e7ecea8238d45b6de7f9",
+    "symbols": [],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "frontend/src/components/diet/NutritionAnalysisPanel.vue",
+    "bytes": 7484,
+    "sha256": "38bc70bc638ee2d95c24f7256c683c55ab45889bcf589041cf4f03989f6a45ce",
+    "symbols": [],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "frontend/src/components/diet/NutritionTrendChart.vue",
+    "bytes": 2187,
+    "sha256": "0814167c6841315cd9116815587fe566a4bb38a5de0f317d6da5a56c61e0550f",
+    "symbols": [],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "frontend/src/components/diet/RecipeInventoryPanel.vue",
+    "bytes": 2988,
+    "sha256": "52b592ab5021e7cd38ad6a361c6b7f5e677fb7fe3bbe6ad5cbcffaa44fa28b43",
+    "symbols": [],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "frontend/src/components/diet/RecipeLibraryPanel.vue",
+    "bytes": 9987,
+    "sha256": "c2d0c414a049f43f2260d7e9cf68bd49fd790dda3cdfdbbba0d0ccd3cecb0d6c",
+    "symbols": [],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "frontend/src/components/diet/RecipeNutrition.vue",
+    "bytes": 750,
+    "sha256": "02215e89507cdb21c0bdf14ba61eb8edeeee8da3ed24d9c1a2eee48e5d2a2908",
+    "symbols": [],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "frontend/src/components/diet/RecipePreferencePanel.vue",
+    "bytes": 8110,
+    "sha256": "22ba07989c812d5f46b2882307bf95567c585022bf84eee08182dd0539633124",
+    "symbols": [],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "frontend/src/components/diet/RecipeRecommendationPanel.vue",
+    "bytes": 8644,
+    "sha256": "d2b56c7f26c930f2b627e544c35003ab30b11debc4fe24b4eed683e407bb4532",
+    "symbols": [],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "frontend/src/components/diet/recipeUI.js",
+    "bytes": 743,
+    "sha256": "31fdc22f834a77033ececedcde465afb2d9ea37f8d2105b984cfc6a063bc6c75",
+    "symbols": [],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "frontend/src/components/diet/RecipeWorkspace.vue",
+    "bytes": 3956,
+    "sha256": "9531881c590db1e93942b0e5ffd94397f4b4bb52589d6197d9c5bffb044e15b8",
+    "symbols": [],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "frontend/src/components/diet/report.test.js",
+    "bytes": 2682,
+    "sha256": "9353182da13ef57dbbbd8f200d8809fb753a33a19c23f05377109b693d8ea9b3",
+    "symbols": [],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "frontend/src/components/diet/ReportChart.vue",
+    "bytes": 2203,
+    "sha256": "f4cb223ad285b037c9ba970e158605ba3907933a58af954de511f0a8d34550d5",
+    "symbols": [],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "frontend/src/components/diet/reportExport.js",
+    "bytes": 7815,
+    "sha256": "b557cb9307f51fd507db4806fe5dad8744f0951522bf556aa6197a59f37b4eb4",
+    "symbols": [],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "frontend/src/components/diet/reportPdf.js",
+    "bytes": 2207,
+    "sha256": "d39438e475f78c3f7ae5a52616f05bd2c9eb73c807f09fa9e16e32dcc1efc2c0",
+    "symbols": [],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "frontend/src/components/diet/reportPresentation.js",
+    "bytes": 3100,
+    "sha256": "2432044b2fa503cc0e1176baed8f782993451715eef2c3ab4dc2ead2e9441de6",
+    "symbols": [],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "frontend/src/components/diet/WaterPanel.vue",
+    "bytes": 13489,
+    "sha256": "c65143aaf569fd60f75894688542a3675d76030f95a6b9ab7fb3447193a250f6",
+    "symbols": [],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "frontend/src/components/diet/waterReminder.js",
+    "bytes": 3272,
+    "sha256": "bb025c8bff9aee9e0fce401f6c2ad4bce810712122828b8bf8016e7da339b7e8",
+    "symbols": [],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "frontend/src/components/diet/waterReminder.test.js",
+    "bytes": 4588,
+    "sha256": "4b33e0def794e1274f3f7b3e9b392c51e62d0370ada551b14de88a7146da7428",
+    "symbols": [],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "frontend/src/components/diet/WaterReminderHost.vue",
+    "bytes": 2858,
+    "sha256": "b38d954d357de3a0c2619057ef78b46d56e60d310a3ba7043c3647c7c9637028",
+    "symbols": [],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "frontend/src/components/diet/waterTime.js",
+    "bytes": 1115,
+    "sha256": "4cbda4b5f67c758580e21f467d340685093e4ee7126919c9c37554231a024df6",
+    "symbols": [],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  },
+  {
+    "path": "frontend/src/views/DietView.vue",
+    "bytes": 4694,
+    "sha256": "df55c8cf16c4c0cd25d5d5731f923649cba5e9d401244d46e346d0f92e5b1f45",
+    "symbols": [],
+    "baseline_status": "当前文件清单；无Git历史，不能断定相对团队基线新增/修改"
+  }
+]

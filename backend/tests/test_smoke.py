@@ -24,8 +24,8 @@ class ScaffoldTests(unittest.TestCase):
             self.assertEqual(response.json(), {"status": "ok", "database": "ok", "version": "0.1.0"})
             self.assertEqual(response.headers["access-control-allow-origin"], "http://localhost:5173")
             self.assertEqual(len(client.get("/api/modules").json()), 5)
-            # Planned endpoints must not pretend to be implemented.
-            self.assertEqual(client.get("/api/diet-records").status_code, 404)
+            # Diet now requires the local profile before accessing records.
+            self.assertEqual(client.get("/api/diet-records").status_code, 409)
 
     def test_initialization_preserves_existing_data(self):
         init_database(self.path)

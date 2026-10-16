@@ -1,0 +1,1998 @@
+{
+  "profiles": {
+    "columns": [
+      {
+        "cid": 0,
+        "name": "id",
+        "type": "INTEGER",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 1
+      },
+      {
+        "cid": 1,
+        "name": "display_name",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 2,
+        "name": "height_cm",
+        "type": "REAL",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 3,
+        "name": "weight_kg",
+        "type": "REAL",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 4,
+        "name": "medical_history",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": "''",
+        "pk": 0
+      },
+      {
+        "cid": 5,
+        "name": "allergies",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": "''",
+        "pk": 0
+      },
+      {
+        "cid": 6,
+        "name": "medications",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": "''",
+        "pk": 0
+      },
+      {
+        "cid": 7,
+        "name": "preferences",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": "''",
+        "pk": 0
+      },
+      {
+        "cid": 8,
+        "name": "created_at",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": "strftime('%Y-%m-%dT%H:%M:%SZ', 'now')",
+        "pk": 0
+      },
+      {
+        "cid": 9,
+        "name": "updated_at",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": "strftime('%Y-%m-%dT%H:%M:%SZ', 'now')",
+        "pk": 0
+      }
+    ],
+    "foreign_keys": [],
+    "indexes": [],
+    "sql": "CREATE TABLE profiles (\n    id INTEGER PRIMARY KEY CHECK (id = 1),\n    display_name TEXT NOT NULL CHECK (length(trim(display_name)) BETWEEN 1 AND 50),\n    height_cm REAL CHECK (height_cm > 0),\n    weight_kg REAL CHECK (weight_kg > 0),\n    medical_history TEXT NOT NULL DEFAULT '',\n    allergies TEXT NOT NULL DEFAULT '',\n    medications TEXT NOT NULL DEFAULT '',\n    preferences TEXT NOT NULL DEFAULT '',\n    created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ', 'now')),\n    updated_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ', 'now'))\n)"
+  },
+  "diet_records": {
+    "columns": [
+      {
+        "cid": 0,
+        "name": "id",
+        "type": "INTEGER",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 1
+      },
+      {
+        "cid": 1,
+        "name": "profile_id",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": "1",
+        "pk": 0
+      },
+      {
+        "cid": 2,
+        "name": "record_date",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 3,
+        "name": "meal_type",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 4,
+        "name": "food_name",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 5,
+        "name": "amount_g",
+        "type": "REAL",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 6,
+        "name": "calories_kcal",
+        "type": "REAL",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 7,
+        "name": "notes",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": "''",
+        "pk": 0
+      },
+      {
+        "cid": 8,
+        "name": "created_at",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": "strftime('%Y-%m-%dT%H:%M:%SZ', 'now')",
+        "pk": 0
+      },
+      {
+        "cid": 9,
+        "name": "updated_at",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": "strftime('%Y-%m-%dT%H:%M:%SZ', 'now')",
+        "pk": 0
+      },
+      {
+        "cid": 10,
+        "name": "food_id",
+        "type": "INTEGER",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 11,
+        "name": "nutrition_mode",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": "'manual'",
+        "pk": 0
+      },
+      {
+        "cid": 12,
+        "name": "protein_g",
+        "type": "REAL",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 13,
+        "name": "fat_g",
+        "type": "REAL",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 14,
+        "name": "carbohydrate_g",
+        "type": "REAL",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 15,
+        "name": "snapshot_calories_per_100g",
+        "type": "REAL",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 16,
+        "name": "snapshot_protein_g_per_100g",
+        "type": "REAL",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 17,
+        "name": "snapshot_fat_g_per_100g",
+        "type": "REAL",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 18,
+        "name": "snapshot_carbohydrate_g_per_100g",
+        "type": "REAL",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 19,
+        "name": "food_version_at",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 20,
+        "name": "nutrition_source_note",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": "''",
+        "pk": 0
+      },
+      {
+        "cid": 21,
+        "name": "is_example",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": "0",
+        "pk": 0
+      }
+    ],
+    "foreign_keys": [
+      {
+        "id": 0,
+        "seq": 0,
+        "table": "food_items",
+        "from": "food_id",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "SET NULL",
+        "match": "NONE"
+      },
+      {
+        "id": 1,
+        "seq": 0,
+        "table": "profiles",
+        "from": "profile_id",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE",
+        "match": "NONE"
+      }
+    ],
+    "indexes": [
+      {
+        "seq": 0,
+        "name": "idx_diet_profile_food",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0
+      },
+      {
+        "seq": 1,
+        "name": "idx_diet_profile_date",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0
+      }
+    ],
+    "sql": "CREATE TABLE diet_records (\n    id INTEGER PRIMARY KEY AUTOINCREMENT,\n    profile_id INTEGER NOT NULL DEFAULT 1 REFERENCES profiles(id) ON DELETE CASCADE,\n    record_date TEXT NOT NULL,\n    meal_type TEXT NOT NULL CHECK (meal_type IN ('breakfast', 'lunch', 'dinner', 'snack')),\n    food_name TEXT NOT NULL CHECK (length(trim(food_name)) BETWEEN 1 AND 100),\n    amount_g REAL NOT NULL CHECK (amount_g > 0),\n    calories_kcal REAL CHECK (calories_kcal >= 0),\n    notes TEXT NOT NULL DEFAULT '',\n    created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ', 'now')),\n    updated_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ', 'now'))\n, food_id INTEGER REFERENCES food_items(id) ON DELETE SET NULL, nutrition_mode TEXT NOT NULL DEFAULT 'manual' CHECK(nutrition_mode IN ('manual','catalog')), protein_g REAL CHECK(protein_g >= 0), fat_g REAL CHECK(fat_g >= 0), carbohydrate_g REAL CHECK(carbohydrate_g >= 0), snapshot_calories_per_100g REAL CHECK(snapshot_calories_per_100g >= 0), snapshot_protein_g_per_100g REAL CHECK(snapshot_protein_g_per_100g >= 0), snapshot_fat_g_per_100g REAL CHECK(snapshot_fat_g_per_100g >= 0), snapshot_carbohydrate_g_per_100g REAL CHECK(snapshot_carbohydrate_g_per_100g >= 0), food_version_at TEXT, nutrition_source_note TEXT NOT NULL DEFAULT '', is_example INTEGER NOT NULL DEFAULT 0 CHECK(is_example IN (0,1)))"
+  },
+  "food_categories": {
+    "columns": [
+      {
+        "cid": 0,
+        "name": "id",
+        "type": "INTEGER",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 1
+      },
+      {
+        "cid": 1,
+        "name": "profile_id",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": "1",
+        "pk": 0
+      },
+      {
+        "cid": 2,
+        "name": "name",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 3,
+        "name": "name_key",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 4,
+        "name": "created_at",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 5,
+        "name": "updated_at",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      }
+    ],
+    "foreign_keys": [
+      {
+        "id": 0,
+        "seq": 0,
+        "table": "profiles",
+        "from": "profile_id",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE",
+        "match": "NONE"
+      }
+    ],
+    "indexes": [
+      {
+        "seq": 0,
+        "name": "sqlite_autoindex_food_categories_1",
+        "unique": 1,
+        "origin": "u",
+        "partial": 0
+      }
+    ],
+    "sql": "CREATE TABLE food_categories (\n        id INTEGER PRIMARY KEY AUTOINCREMENT,\n        profile_id INTEGER NOT NULL DEFAULT 1 REFERENCES profiles(id) ON DELETE CASCADE,\n        name TEXT NOT NULL CHECK(length(trim(name)) BETWEEN 1 AND 50),\n        name_key TEXT NOT NULL,\n        created_at TEXT NOT NULL, updated_at TEXT NOT NULL,\n        UNIQUE(profile_id, name_key)\n    )"
+  },
+  "food_items": {
+    "columns": [
+      {
+        "cid": 0,
+        "name": "id",
+        "type": "INTEGER",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 1
+      },
+      {
+        "cid": 1,
+        "name": "profile_id",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": "1",
+        "pk": 0
+      },
+      {
+        "cid": 2,
+        "name": "category_id",
+        "type": "INTEGER",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 3,
+        "name": "name",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 4,
+        "name": "calories_per_100g",
+        "type": "REAL",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 5,
+        "name": "protein_g_per_100g",
+        "type": "REAL",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 6,
+        "name": "fat_g_per_100g",
+        "type": "REAL",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 7,
+        "name": "carbohydrate_g_per_100g",
+        "type": "REAL",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 8,
+        "name": "source_type",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": "'user_entered'",
+        "pk": 0
+      },
+      {
+        "cid": 9,
+        "name": "source_note",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": "''",
+        "pk": 0
+      },
+      {
+        "cid": 10,
+        "name": "source_url",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": "''",
+        "pk": 0
+      },
+      {
+        "cid": 11,
+        "name": "is_example",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": "0",
+        "pk": 0
+      },
+      {
+        "cid": 12,
+        "name": "deleted_at",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 13,
+        "name": "created_at",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 14,
+        "name": "updated_at",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      }
+    ],
+    "foreign_keys": [
+      {
+        "id": 0,
+        "seq": 0,
+        "table": "food_categories",
+        "from": "category_id",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "SET NULL",
+        "match": "NONE"
+      },
+      {
+        "id": 1,
+        "seq": 0,
+        "table": "profiles",
+        "from": "profile_id",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE",
+        "match": "NONE"
+      }
+    ],
+    "indexes": [
+      {
+        "seq": 0,
+        "name": "idx_food_items_profile_name",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0
+      },
+      {
+        "seq": 1,
+        "name": "idx_food_items_profile_active_category",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0
+      }
+    ],
+    "sql": "CREATE TABLE food_items (\n        id INTEGER PRIMARY KEY AUTOINCREMENT,\n        profile_id INTEGER NOT NULL DEFAULT 1 REFERENCES profiles(id) ON DELETE CASCADE,\n        category_id INTEGER REFERENCES food_categories(id) ON DELETE SET NULL,\n        name TEXT NOT NULL CHECK(length(trim(name)) BETWEEN 1 AND 100),\n        calories_per_100g REAL CHECK(calories_per_100g >= 0),\n        protein_g_per_100g REAL CHECK(protein_g_per_100g >= 0),\n        fat_g_per_100g REAL CHECK(fat_g_per_100g >= 0),\n        carbohydrate_g_per_100g REAL CHECK(carbohydrate_g_per_100g >= 0),\n        source_type TEXT NOT NULL DEFAULT 'user_entered' CHECK(source_type IN ('user_entered','referenced','example')),\n        source_note TEXT NOT NULL DEFAULT '', source_url TEXT NOT NULL DEFAULT '',\n        is_example INTEGER NOT NULL DEFAULT 0 CHECK(is_example IN (0,1)),\n        deleted_at TEXT, created_at TEXT NOT NULL, updated_at TEXT NOT NULL,\n        CHECK((source_type = 'example') = (is_example = 1))\n    )"
+  },
+  "diet_daily_goals": {
+    "columns": [
+      {
+        "cid": 0,
+        "name": "id",
+        "type": "INTEGER",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 1
+      },
+      {
+        "cid": 1,
+        "name": "profile_id",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": "1",
+        "pk": 0
+      },
+      {
+        "cid": 2,
+        "name": "effective_from",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 3,
+        "name": "calories_kcal",
+        "type": "REAL",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 4,
+        "name": "protein_g",
+        "type": "REAL",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 5,
+        "name": "fat_g",
+        "type": "REAL",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 6,
+        "name": "carbohydrate_g",
+        "type": "REAL",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 7,
+        "name": "water_ml",
+        "type": "REAL",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 8,
+        "name": "created_at",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 9,
+        "name": "updated_at",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      }
+    ],
+    "foreign_keys": [
+      {
+        "id": 0,
+        "seq": 0,
+        "table": "profiles",
+        "from": "profile_id",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE",
+        "match": "NONE"
+      }
+    ],
+    "indexes": [
+      {
+        "seq": 0,
+        "name": "sqlite_autoindex_diet_daily_goals_1",
+        "unique": 1,
+        "origin": "u",
+        "partial": 0
+      }
+    ],
+    "sql": "CREATE TABLE diet_daily_goals (\n id INTEGER PRIMARY KEY AUTOINCREMENT,\n profile_id INTEGER NOT NULL DEFAULT 1 REFERENCES profiles(id) ON DELETE CASCADE,\n effective_from TEXT NOT NULL,\n calories_kcal REAL CHECK(calories_kcal > 0),\n protein_g REAL CHECK(protein_g > 0),\n fat_g REAL CHECK(fat_g > 0),\n carbohydrate_g REAL CHECK(carbohydrate_g > 0),\n water_ml REAL CHECK(water_ml > 0),\n created_at TEXT NOT NULL, updated_at TEXT NOT NULL,\n UNIQUE(profile_id,effective_from)\n)"
+  },
+  "water_records": {
+    "columns": [
+      {
+        "cid": 0,
+        "name": "id",
+        "type": "INTEGER",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 1
+      },
+      {
+        "cid": 1,
+        "name": "profile_id",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": "1",
+        "pk": 0
+      },
+      {
+        "cid": 2,
+        "name": "drank_at",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 3,
+        "name": "amount_ml",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 4,
+        "name": "notes",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": "''",
+        "pk": 0
+      },
+      {
+        "cid": 5,
+        "name": "created_at",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 6,
+        "name": "updated_at",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      }
+    ],
+    "foreign_keys": [
+      {
+        "id": 0,
+        "seq": 0,
+        "table": "profiles",
+        "from": "profile_id",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE",
+        "match": "NONE"
+      }
+    ],
+    "indexes": [
+      {
+        "seq": 0,
+        "name": "idx_water_profile_time",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0
+      }
+    ],
+    "sql": "CREATE TABLE water_records (\n        id INTEGER PRIMARY KEY AUTOINCREMENT,\n        profile_id INTEGER NOT NULL DEFAULT 1 REFERENCES profiles(id) ON DELETE CASCADE,\n        drank_at TEXT NOT NULL,\n        amount_ml INTEGER NOT NULL CHECK(typeof(amount_ml)='integer' AND amount_ml>0 AND amount_ml<=1000000),\n        notes TEXT NOT NULL DEFAULT '' CHECK(length(notes)<=2000),\n        created_at TEXT NOT NULL, updated_at TEXT NOT NULL\n    )"
+  },
+  "water_reminder_settings": {
+    "columns": [
+      {
+        "cid": 0,
+        "name": "profile_id",
+        "type": "INTEGER",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 1
+      },
+      {
+        "cid": 1,
+        "name": "enabled",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": "0",
+        "pk": 0
+      },
+      {
+        "cid": 2,
+        "name": "mode",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 3,
+        "name": "fixed_times_json",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": "'[]'",
+        "pk": 0
+      },
+      {
+        "cid": 4,
+        "name": "interval_minutes",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 5,
+        "name": "active_start",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 6,
+        "name": "active_end",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 7,
+        "name": "pause_when_goal_met",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": "1",
+        "pk": 0
+      },
+      {
+        "cid": 8,
+        "name": "created_at",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 9,
+        "name": "updated_at",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      }
+    ],
+    "foreign_keys": [
+      {
+        "id": 0,
+        "seq": 0,
+        "table": "profiles",
+        "from": "profile_id",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE",
+        "match": "NONE"
+      }
+    ],
+    "indexes": [],
+    "sql": "CREATE TABLE water_reminder_settings (\n        profile_id INTEGER PRIMARY KEY REFERENCES profiles(id) ON DELETE CASCADE,\n        enabled INTEGER NOT NULL DEFAULT 0 CHECK(enabled IN (0,1)),\n        mode TEXT NOT NULL CHECK(mode IN ('fixed_times','interval')),\n        fixed_times_json TEXT NOT NULL DEFAULT '[]',\n        interval_minutes INTEGER NOT NULL CHECK(interval_minutes BETWEEN 1 AND 1440),\n        active_start TEXT NOT NULL, active_end TEXT NOT NULL CHECK(active_end>active_start),\n        pause_when_goal_met INTEGER NOT NULL DEFAULT 1 CHECK(pause_when_goal_met IN (0,1)),\n        created_at TEXT NOT NULL, updated_at TEXT NOT NULL\n    )"
+  },
+  "diet_recipe_categories": {
+    "columns": [
+      {
+        "cid": 0,
+        "name": "id",
+        "type": "INTEGER",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 1
+      },
+      {
+        "cid": 1,
+        "name": "profile_id",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 2,
+        "name": "name",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 3,
+        "name": "name_key",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 4,
+        "name": "created_at",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 5,
+        "name": "updated_at",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      }
+    ],
+    "foreign_keys": [
+      {
+        "id": 0,
+        "seq": 0,
+        "table": "profiles",
+        "from": "profile_id",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE",
+        "match": "NONE"
+      }
+    ],
+    "indexes": [
+      {
+        "seq": 0,
+        "name": "sqlite_autoindex_diet_recipe_categories_2",
+        "unique": 1,
+        "origin": "u",
+        "partial": 0
+      },
+      {
+        "seq": 1,
+        "name": "sqlite_autoindex_diet_recipe_categories_1",
+        "unique": 1,
+        "origin": "u",
+        "partial": 0
+      }
+    ],
+    "sql": "CREATE TABLE diet_recipe_categories (\n        id INTEGER PRIMARY KEY AUTOINCREMENT, profile_id INTEGER NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,\n        name TEXT NOT NULL CHECK(length(trim(name)) BETWEEN 1 AND 50), name_key TEXT NOT NULL,\n        created_at TEXT NOT NULL, updated_at TEXT NOT NULL, UNIQUE(profile_id,name_key), UNIQUE(profile_id,id))"
+  },
+  "diet_recipes": {
+    "columns": [
+      {
+        "cid": 0,
+        "name": "id",
+        "type": "INTEGER",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 1
+      },
+      {
+        "cid": 1,
+        "name": "profile_id",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 2,
+        "name": "category_id",
+        "type": "INTEGER",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 3,
+        "name": "name",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 4,
+        "name": "description",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": "''",
+        "pk": 0
+      },
+      {
+        "cid": 5,
+        "name": "servings",
+        "type": "REAL",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 6,
+        "name": "preparation_minutes",
+        "type": "INTEGER",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 7,
+        "name": "nutrition_mode",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 8,
+        "name": "manual_calories_kcal",
+        "type": "REAL",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 9,
+        "name": "manual_protein_g",
+        "type": "REAL",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 10,
+        "name": "manual_fat_g",
+        "type": "REAL",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 11,
+        "name": "manual_carbohydrate_g",
+        "type": "REAL",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 12,
+        "name": "source_type",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 13,
+        "name": "source_note",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": "''",
+        "pk": 0
+      },
+      {
+        "cid": 14,
+        "name": "source_url",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": "''",
+        "pk": 0
+      },
+      {
+        "cid": 15,
+        "name": "revision",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": "1",
+        "pk": 0
+      },
+      {
+        "cid": 16,
+        "name": "archived_at",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 17,
+        "name": "created_at",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 18,
+        "name": "updated_at",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      }
+    ],
+    "foreign_keys": [
+      {
+        "id": 0,
+        "seq": 0,
+        "table": "diet_recipe_categories",
+        "from": "profile_id",
+        "to": "profile_id",
+        "on_update": "NO ACTION",
+        "on_delete": "NO ACTION",
+        "match": "NONE"
+      },
+      {
+        "id": 0,
+        "seq": 1,
+        "table": "diet_recipe_categories",
+        "from": "category_id",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "NO ACTION",
+        "match": "NONE"
+      },
+      {
+        "id": 1,
+        "seq": 0,
+        "table": "profiles",
+        "from": "profile_id",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE",
+        "match": "NONE"
+      }
+    ],
+    "indexes": [
+      {
+        "seq": 0,
+        "name": "idx_recipe_profile_name",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0
+      },
+      {
+        "seq": 1,
+        "name": "idx_recipe_profile_active_category",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0
+      },
+      {
+        "seq": 2,
+        "name": "sqlite_autoindex_diet_recipes_1",
+        "unique": 1,
+        "origin": "u",
+        "partial": 0
+      }
+    ],
+    "sql": "CREATE TABLE diet_recipes (\n        id INTEGER PRIMARY KEY AUTOINCREMENT, profile_id INTEGER NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,\n        category_id INTEGER, name TEXT NOT NULL CHECK(length(trim(name)) BETWEEN 1 AND 100), description TEXT NOT NULL DEFAULT '',\n        servings REAL NOT NULL CHECK(servings>0), preparation_minutes INTEGER CHECK(preparation_minutes>=0),\n        nutrition_mode TEXT NOT NULL CHECK(nutrition_mode IN ('calculated','manual')),\n        manual_calories_kcal REAL CHECK(manual_calories_kcal>=0), manual_protein_g REAL CHECK(manual_protein_g>=0),\n        manual_fat_g REAL CHECK(manual_fat_g>=0), manual_carbohydrate_g REAL CHECK(manual_carbohydrate_g>=0),\n        source_type TEXT NOT NULL CHECK(source_type IN ('user_entered','referenced','example')),\n        source_note TEXT NOT NULL DEFAULT '', source_url TEXT NOT NULL DEFAULT '',\n        revision INTEGER NOT NULL DEFAULT 1 CHECK(revision>0), archived_at TEXT, created_at TEXT NOT NULL, updated_at TEXT NOT NULL,\n        UNIQUE(profile_id,id), FOREIGN KEY(profile_id,category_id) REFERENCES diet_recipe_categories(profile_id,id))"
+  },
+  "diet_recipe_ingredients": {
+    "columns": [
+      {
+        "cid": 0,
+        "name": "id",
+        "type": "INTEGER",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 1
+      },
+      {
+        "cid": 1,
+        "name": "profile_id",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 2,
+        "name": "recipe_id",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 3,
+        "name": "food_id",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 4,
+        "name": "amount_g",
+        "type": "REAL",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 5,
+        "name": "position",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 6,
+        "name": "food_name_snapshot",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 7,
+        "name": "calories_per_100g_snapshot",
+        "type": "REAL",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 8,
+        "name": "protein_g_per_100g_snapshot",
+        "type": "REAL",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 9,
+        "name": "fat_g_per_100g_snapshot",
+        "type": "REAL",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 10,
+        "name": "carbohydrate_g_per_100g_snapshot",
+        "type": "REAL",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 11,
+        "name": "food_updated_at_snapshot",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 12,
+        "name": "source_snapshot",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 13,
+        "name": "is_example",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      }
+    ],
+    "foreign_keys": [
+      {
+        "id": 0,
+        "seq": 0,
+        "table": "diet_recipes",
+        "from": "profile_id",
+        "to": "profile_id",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE",
+        "match": "NONE"
+      },
+      {
+        "id": 0,
+        "seq": 1,
+        "table": "diet_recipes",
+        "from": "recipe_id",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE",
+        "match": "NONE"
+      },
+      {
+        "id": 1,
+        "seq": 0,
+        "table": "food_items",
+        "from": "food_id",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "NO ACTION",
+        "match": "NONE"
+      }
+    ],
+    "indexes": [
+      {
+        "seq": 0,
+        "name": "idx_recipe_food",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0
+      },
+      {
+        "seq": 1,
+        "name": "sqlite_autoindex_diet_recipe_ingredients_2",
+        "unique": 1,
+        "origin": "u",
+        "partial": 0
+      },
+      {
+        "seq": 2,
+        "name": "sqlite_autoindex_diet_recipe_ingredients_1",
+        "unique": 1,
+        "origin": "u",
+        "partial": 0
+      }
+    ],
+    "sql": "CREATE TABLE diet_recipe_ingredients (\n        id INTEGER PRIMARY KEY AUTOINCREMENT, profile_id INTEGER NOT NULL, recipe_id INTEGER NOT NULL,\n        food_id INTEGER NOT NULL REFERENCES food_items(id), amount_g REAL NOT NULL CHECK(amount_g>0), position INTEGER NOT NULL CHECK(position>0),\n        food_name_snapshot TEXT NOT NULL, calories_per_100g_snapshot REAL CHECK(calories_per_100g_snapshot>=0),\n        protein_g_per_100g_snapshot REAL CHECK(protein_g_per_100g_snapshot>=0), fat_g_per_100g_snapshot REAL CHECK(fat_g_per_100g_snapshot>=0),\n        carbohydrate_g_per_100g_snapshot REAL CHECK(carbohydrate_g_per_100g_snapshot>=0),\n        food_updated_at_snapshot TEXT NOT NULL, source_snapshot TEXT NOT NULL, is_example INTEGER NOT NULL CHECK(is_example IN (0,1)),\n        UNIQUE(recipe_id,food_id), UNIQUE(recipe_id,position),\n        FOREIGN KEY(profile_id,recipe_id) REFERENCES diet_recipes(profile_id,id) ON DELETE CASCADE)"
+  },
+  "diet_recipe_steps": {
+    "columns": [
+      {
+        "cid": 0,
+        "name": "id",
+        "type": "INTEGER",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 1
+      },
+      {
+        "cid": 1,
+        "name": "profile_id",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 2,
+        "name": "recipe_id",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 3,
+        "name": "position",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 4,
+        "name": "instruction",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      }
+    ],
+    "foreign_keys": [
+      {
+        "id": 0,
+        "seq": 0,
+        "table": "diet_recipes",
+        "from": "profile_id",
+        "to": "profile_id",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE",
+        "match": "NONE"
+      },
+      {
+        "id": 0,
+        "seq": 1,
+        "table": "diet_recipes",
+        "from": "recipe_id",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE",
+        "match": "NONE"
+      }
+    ],
+    "indexes": [
+      {
+        "seq": 0,
+        "name": "sqlite_autoindex_diet_recipe_steps_1",
+        "unique": 1,
+        "origin": "u",
+        "partial": 0
+      }
+    ],
+    "sql": "CREATE TABLE diet_recipe_steps (\n        id INTEGER PRIMARY KEY AUTOINCREMENT, profile_id INTEGER NOT NULL, recipe_id INTEGER NOT NULL,\n        position INTEGER NOT NULL CHECK(position>0), instruction TEXT NOT NULL CHECK(length(trim(instruction))>0),\n        UNIQUE(recipe_id,position), FOREIGN KEY(profile_id,recipe_id) REFERENCES diet_recipes(profile_id,id) ON DELETE CASCADE)"
+  },
+  "diet_inventory_items": {
+    "columns": [
+      {
+        "cid": 0,
+        "name": "id",
+        "type": "INTEGER",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 1
+      },
+      {
+        "cid": 1,
+        "name": "profile_id",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 2,
+        "name": "food_id",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 3,
+        "name": "quantity_g",
+        "type": "REAL",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 4,
+        "name": "notes",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": "''",
+        "pk": 0
+      },
+      {
+        "cid": 5,
+        "name": "revision",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": "1",
+        "pk": 0
+      },
+      {
+        "cid": 6,
+        "name": "created_at",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 7,
+        "name": "updated_at",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      }
+    ],
+    "foreign_keys": [
+      {
+        "id": 0,
+        "seq": 0,
+        "table": "food_items",
+        "from": "food_id",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "NO ACTION",
+        "match": "NONE"
+      },
+      {
+        "id": 1,
+        "seq": 0,
+        "table": "profiles",
+        "from": "profile_id",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE",
+        "match": "NONE"
+      }
+    ],
+    "indexes": [
+      {
+        "seq": 0,
+        "name": "sqlite_autoindex_diet_inventory_items_1",
+        "unique": 1,
+        "origin": "u",
+        "partial": 0
+      }
+    ],
+    "sql": "CREATE TABLE diet_inventory_items (\n        id INTEGER PRIMARY KEY AUTOINCREMENT, profile_id INTEGER NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,\n        food_id INTEGER NOT NULL REFERENCES food_items(id), quantity_g REAL NOT NULL CHECK(quantity_g>=0), notes TEXT NOT NULL DEFAULT '',\n        revision INTEGER NOT NULL DEFAULT 1 CHECK(revision>0), created_at TEXT NOT NULL, updated_at TEXT NOT NULL,\n        UNIQUE(profile_id,food_id))"
+  },
+  "diet_ingredient_terms": {
+    "columns": [
+      {
+        "cid": 0,
+        "name": "id",
+        "type": "INTEGER",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 1
+      },
+      {
+        "cid": 1,
+        "name": "profile_id",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 2,
+        "name": "name",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 3,
+        "name": "name_key",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 4,
+        "name": "kind",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 5,
+        "name": "archived_at",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 6,
+        "name": "created_at",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 7,
+        "name": "updated_at",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      }
+    ],
+    "foreign_keys": [
+      {
+        "id": 0,
+        "seq": 0,
+        "table": "profiles",
+        "from": "profile_id",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE",
+        "match": "NONE"
+      }
+    ],
+    "indexes": [
+      {
+        "seq": 0,
+        "name": "sqlite_autoindex_diet_ingredient_terms_2",
+        "unique": 1,
+        "origin": "u",
+        "partial": 0
+      },
+      {
+        "seq": 1,
+        "name": "sqlite_autoindex_diet_ingredient_terms_1",
+        "unique": 1,
+        "origin": "u",
+        "partial": 0
+      }
+    ],
+    "sql": "CREATE TABLE diet_ingredient_terms (\n        id INTEGER PRIMARY KEY AUTOINCREMENT, profile_id INTEGER NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,\n        name TEXT NOT NULL CHECK(length(trim(name)) BETWEEN 1 AND 100), name_key TEXT NOT NULL,\n        kind TEXT NOT NULL CHECK(kind IN ('ingredient','allergen')), archived_at TEXT, created_at TEXT NOT NULL, updated_at TEXT NOT NULL,\n        UNIQUE(profile_id,name_key), UNIQUE(profile_id,id))"
+  },
+  "diet_ingredient_aliases": {
+    "columns": [
+      {
+        "cid": 0,
+        "name": "id",
+        "type": "INTEGER",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 1
+      },
+      {
+        "cid": 1,
+        "name": "profile_id",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 2,
+        "name": "term_id",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 3,
+        "name": "alias",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 4,
+        "name": "alias_key",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      }
+    ],
+    "foreign_keys": [
+      {
+        "id": 0,
+        "seq": 0,
+        "table": "diet_ingredient_terms",
+        "from": "profile_id",
+        "to": "profile_id",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE",
+        "match": "NONE"
+      },
+      {
+        "id": 0,
+        "seq": 1,
+        "table": "diet_ingredient_terms",
+        "from": "term_id",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE",
+        "match": "NONE"
+      }
+    ],
+    "indexes": [
+      {
+        "seq": 0,
+        "name": "sqlite_autoindex_diet_ingredient_aliases_1",
+        "unique": 1,
+        "origin": "u",
+        "partial": 0
+      }
+    ],
+    "sql": "CREATE TABLE diet_ingredient_aliases (\n        id INTEGER PRIMARY KEY AUTOINCREMENT, profile_id INTEGER NOT NULL, term_id INTEGER NOT NULL,\n        alias TEXT NOT NULL, alias_key TEXT NOT NULL, UNIQUE(profile_id,alias_key),\n        FOREIGN KEY(profile_id,term_id) REFERENCES diet_ingredient_terms(profile_id,id) ON DELETE CASCADE)"
+  },
+  "diet_food_composition": {
+    "columns": [
+      {
+        "cid": 0,
+        "name": "profile_id",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 1
+      },
+      {
+        "cid": 1,
+        "name": "food_id",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 2
+      },
+      {
+        "cid": 2,
+        "name": "ingredient_status",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 3,
+        "name": "allergen_status",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 4,
+        "name": "assessed_food_updated_at",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 5,
+        "name": "source_note",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": "''",
+        "pk": 0
+      },
+      {
+        "cid": 6,
+        "name": "updated_at",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      }
+    ],
+    "foreign_keys": [
+      {
+        "id": 0,
+        "seq": 0,
+        "table": "food_items",
+        "from": "food_id",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "NO ACTION",
+        "match": "NONE"
+      },
+      {
+        "id": 1,
+        "seq": 0,
+        "table": "profiles",
+        "from": "profile_id",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE",
+        "match": "NONE"
+      }
+    ],
+    "indexes": [
+      {
+        "seq": 0,
+        "name": "sqlite_autoindex_diet_food_composition_1",
+        "unique": 1,
+        "origin": "pk",
+        "partial": 0
+      }
+    ],
+    "sql": "CREATE TABLE diet_food_composition (\n        profile_id INTEGER NOT NULL REFERENCES profiles(id) ON DELETE CASCADE, food_id INTEGER NOT NULL REFERENCES food_items(id),\n        ingredient_status TEXT NOT NULL CHECK(ingredient_status IN ('unknown','partial','declared_complete')),\n        allergen_status TEXT NOT NULL CHECK(allergen_status IN ('unknown','partial','declared_complete')),\n        assessed_food_updated_at TEXT NOT NULL, source_note TEXT NOT NULL DEFAULT '', updated_at TEXT NOT NULL,\n        PRIMARY KEY(profile_id,food_id))"
+  },
+  "diet_food_composition_terms": {
+    "columns": [
+      {
+        "cid": 0,
+        "name": "profile_id",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 1
+      },
+      {
+        "cid": 1,
+        "name": "food_id",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 2
+      },
+      {
+        "cid": 2,
+        "name": "term_id",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 3
+      },
+      {
+        "cid": 3,
+        "name": "relation",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 4
+      }
+    ],
+    "foreign_keys": [
+      {
+        "id": 0,
+        "seq": 0,
+        "table": "diet_ingredient_terms",
+        "from": "profile_id",
+        "to": "profile_id",
+        "on_update": "NO ACTION",
+        "on_delete": "NO ACTION",
+        "match": "NONE"
+      },
+      {
+        "id": 0,
+        "seq": 1,
+        "table": "diet_ingredient_terms",
+        "from": "term_id",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "NO ACTION",
+        "match": "NONE"
+      },
+      {
+        "id": 1,
+        "seq": 0,
+        "table": "diet_food_composition",
+        "from": "profile_id",
+        "to": "profile_id",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE",
+        "match": "NONE"
+      },
+      {
+        "id": 1,
+        "seq": 1,
+        "table": "diet_food_composition",
+        "from": "food_id",
+        "to": "food_id",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE",
+        "match": "NONE"
+      }
+    ],
+    "indexes": [
+      {
+        "seq": 0,
+        "name": "idx_composition_term",
+        "unique": 0,
+        "origin": "c",
+        "partial": 0
+      },
+      {
+        "seq": 1,
+        "name": "sqlite_autoindex_diet_food_composition_terms_1",
+        "unique": 1,
+        "origin": "pk",
+        "partial": 0
+      }
+    ],
+    "sql": "CREATE TABLE diet_food_composition_terms (\n        profile_id INTEGER NOT NULL, food_id INTEGER NOT NULL, term_id INTEGER NOT NULL,\n        relation TEXT NOT NULL CHECK(relation IN ('contains','may_contain')),\n        PRIMARY KEY(profile_id,food_id,term_id,relation),\n        FOREIGN KEY(profile_id,food_id) REFERENCES diet_food_composition(profile_id,food_id) ON DELETE CASCADE,\n        FOREIGN KEY(profile_id,term_id) REFERENCES diet_ingredient_terms(profile_id,id))"
+  },
+  "diet_food_preferences": {
+    "columns": [
+      {
+        "cid": 0,
+        "name": "id",
+        "type": "INTEGER",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 1
+      },
+      {
+        "cid": 1,
+        "name": "profile_id",
+        "type": "INTEGER",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 2,
+        "name": "food_id",
+        "type": "INTEGER",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 3,
+        "name": "term_id",
+        "type": "INTEGER",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 4,
+        "name": "rule_type",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 5,
+        "name": "notes",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": "''",
+        "pk": 0
+      },
+      {
+        "cid": 6,
+        "name": "created_at",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 7,
+        "name": "updated_at",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      }
+    ],
+    "foreign_keys": [
+      {
+        "id": 0,
+        "seq": 0,
+        "table": "diet_ingredient_terms",
+        "from": "profile_id",
+        "to": "profile_id",
+        "on_update": "NO ACTION",
+        "on_delete": "NO ACTION",
+        "match": "NONE"
+      },
+      {
+        "id": 0,
+        "seq": 1,
+        "table": "diet_ingredient_terms",
+        "from": "term_id",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "NO ACTION",
+        "match": "NONE"
+      },
+      {
+        "id": 1,
+        "seq": 0,
+        "table": "food_items",
+        "from": "food_id",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "NO ACTION",
+        "match": "NONE"
+      },
+      {
+        "id": 2,
+        "seq": 0,
+        "table": "profiles",
+        "from": "profile_id",
+        "to": "id",
+        "on_update": "NO ACTION",
+        "on_delete": "CASCADE",
+        "match": "NONE"
+      }
+    ],
+    "indexes": [
+      {
+        "seq": 0,
+        "name": "sqlite_autoindex_diet_food_preferences_2",
+        "unique": 1,
+        "origin": "u",
+        "partial": 0
+      },
+      {
+        "seq": 1,
+        "name": "sqlite_autoindex_diet_food_preferences_1",
+        "unique": 1,
+        "origin": "u",
+        "partial": 0
+      }
+    ],
+    "sql": "CREATE TABLE diet_food_preferences (\n        id INTEGER PRIMARY KEY AUTOINCREMENT, profile_id INTEGER NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,\n        food_id INTEGER REFERENCES food_items(id), term_id INTEGER,\n        rule_type TEXT NOT NULL CHECK(rule_type IN ('like','dislike','allergy','forbidden')),\n        notes TEXT NOT NULL DEFAULT '', created_at TEXT NOT NULL, updated_at TEXT NOT NULL,\n        CHECK((food_id IS NULL) != (term_id IS NULL)),\n        FOREIGN KEY(profile_id,term_id) REFERENCES diet_ingredient_terms(profile_id,id),\n        UNIQUE(profile_id,food_id,rule_type), UNIQUE(profile_id,term_id,rule_type))"
+  },
+  "diet_schema_migrations": {
+    "columns": [
+      {
+        "cid": 0,
+        "name": "version",
+        "type": "TEXT",
+        "notnull": 0,
+        "dflt_value": null,
+        "pk": 1
+      },
+      {
+        "cid": 1,
+        "name": "checksum",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      },
+      {
+        "cid": 2,
+        "name": "applied_at",
+        "type": "TEXT",
+        "notnull": 1,
+        "dflt_value": null,
+        "pk": 0
+      }
+    ],
+    "foreign_keys": [],
+    "indexes": [
+      {
+        "seq": 0,
+        "name": "sqlite_autoindex_diet_schema_migrations_1",
+        "unique": 1,
+        "origin": "pk",
+        "partial": 0
+      }
+    ],
+    "sql": "CREATE TABLE diet_schema_migrations (\n            version TEXT PRIMARY KEY, checksum TEXT NOT NULL, applied_at TEXT NOT NULL\n        )"
+  }
+}
