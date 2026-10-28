@@ -1,55 +1,55 @@
-from fastapi import APIRouter, HTTPException
-from pydantic import BaseModel
-from typing import List
+"""HTTP endpoints for exercise records (member C).
+
+Paths are mounted under ``/api`` by ``app.main``, so the public routes are
+``/api/exercise-records``. Status codes follow ``docs/05-api.md``: 201 on
+create, 200 on read/update, 204 on delete, 404 for an unknown id, 409 when the
+local profile has not been created yet and 422 for invalid input.
+"""
+
 from datetime import date
 
-# 创建路由实例
+from fastapi import APIRouter, Depends, HTTPException, Request, Response
+
+from . import schemas, service
+
+records_router = APIRouter(prefix="/exercise-records", tags=["运动健身"])
+
+
+def database_path(request: Request):
+    return request.app.state.settings.database_path
+
+
+@records_router.get("", response_model=schemas.ExerciseList)
+def list_records(
+    path=Depends(database_path),
+    date_from: date | None = None,
+    date_to: date | None = None,
+):
+    if date_from is not None and date_to is not None and date_from > date_to:
+        raise HTTPException(status_code=422, detail="起始日期不能晚于结束日期")
+    return service.list_records(path, date_from, date_to)
+
+
+@records_router.post("", response_model=schemas.ExerciseRecord, status_code=201)
+def create_record(data: schemas.ExerciseInput, path=Depends(database_path)):
+    return service.create_record(path, data)
+
+
+@records_router.get("/{record_id}", response_model=schemas.ExerciseRecord)
+def get_record(record_id: int, path=Depends(database_path)):
+    return service.get_record(path, record_id)
+
+
+@records_router.put("/{record_id}", response_model=schemas.ExerciseRecord)
+def update_record(record_id: int, data: schemas.ExerciseInput, path=Depends(database_path)):
+    return service.update_record(path, record_id, data)
+
+
+@records_router.delete("/{record_id}", status_code=204)
+def delete_record(record_id: int, path=Depends(database_path)):
+    service.delete_record(path, record_id)
+    return Response(status_code=204)
+
+
 router = APIRouter()
-
-# 1. 定义数据模型（对应前端传过来的数据）
-class ExerciseRecord(BaseModel):
-    type: str           # 运动类型
-    duration: int       # 时长（分钟）
-    intensity: str      # 强度
-    calories: int       # 估算消耗
-    record_date: str    # 日期
-
-# 2. 模拟一个“数据库”（实际开发中这里会连 SQLite，现在用列表暂存方便测试）
-fake_db = [
-    {
-        "id": 1,
-        "type": "跑步",
-        "duration": 30,
-        "intensity": "中等",
-        "calories": 300,
-        "record_date": "2026-10-15"
-    }
-]
-
-# 3. 写接口：获取所有运动记录 (GET)
-@router.get("/records")
-def get_records():
-    # 返回模拟数据库里的所有记录
-    return {"code": 200, "message": "获取成功", "data": fake_db}
-
-# 4. 写接口：添加一条运动记录 (POST)
-@router.post("/records")
-def add_record(record: ExerciseRecord):
-    # 简单校验一下
-    if record.duration <= 0:
-        raise HTTPException(status_code=400, detail="运动时长必须大于0")
-
-    # 生成一个新的 ID 和记录
-    new_record = {
-        "id": len(fake_db) + 1,
-        "type": record.type,
-        "duration": record.duration,
-        "intensity": record.intensity,
-        "calories": record.calories,
-        "record_date": record.record_date
-    }
-    
-    # 保存到“数据库”
-    fake_db.append(new_record)
-    
-    return {"code": 200, "message": "添加成功", "data": new_record}
+router.include_router(records_router)
