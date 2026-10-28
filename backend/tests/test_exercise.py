@@ -2,13 +2,17 @@
 
 import tempfile
 import unittest
+from datetime import datetime, timedelta
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 from fastapi.testclient import TestClient
 
 from app.config import Settings
 from app.database import connect, init_database
 from app.main import create_app
+
+TODAY = datetime.now(ZoneInfo("Asia/Shanghai")).date()
 
 PAYLOAD = {
     "record_date": "2026-10-20",
@@ -169,6 +173,93 @@ class ExerciseApiTests(unittest.TestCase):
             )
             self.assertEqual(client.delete("/api/exercise-records/999").status_code, 404)
             self.assertEqual(client.get("/api/exercise-records/not-an-id").status_code, 422)
+
+    def test_recommendation_requires_profile(self):
+        with self.client() as client:
+            response = client.get("/api/exercise-records/recommendation")
+            self.assertEqual(response.status_code, 409)
+            self.assertEqual(response.json()["detail"], "请先建立个人档案")
+
+    def test_recommendation_uses_bmi_goals_preferences_and_last_week(self):
+        with connect(self.path) as connection:
+            connection.execute(
+                """
+                INSERT INTO profiles (id, display_name, height_cm, weight_kg, preferences)
+                VALUES (1, '联调档案', 170, 82, '喜欢快走和瑜伽')
+                """
+            )
+            connection.execute(
+                """
+                INSERT INTO health_goals (profile_id, title, target_value, unit)
+                VALUES (1, '减脂 5 公斤', 5, '公斤')
+                """
+            )
+        with self.client() as client:
+            for days_ago, minutes, intensity in ((0, 30, "medium"), (2, 45, "high"), (10, 60, "low")):
+                response = client.post(
+                    "/api/exercise-records",
+                    json={
+                        "record_date": (TODAY - timedelta(days=days_ago)).isoformat(),
+                        "exercise_type": "快走",
+                        "duration_minutes": minutes,
+                        "intensity": intensity,
+                        "notes": "",
+                    },
+                )
+                self.assertEqual(response.status_code, 201)
+
+            response = client.get("/api/exercise-records/recommendation")
+            self.assertEqual(response.status_code, 200)
+            data = response.json()
+            self.assertEqual(data["bmi"], 28.4)
+            self.assertEqual(data["bmi_label"], "肥胖")
+            self.assertEqual(data["focus"], "fat_loss")
+            self.assertEqual(data["focus_label"], "减脂优先")
+            # BMI >= 28 raises the fat-loss target; the 10-day-old record is outside the week.
+            self.assertEqual(data["weekly_target_minutes"], 225)
+            self.assertEqual(data["weekly_done_minutes"], 75)
+            self.assertEqual(data["days_active_last_week"], 2)
+            self.assertEqual(data["weekly_progress_percent"], 33)
+            self.assertEqual(data["preferred_types"], ["快走", "瑜伽"])
+            self.assertEqual([item["tag"] for item in data["suggestions"]], ["有氧", "力量", "恢复", "今天"])
+            self.assertIn("本周还差 150 分钟", data["suggestions"][0]["title"])
+            self.assertIn("今天已完成 30 分钟", data["suggestions"][3]["title"])
+            self.assertTrue(any("体重基数较大" in note for note in data["safety_notes"]))
+            self.assertTrue(any("高强度运动占比偏高" in note for note in data["safety_notes"]))
+            evidence = " ".join(data["evidence"])
+            self.assertIn("BMI 28.4", evidence)
+            self.assertIn("减脂 5 公斤", evidence)
+            self.assertIn("喜欢快走和瑜伽", evidence)
+
+    def test_recommendation_handles_missing_body_data_and_medical_history(self):
+        with connect(self.path) as connection:
+            connection.execute(
+                """
+                INSERT INTO profiles (id, display_name, medical_history)
+                VALUES (1, '联调档案', '高血压')
+                """
+            )
+            connection.execute(
+                """
+                INSERT INTO health_goals (profile_id, title, target_value, unit)
+                VALUES (1, '增肌', 3, '公斤')
+                """
+            )
+        with self.client() as client:
+            response = client.get("/api/exercise-records/recommendation")
+            self.assertEqual(response.status_code, 200)
+            data = response.json()
+            self.assertIsNone(data["bmi"])
+            self.assertIsNone(data["bmi_label"])
+            self.assertEqual(data["focus"], "muscle_gain")
+            self.assertEqual(data["weekly_target_minutes"], 150)
+            self.assertEqual(data["weekly_done_minutes"], 0)
+            self.assertEqual(data["weekly_progress_percent"], 0)
+            self.assertEqual(data["preferred_types"], [])
+            self.assertIn("还没有运动记录", data["summary"])
+            self.assertTrue(any("既往病史" in note for note in data["safety_notes"]))
+            self.assertTrue(any("没有完整的身高体重" in line for line in data["evidence"]))
+            self.assertTrue(any("力量训练" in item["title"] for item in data["suggestions"]))
 
 
 if __name__ == "__main__":
