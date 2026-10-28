@@ -128,26 +128,18 @@ onMounted(loadData)
   <div class="module-overview rose">
     <RouterLink class="back-link" to="/">← 返回总览</RouterLink>
 
+    <!-- 删除了右上角的成员 E 负责 -->
     <div class="page-heading">
       <div>
         <p class="eyebrow">Cycle & wellbeing</p>
         <h1>生理期管理</h1>
         <p>关注身体节奏，也照顾自己的感受。</p>
       </div>
-      <span class="outline-badge">成员 E 负责</span>
     </div>
 
     <p v-if="errorMsg" class="error-banner">{{ errorMsg }}</p>
 
-    <!-- 录入表单 -->
-    <section class="module-intro">
-      <span class="module-icon large"><AppIcon name="cycle" /></span>
-      <div style="flex: 1">
-        <h2>记录这次经期</h2>
-        <p>填写起止日期、流量、症状与情绪，保存后会显示在下方历史记录中。</p>
-      </div>
-    </section>
-
+    <!-- 删除了原本的红色图标说明，直接展示表单 -->
     <form class="cycle-form" @submit.prevent="handleSubmit">
       <label>
         <span>开始日期 *</span>
@@ -187,10 +179,9 @@ onMounted(loadData)
       <h3>周期预测</h3>
       <p>上次经期：{{ prediction.last_start }}</p>
       <p>平均周期：{{ prediction.avg_cycle_days }} 天</p>
-            <p>排卵日：{{ prediction.ovulation_date }}</p>
-<p>易孕期：{{ prediction.fertile_start }} ~ {{ prediction.fertile_end }}</p>
+      <p>排卵日：{{ prediction.ovulation_date }}</p>
+      <p>易孕期：{{ prediction.fertile_start }} ~ {{ prediction.fertile_end }}</p>
       <p>预测下次经期：<strong>{{ prediction.predicted_next }}</strong></p>
-
 
       <div v-if="phaseInfo" class="phase-box">
         <p>当前周期第 <strong>{{ phaseInfo.dayInCycle }}</strong> 天，处于
