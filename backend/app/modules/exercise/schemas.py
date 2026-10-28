@@ -46,3 +46,33 @@ class ExerciseRecord(BaseModel):
 
 class ExerciseList(BaseModel):
     items: list[ExerciseRecord]
+
+
+class RecommendationSuggestion(BaseModel):
+    tag: str
+    title: str
+    detail: str
+
+
+class ExerciseRecommendation(BaseModel):
+    """Profile-driven advice for the exercise page.
+
+    The server computes the weekly target and the suggestion list so the
+    numbers stay consistent across browsers; ``evidence`` explains which
+    profile fields produced them.
+    """
+
+    bmi: float | None
+    bmi_label: str | None
+    focus: Literal["fat_loss", "muscle_gain", "shaping", "maintain"]
+    focus_label: str
+    weekly_target_minutes: int
+    weekly_done_minutes: int
+    weekly_progress_percent: int
+    days_active_last_week: int
+    preferred_types: list[str]
+    summary: str
+    suggestions: list[RecommendationSuggestion]
+    safety_notes: list[str]
+    evidence: list[str]
+
