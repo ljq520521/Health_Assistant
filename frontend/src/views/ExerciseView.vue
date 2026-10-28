@@ -2,6 +2,7 @@
 import { computed, onMounted, reactive, ref } from 'vue'
 import AppIcon from '../components/AppIcon.vue'
 import ExerciseFormDialog from '../components/exercise/ExerciseFormDialog.vue'
+import ExerciseRecommendation from '../components/exercise/ExerciseRecommendation.vue'
 import ExerciseTrendChart from '../components/exercise/ExerciseTrendChart.vue'
 import { deleteExercise, listExercise } from '../api/exercise.js'
 import {
@@ -30,6 +31,7 @@ const noProfile = ref(false)
 const filters = reactive({ date_from: '', date_to: '' })
 
 const editor = ref(null)
+const recommendation = ref(null)
 const confirmation = ref(null)
 const deleting = ref(null)
 const deleteError = ref('')
@@ -103,6 +105,7 @@ function openEditor(record = null) {
 function onSaved(message) {
   success.value = message
   load()
+  recommendation.value?.reload()
 }
 
 function askDelete(record) {
@@ -128,6 +131,7 @@ async function remove() {
     success.value = '运动记录已删除'
     returnFocus?.focus()
     await load()
+    recommendation.value?.reload()
   } catch (err) {
     deleteError.value = err.message
   } finally {
@@ -149,7 +153,6 @@ onMounted(load)
         <p>{{ module?.description || '每一段活动，都值得被好好记录。' }}</p>
       </div>
       <div class="heading-actions">
-        <span class="outline-badge">{{ module?.owner || '成员 C' }} 负责</span>
         <button class="button primary" :disabled="loading || busy || noProfile" @click="openEditor()">
           ＋ 新增运动记录
         </button>
@@ -219,6 +222,8 @@ onMounted(load)
 
     <template v-else>
       <p v-if="loading" class="loading-hint" role="status">正在加载运动记录…</p>
+
+      <ExerciseRecommendation ref="recommendation" />
 
       <section class="panel trend-panel">
         <div class="section-heading trend-heading">
