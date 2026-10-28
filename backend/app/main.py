@@ -43,7 +43,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         allow_origins=list(settings.allowed_origins),
         allow_credentials=False,
         allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-        allow_headers=["Content-Type"],
+        allow_headers=["Content-Type","Authorization"],
     )
 
     @application.get("/health", tags=["系统"], response_model=HealthResponse)
