@@ -6,15 +6,19 @@ single local profile (``profile_id = 1``); the module never accepts a
 frontend from the filtered list, so there is no extra statistics endpoint.
 """
 
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timedelta, timezone
+from zoneinfo import ZoneInfo
 
 from fastapi import HTTPException
 
 from app.database import connect
 
+from . import recommendation
+
 PROFILE_ID = 1
 PROFILE_REQUIRED = "请先建立个人档案"
 RECORD_NOT_FOUND = "运动记录不存在"
+BUSINESS_ZONE = ZoneInfo("Asia/Shanghai")
 
 
 def utc_now() -> str:
@@ -101,3 +105,37 @@ def delete_record(path, record_id: int) -> None:
         )
         if cursor.rowcount == 0:
             raise HTTPException(status_code=404, detail=RECORD_NOT_FOUND)
+
+
+def get_recommendation(path) -> dict:
+    """Build advice from the read-only profile, goals and the last 7 days."""
+    today = datetime.now(BUSINESS_ZONE).date()
+    since = (today - timedelta(days=recommendation.WEEK_DAYS - 1)).isoformat()
+    with connect(path) as connection:
+        require_profile(connection)
+        profile = connection.execute(
+            """
+            SELECT height_cm, weight_kg, medical_history, allergies, medications, preferences
+            FROM profiles WHERE id = ?
+            """,
+            (PROFILE_ID,),
+        ).fetchone()
+        goal_titles = [
+            row["title"]
+            for row in connection.execute(
+                "SELECT title FROM health_goals WHERE profile_id = ? ORDER BY id",
+                (PROFILE_ID,),
+            )
+        ]
+        records = [
+            dict(row)
+            for row in connection.execute(
+                """
+                SELECT record_date, duration_minutes, intensity
+                FROM exercise_records
+                WHERE profile_id = ? AND record_date BETWEEN ? AND ?
+                """,
+                (PROFILE_ID, since, today.isoformat()),
+            )
+        ]
+    return recommendation.build_recommendation(dict(profile), goal_titles, records, today)
