@@ -55,6 +55,9 @@
 | `/api/exercise-records/{id}` | GET | `id` | `ExerciseRecord` |
 | `/api/exercise-records/{id}` | PUT | `id`、`ExerciseInput` | `ExerciseRecord` |
 | `/api/exercise-records/{id}` | DELETE | `id` | 204，无响应体 |
+| `/api/exercise-records/recommendation` | GET | 无 | `ExerciseRecommendation`；根据档案与最近 7 天记录生成的只读推荐 |
+
+`ExerciseRecommendation` 不是业务记录，不写库：服务端读取档案的身高体重、既往病史、运动偏好、健康目标与最近 7 天运动记录，返回 `focus`、`weekly_target_minutes`、`weekly_done_minutes`、`weekly_progress_percent`、`suggestions[]`、`safety_notes[]`、`evidence[]` 等字段。未建档返回 409；规则与字段说明见 `backend/app/modules/exercise/README.md`。
 
 ### 4. 睡眠监测（成员 D）
 
