@@ -80,6 +80,29 @@ CREATE TABLE IF NOT EXISTS cycle_records (
     CHECK (end_date IS NULL OR end_date >= start_date)
 );
 
+-- Profile module (member A): local accounts, tokens and privacy switches.
+-- Additive only; existing health tables and their rules are unchanged.
+CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT NOT NULL UNIQUE CHECK (length(username) BETWEEN 3 AND 32),
+    password_hash TEXT NOT NULL,
+    role TEXT NOT NULL DEFAULT 'viewer' CHECK (role IN ('admin', 'viewer')),
+    status TEXT NOT NULL DEFAULT 'active' CHECK (status IN ('active', 'disabled')),
+    consent_health_data INTEGER NOT NULL DEFAULT 1 CHECK (consent_health_data IN (0, 1)),
+    mask_sensitive INTEGER NOT NULL DEFAULT 0 CHECK (mask_sensitive IN (0, 1)),
+    analytics_consent INTEGER NOT NULL DEFAULT 0 CHECK (analytics_consent IN (0, 1)),
+    token_version INTEGER NOT NULL DEFAULT 0,
+    last_login_at TEXT,
+    created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ', 'now')),
+    updated_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ', 'now'))
+);
+
+CREATE TABLE IF NOT EXISTS auth_secrets (
+    id INTEGER PRIMARY KEY CHECK (id = 1),
+    secret TEXT NOT NULL,
+    created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ', 'now'))
+);
+
 CREATE INDEX IF NOT EXISTS idx_goals_profile ON health_goals(profile_id);
 CREATE INDEX IF NOT EXISTS idx_diet_profile_date ON diet_records(profile_id, record_date);
 CREATE INDEX IF NOT EXISTS idx_exercise_profile_date ON exercise_records(profile_id, record_date);
