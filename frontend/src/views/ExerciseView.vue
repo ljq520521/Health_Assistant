@@ -1,187 +1,389 @@
 <script setup>
-import { ref, onMounted, watch } from 'vue'
+import { computed, onMounted, reactive, ref } from 'vue'
+import AppIcon from '../components/AppIcon.vue'
+import ExerciseFormDialog from '../components/exercise/ExerciseFormDialog.vue'
+import ExerciseTrendChart from '../components/exercise/ExerciseTrendChart.vue'
+import { deleteExercise, listExercise } from '../api/exercise.js'
+import {
+  INTENSITY_LABELS,
+  buildTrend,
+  formatMinutes,
+  groupByDate,
+  shiftDate,
+  summarize,
+  todayInZone,
+  validDate,
+  weekdayLabel,
+} from '../components/exercise/exerciseStats.js'
+import { modules } from '../data/modules'
 
-// ================= 1. 运动记录与图表逻辑 =================
-const newRecord = ref({ type: '跑步', duration: 30, intensity: '中等' })
-const historyRecords = ref([
-  { id: 1, type: '跑步', duration: 30, intensity: '中等', calories: 300, date: '2026-10-10' },
-  { id: 2, type: '游泳', duration: 45, intensity: '高', calories: 700, date: '2026-10-11' },
-])
-const chartRef = ref(null)
-let myChart = null
+const module = modules.find((item) => item.code === 'exercise')
+const timeZone = 'Asia/Shanghai'
+const today = todayInZone(timeZone)
 
-const renderChart = () => {
-  if (!chartRef.value) return
-  if (myChart) myChart.dispose()
-  myChart = echarts.init(chartRef.value)
-  const dates = historyRecords.value.map(item => item.date)
-  const calories = historyRecords.value.map(item => item.calories)
-  const option = {
-    title: { text: '消耗趋势' },
-    tooltip: { trigger: 'axis' },
-    xAxis: { type: 'category', data: dates },
-    yAxis: { type: 'value', name: 'kcal' },
-    series: [{ data: calories, type: 'bar', itemStyle: { color: '#4CAF50' } }]
-  }
-  myChart.setOption(option)
-}
+const records = ref([])
+const loading = ref(false)
+const busy = ref(false)
+const error = ref('')
+const success = ref('')
+const noProfile = ref(false)
+const filters = reactive({ date_from: '', date_to: '' })
 
-onMounted(() => renderChart())
-watch(historyRecords, () => renderChart(), { deep: true })
+const editor = ref(null)
+const confirmation = ref(null)
+const deleting = ref(null)
+const deleteError = ref('')
+let returnFocus = null
+let loadVersion = 0
 
-const addRecord = () => {
-  let baseRate = newRecord.value.type === '游泳' ? 12 : newRecord.value.type === '瑜伽' ? 4 : 10
-  let multiplier = newRecord.value.intensity === '低' ? 0.8 : newRecord.value.intensity === '高' ? 1.3 : 1
-  const calories = Math.round(newRecord.value.duration * baseRate * multiplier)
-  historyRecords.value.unshift({
-    id: Date.now(), type: newRecord.value.type, duration: newRecord.value.duration,
-    intensity: newRecord.value.intensity, calories: calories,
-    date: new Date().toISOString().split('T')[0]
-  })
-}
+const summary = computed(() => summarize(records.value))
+const groups = computed(() => groupByDate(records.value))
+const trendEnd = computed(() => (validDate(filters.date_to) ? filters.date_to : today))
+const trend = computed(() => buildTrend(records.value, { days: 14, endDate: trendEnd.value }))
+const trendRange = computed(() => `${shiftDate(trendEnd.value, -13)} ~ ${trendEnd.value}`)
+const highRatio = computed(() =>
+  summary.value.totalMinutes
+    ? Math.round((summary.value.intensityMinutes.high / summary.value.totalMinutes) * 100)
+    : 0,
+)
+const filterActive = computed(() => Boolean(filters.date_from || filters.date_to))
 
-// ================= 2. 训练计划生成逻辑 =================
-const planGoal = ref('减脂') // 目标：减脂/增肌/塑形
-const planEquipment = ref('徒手') // 器械：徒手/哑铃/健身房
-const generatedPlan = ref([]) // 生成的动作列表
-
-// 动作库字典（包含动作名、组数、次数、适用目标和器械）
-const exerciseLibrary = {
-  减脂: {
-    徒手: ['开合跳 3组x30秒', '波比跳 3组x12次', '高抬腿 3组x30秒', '原地慢跑 10分钟'],
-    哑铃: ['哑铃深蹲推举 4组x15次', '哑铃壶铃摇摆 4组x20次', '哑铃划船 3组x12次'],
-    健身房: ['跑步机爬坡 20分钟', '划船机 15分钟', '动感单车 20分钟']
-  },
-  增肌: {
-    徒手: ['标准俯卧撑 4组x力竭', '引体向上 4组x力竭', '保加利亚分腿蹲 3组x15次'],
-    哑铃: ['哑铃卧推 4组x10次', '哑铃硬拉 4组x10次', '哑铃弯举 3组x12次'],
-    健身房: ['杠铃深蹲 4组x8次', '杠铃卧推 4组x8次', '高位下拉 3组x12次']
-  },
-  塑形: {
-    徒手: ['平板支撑 3组x60秒', '臀桥 3组x20次', '死虫式 3组x15次'],
-    哑铃: ['哑铃侧平举 4组x15次', '哑铃俄罗斯转体 3组x20次', '哑铃箭步蹲 3组x12次'],
-    健身房: ['坐姿推胸 3组x15次', '坐姿划船 3组x15次', '腿举 3组x15次']
+function handleError(err, target = error) {
+  target.value = err.message
+  if (err.status === 409) {
+    noProfile.value = true
+    records.value = []
   }
 }
 
-// 生成计划的方法
-const generatePlan = () => {
-  // 根据用户选择的目标和器械，从字典里取出对应数组
-  generatedPlan.value = exerciseLibrary[planGoal.value][planEquipment.value]
+async function load() {
+  error.value = ''
+  if (filters.date_from && !validDate(filters.date_from)) {
+    error.value = '请输入合法的开始日期'
+    return
+  }
+  if (filters.date_to && !validDate(filters.date_to)) {
+    error.value = '请输入合法的结束日期'
+    return
+  }
+  if (filters.date_from && filters.date_to && filters.date_from > filters.date_to) {
+    error.value = '开始日期不能晚于结束日期'
+    return
+  }
+  const version = ++loadVersion
+  loading.value = true
+  try {
+    const data = await listExercise({ ...filters })
+    if (version !== loadVersion) return
+    records.value = data.items
+    noProfile.value = false
+  } catch (err) {
+    if (version === loadVersion) handleError(err)
+  } finally {
+    if (version === loadVersion) loading.value = false
+  }
 }
+
+function applyPreset(days) {
+  filters.date_to = days ? today : ''
+  filters.date_from = days ? shiftDate(today, -(days - 1)) : ''
+  load()
+}
+
+function clearFilters() {
+  filters.date_from = ''
+  filters.date_to = ''
+  load()
+}
+
+function openEditor(record = null) {
+  editor.value.open(record)
+}
+
+function onSaved(message) {
+  success.value = message
+  load()
+}
+
+function askDelete(record) {
+  returnFocus = document.activeElement
+  deleting.value = record
+  deleteError.value = ''
+  confirmation.value.showModal()
+}
+
+function closeConfirm() {
+  if (busy.value) return
+  confirmation.value.close()
+  returnFocus?.focus()
+}
+
+async function remove() {
+  busy.value = true
+  deleteError.value = ''
+  success.value = ''
+  try {
+    await deleteExercise(deleting.value.id)
+    confirmation.value.close()
+    success.value = '运动记录已删除'
+    returnFocus?.focus()
+    await load()
+  } catch (err) {
+    deleteError.value = err.message
+  } finally {
+    busy.value = false
+  }
+}
+
+onMounted(load)
 </script>
 
 <template>
-  <div class="exercise-container">
-    <h2>🏃 运动健身管理</h2>
-    
-    <!-- 1. 训练计划生成区 -->
-    <div class="card plan-section">
-      <h3>🎯 智能训练计划生成</h3>
-      <div class="form-row">
-        <div class="form-group">
-          <label>健身目标：</label>
-          <select v-model="planGoal">
-            <option value="减脂">减脂</option>
-            <option value="增肌">增肌</option>
-            <option value="塑形">塑形</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>可用器械：</label>
-          <select v-model="planEquipment">
-            <option value="徒手">徒手（无器械）</option>
-            <option value="哑铃">哑铃（家庭）</option>
-            <option value="健身房">健身房器械</option>
-          </select>
-        </div>
-        <button class="submit-btn blue-btn" @click="generatePlan">生成我的计划</button>
+  <section class="module-overview blue">
+    <RouterLink class="back-link" to="/">← 返回总览</RouterLink>
+
+    <div class="page-heading exercise-heading">
+      <div>
+        <p class="eyebrow">{{ module?.english || 'Movement & activity' }}</p>
+        <h1>{{ module?.name || '运动健身' }}</h1>
+        <p>{{ module?.description || '每一段活动，都值得被好好记录。' }}</p>
       </div>
-      
-      <!-- 展示生成的计划 -->
-      <div v-if="generatedPlan.length > 0" class="plan-result">
-        <h4>为你定制的【{{ planGoal }}】计划（{{ planEquipment }}）：</h4>
-        <ul>
-          <li v-for="(action, index) in generatedPlan" :key="index">{{ action }}</li>
-        </ul>
+      <div class="heading-actions">
+        <span class="outline-badge">{{ module?.owner || '成员 C' }} 负责</span>
+        <button class="button primary" :disabled="loading || busy || noProfile" @click="openEditor()">
+          ＋ 新增运动记录
+        </button>
       </div>
     </div>
 
-    <!-- 2. 运动记录录入区 -->
-    <div class="card form-section">
-      <h3>记录今日运动</h3>
-      <div class="form-row">
-        <div class="form-group">
-          <label>运动类型：</label>
-          <select v-model="newRecord.type">
-            <option value="跑步">跑步</option>
-            <option value="游泳">游泳</option>
-            <option value="瑜伽">瑜伽</option>
-            <option value="骑行">骑行</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>运动时长（分钟）：</label>
-          <input type="number" v-model="newRecord.duration" min="1" />
-        </div>
-        <div class="form-group">
-          <label>运动强度：</label>
-          <select v-model="newRecord.intensity">
-            <option value="低">低强度</option>
-            <option value="中等">中等强度</option>
-            <option value="高">高强度</option>
-          </select>
-        </div>
-        <button class="submit-btn" @click="addRecord">添加记录</button>
+    <section class="stat-band" aria-label="运动汇总">
+      <article class="stat">
+        <span>总时长</span>
+        <strong>{{ formatMinutes(summary.totalMinutes) }}</strong>
+        <small>{{ filterActive ? '当前筛选范围' : '全部记录' }}</small>
+      </article>
+      <article class="stat">
+        <span>记录条数</span>
+        <strong>{{ summary.count }} 条</strong>
+        <small>平均每次 {{ formatMinutes(summary.averageSession) }}</small>
+      </article>
+      <article class="stat">
+        <span>活跃天数</span>
+        <strong>{{ summary.activeDays }} 天</strong>
+        <small>日均 {{ formatMinutes(summary.averagePerActiveDay) }}</small>
+      </article>
+      <article class="stat">
+        <span>高强度占比</span>
+        <strong>{{ highRatio }}%</strong>
+        <small>最长一次 {{ formatMinutes(summary.longest) }}</small>
+      </article>
+    </section>
+
+    <form class="panel filters" @submit.prevent="load">
+      <label>
+        <span>开始日期</span>
+        <input v-model="filters.date_from" type="date" :disabled="loading || busy" />
+      </label>
+      <label>
+        <span>结束日期</span>
+        <input v-model="filters.date_to" type="date" :disabled="loading || busy" />
+      </label>
+      <div class="filter-actions">
+        <button class="button primary" type="submit" :disabled="loading || busy">查询</button>
+        <button class="button secondary" type="button" :disabled="loading || busy" @click="applyPreset(7)">
+          最近 7 天
+        </button>
+        <button class="button secondary" type="button" :disabled="loading || busy" @click="applyPreset(30)">
+          最近 30 天
+        </button>
+        <button class="button secondary" type="button" :disabled="loading || busy" @click="clearFilters">
+          查看全部
+        </button>
       </div>
+    </form>
+
+    <p v-if="success" class="notice success" role="status">{{ success }}</p>
+
+    <section v-if="noProfile" class="empty-state">
+      <div class="empty-icon"><AppIcon name="profile" /></div>
+      <h2>请先建立个人档案</h2>
+      <p>运动记录需要归属你的本地健康档案，建档后即可开始记录。</p>
+      <RouterLink class="button primary" to="/profile">前往建立档案</RouterLink>
+      <button class="button secondary" :disabled="loading" @click="load">建档后重新检查</button>
+    </section>
+
+    <div v-else-if="error" class="notice failure" role="alert">
+      {{ error }}
+      <button class="button secondary" :disabled="loading" @click="load">重试</button>
     </div>
 
-    <!-- 3. 图表与历史记录 -->
-    <div class="data-section">
-      <div class="card chart-card">
-        <div ref="chartRef" style="width: 100%; height: 300px;"></div>
+    <template v-else>
+      <p v-if="loading" class="loading-hint" role="status">正在加载运动记录…</p>
+
+      <section class="panel trend-panel">
+        <div class="section-heading trend-heading">
+          <div>
+            <h2>运动时长趋势</h2>
+            <p>统计窗口 14 天（{{ trendRange }}），无运动的日期记为 0。</p>
+          </div>
+          <span class="section-count">{{ filterActive ? '按筛选结果' : '全部记录' }}</span>
+        </div>
+        <ExerciseTrendChart :points="trend" />
+        <p class="intensity-line">
+          强度分布（分钟）：低 {{ summary.intensityMinutes.low }} · 中
+          {{ summary.intensityMinutes.medium }} · 高 {{ summary.intensityMinutes.high }}
+        </p>
+      </section>
+
+      <div class="section-heading">
+        <div>
+          <h2>每日运动明细</h2>
+          <p>共 {{ summary.count }} 条记录，覆盖 {{ summary.activeDays }} 天，按日期倒序排列。</p>
+        </div>
+        <span class="section-count">{{ filterActive ? '已筛选' : '全部' }}</span>
       </div>
-      <div class="card table-card">
-        <h3>运动打卡明细</h3>
-        <table class="record-table">
-          <thead>
-            <tr><th>日期</th><th>类型</th><th>时长</th><th>消耗</th></tr>
-          </thead>
-          <tbody>
-            <tr v-for="record in historyRecords" :key="record.id">
-              <td>{{ record.date }}</td>
-              <td>{{ record.type }}</td>
-              <td>{{ record.duration }}分</td>
-              <td class="highlight">{{ record.calories }}kcal</td>
-            </tr>
-          </tbody>
-        </table>
+
+      <section v-if="!groups.length" class="empty-state">
+        <div class="empty-icon"><AppIcon name="exercise" /></div>
+        <h2>还没有运动记录</h2>
+        <p>{{ filterActive ? '当前日期范围内没有记录，可以调整日期或查看全部。' : '记录第一次运动，开始积累自己的活动趋势。' }}</p>
+        <button class="button primary" :disabled="busy" @click="openEditor()">新增运动记录</button>
+        <button v-if="filterActive" class="button secondary" :disabled="loading" @click="clearFilters">
+          查看全部记录
+        </button>
+      </section>
+
+      <div v-else class="day-list">
+        <article v-for="group in groups" :key="group.date" class="panel day">
+          <header class="day-head">
+            <div>
+              <h3>{{ group.date }} <span class="weekday">{{ weekdayLabel(group.date) }}</span></h3>
+              <p>{{ group.count }} 条记录</p>
+            </div>
+            <div class="day-total">
+              <span>当日合计</span>
+              <strong>{{ formatMinutes(group.totalMinutes) }}</strong>
+            </div>
+          </header>
+          <ul class="record-list">
+            <li v-for="record in group.items" :key="record.id" class="record">
+              <div class="record-main">
+                <strong>{{ record.exercise_type }}</strong>
+                <span class="tag" :class="`intensity-${record.intensity}`">
+                  {{ INTENSITY_LABELS[record.intensity] || record.intensity }}
+                </span>
+              </div>
+              <p class="record-meta">
+                {{ record.duration_minutes }} 分钟
+                <span v-if="record.notes" class="record-notes"> · {{ record.notes }}</span>
+              </p>
+              <div class="record-actions">
+                <button class="button secondary small" :disabled="busy" @click="openEditor(record)">编辑</button>
+                <button class="button danger small" :disabled="busy" @click="askDelete(record)">删除</button>
+              </div>
+            </li>
+          </ul>
+        </article>
       </div>
-    </div>
-  </div>
+    </template>
+
+    <ExerciseFormDialog ref="editor" :time-zone="timeZone" @saved="onSaved" />
+
+    <dialog ref="confirmation" class="confirm-dialog" aria-labelledby="exercise-delete-title" @cancel="busy && $event.preventDefault()">
+      <h2 id="exercise-delete-title">删除运动记录？</h2>
+      <p class="delete-copy">
+        确认删除 {{ deleting?.record_date }} 的「{{ deleting?.exercise_type }}」（{{ deleting?.duration_minutes }}
+        分钟）？删除后无法恢复。
+      </p>
+      <p v-if="deleteError" class="notice failure" role="alert">{{ deleteError }}</p>
+      <div class="dialog-actions">
+        <button class="button secondary" :disabled="busy" autofocus @click="closeConfirm">取消</button>
+        <button class="button danger" :disabled="busy" @click="remove">
+          {{ busy ? '正在删除…' : '确认删除' }}
+        </button>
+      </div>
+    </dialog>
+  </section>
 </template>
 
 <style scoped>
-.exercise-container { padding: 20px; max-width: 1000px; margin: 0 auto; font-family: sans-serif; }
-.card { background: #fff; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-.form-row { display: flex; flex-wrap: wrap; gap: 15px; align-items: flex-end; }
-.form-group { display: flex; flex-direction: column; }
-.form-group label { margin-bottom: 5px; font-size: 14px; color: #555; }
-.form-group input, .form-group select { padding: 8px; width: 150px; border: 1px solid #ccc; border-radius: 4px; }
-.submit-btn { background: #4CAF50; color: white; border: none; padding: 9px 20px; border-radius: 4px; cursor: pointer; height: fit-content; }
-.submit-btn:hover { background: #45a049; }
-.blue-btn { background: #2196F3; }
-.blue-btn:hover { background: #1976D2; }
-
-/* 计划展示区样式 */
-.plan-result { margin-top: 15px; padding: 15px; background: #f1f8e9; border-radius: 6px; border-left: 4px solid #4CAF50; }
-.plan-result h4 { margin-top: 0; color: #2e7d32; }
-.plan-result ul { margin-bottom: 0; padding-left: 20px; }
-.plan-result li { margin-bottom: 8px; line-height: 1.5; color: #333; }
-
-.data-section { display: flex; gap: 20px; }
-.chart-card, .table-card { flex: 1; }
-.record-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-.record-table th, .record-table td { border-bottom: 1px solid #eee; padding: 8px; text-align: left; }
-.highlight { color: #ff5722; font-weight: bold; }
+.exercise-heading { align-items: flex-start; }
+.heading-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: flex-end; }
+.panel { background: #fff; border: 1px solid #e4e9df; border-radius: 12px; padding: 22px; }
+.stat-band { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-bottom: 20px; }
+.stat { background: #fff; border: 1px solid #e4e9df; border-radius: 12px; padding: 18px 20px; display: flex; flex-direction: column; gap: 6px; }
+.stat span { font-size: 12px; color: #7d8a80; }
+.stat strong { font-size: 22px; font-weight: 600; color: var(--green); font-variant-numeric: tabular-nums; }
+.stat small { font-size: 11px; color: #8b968a; }
+.filters { display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-end; margin-bottom: 22px; }
+label { display: flex; flex-direction: column; gap: 7px; font-size: 13px; }
+input, select, textarea {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid #cddace;
+  border-radius: 7px;
+  padding: 9px 12px;
+  font: inherit;
+  color: #273e36;
+  background: #fff;
+}
+.filters input { width: 170px; }
+.filter-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.notice { margin: 0 0 18px; padding: 12px 15px; border-radius: 8px; font-size: 13px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.success { background: #eaf3ed; color: #2c5f4b; }
+.failure { background: #fff0ec; color: #983b2d; }
+.loading-hint { font-size: 13px; color: #7a8779; margin-bottom: 14px; }
+.trend-panel { margin-bottom: 26px; }
+.trend-heading { margin: 0 0 18px; }
+.intensity-line { margin-top: 16px; padding-top: 12px; border-top: 1px dashed #e3ebdf; font-size: 12px; color: #7a8779; }
+.day-list { display: flex; flex-direction: column; gap: 14px; }
+.day-head { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-bottom: 14px; border-bottom: 1px solid #eef2ec; }
+.day-head h3 { font-size: 16px; font-weight: 600; }
+.weekday { margin-left: 6px; font-size: 12px; font-weight: 400; color: #8b968a; }
+.day-head p { margin-top: 4px; font-size: 12px; color: #8b968a; }
+.day-total { text-align: right; flex-shrink: 0; }
+.day-total span { display: block; font-size: 11px; color: #8b968a; }
+.day-total strong { font-size: 17px; color: var(--green); }
+.record-list { list-style: none; margin: 0; padding: 0; }
+.record { display: flex; align-items: center; gap: 16px; padding: 12px 0; border-bottom: 1px solid #f2f5f0; }
+.record:last-child { border-bottom: 0; padding-bottom: 0; }
+.record-main { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.record-main strong { font-size: 14px; font-weight: 600; }
+.record-meta { flex: 1; min-width: 0; margin: 0; font-size: 13px; color: #6f7d70; overflow-wrap: anywhere; }
+.record-notes { color: #8b968a; }
+.record-actions { display: flex; gap: 8px; flex-shrink: 0; }
+.tag { padding: 2px 8px; border-radius: 4px; font-size: 11px; white-space: nowrap; }
+.intensity-low { background: #eaf3ed; color: #3f7a63; }
+.intensity-medium { background: #fbf2e3; color: #97702f; }
+.intensity-high { background: #fdeceb; color: #a8443a; }
+.button.small { min-height: 30px; padding: 5px 12px; font-size: 12px; }
+.empty-state .button + .button { margin-left: 10px; }
+.button.danger { background: #fff1ed; border-color: #ecd1c8; color: #a04431; }
+.button.danger:hover { background: #fbe3da; }
+.confirm-dialog {
+  width: min(440px, calc(100% - 32px));
+  padding: 26px;
+  border: 1px solid #dbe5d6;
+  border-radius: 14px;
+  color: #273e36;
+  background: #fff;
+}
+.confirm-dialog::backdrop { background: #18372b66; }
+.confirm-dialog h2 { font-size: 20px; margin-bottom: 12px; }
+.delete-copy { font-size: 13px; color: #5f6f61; overflow-wrap: anywhere; }
+.dialog-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 22px; }
+@media (max-width: 1020px) {
+  .stat-band { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 700px) {
+  .heading-actions { width: 100%; justify-content: flex-start; }
+  .filters label { width: 100%; }
+  .filters input { width: 100%; }
+  .record { flex-wrap: wrap; gap: 8px; }
+  .record-meta { flex-basis: 100%; order: 3; }
+  .record-actions { margin-left: auto; }
+  .day-head { align-items: flex-start; }
+  .empty-state .button + .button { margin-left: 0; }
+  .panel { padding: 17px; }
+}
 </style>
