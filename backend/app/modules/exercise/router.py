@@ -35,6 +35,12 @@ def create_record(data: schemas.ExerciseInput, path=Depends(database_path)):
     return service.create_record(path, data)
 
 
+@records_router.get("/recommendation", response_model=schemas.ExerciseRecommendation)
+def get_recommendation(path=Depends(database_path)):
+    """Profile-driven advice; declared before ``/{record_id}`` so the literal path wins."""
+    return service.get_recommendation(path)
+
+
 @records_router.get("/{record_id}", response_model=schemas.ExerciseRecord)
 def get_record(record_id: int, path=Depends(database_path)):
     return service.get_record(path, record_id)
