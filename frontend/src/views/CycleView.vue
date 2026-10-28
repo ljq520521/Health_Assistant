@@ -32,7 +32,6 @@ const dailyForm = ref({
   notes: '',
 })
 
-// ================= 选项配置（使用 SVG 标识） =================
 const flowOptions = [
   { label: '少量', value: 'light' },
   { label: '中等', value: 'medium' },
@@ -85,32 +84,42 @@ const extraGroups = ref([
   { title: '皮肤', items: [{ label: '好', icon: 'star' }, { label: '出油', icon: 'droplet' }, { label: '干燥', icon: 'wind' }, { label: '粉刺', icon: 'circle' }, { label: '冒痘', icon: 'target' }] }
 ])
 
-// 判断是不是字符串（兼容老的自定义逻辑）
-function isStr(item) { return typeof item === 'string' }
-
-function toggleTag(list, item) {
-  const target = isStr(item) ? item : item.label
+// 核心修复点：通过传入 groupTitle 来区分不同分类下的相同标签
+function toggleTag(list, item, groupTitle = '') {
+  const rawLabel = typeof item === 'string' ? item : item.label
+  // 如果有分类标题（比如"私处分泌物"），就拼上前缀。如果是"心情"就不拼。
+  const target = groupTitle ? `${groupTitle}:${rawLabel}` : rawLabel
   const index = list.indexOf(target)
   if (index > -1) list.splice(index, 1)
   else list.push(target)
 }
 
-function addCustomTag(list, itemsArray) {
+// 判断是否选中
+function isActive(list, item, groupTitle = '') {
+  const rawLabel = typeof item === 'string' ? item : item.label
+  const target = groupTitle ? `${groupTitle}:${rawLabel}` : rawLabel
+  return list.includes(target)
+}
+
+function addCustomTag(list, itemsArray, groupTitle = '') {
   const newTag = prompt('请输入自定义选项：')
   if (newTag && newTag.trim() !== '') {
     const cleanTag = newTag.trim()
-    if (!itemsArray.some(i => (isStr(i) ? i : i.label) === cleanTag)) {
+    if (!itemsArray.some(i => (typeof i === 'string' ? i : i.label) === cleanTag)) {
       itemsArray.push({ label: cleanTag, icon: 'tag' })
       customTags.value.push(cleanTag)
     }
-    if (!list.includes(cleanTag)) list.push(cleanTag)
+    // 自定义也加上前缀
+    const target = groupTitle ? `${groupTitle}:${cleanTag}` : cleanTag
+    if (!list.includes(target)) list.push(target)
   }
 }
 
-function removeCustomTag(list, itemsArray, tagToRemove) {
-  const index = itemsArray.findIndex(i => (isStr(i) ? i : i.label) === tagToRemove)
+function removeCustomTag(list, itemsArray, tagToRemove, groupTitle = '') {
+  const index = itemsArray.findIndex(i => (typeof i === 'string' ? i : i.label) === tagToRemove)
   if (index > -1) itemsArray.splice(index, 1)
-  const selectedIndex = list.indexOf(tagToRemove)
+  const target = groupTitle ? `${groupTitle}:${tagToRemove}` : tagToRemove
+  const selectedIndex = list.indexOf(target)
   if (selectedIndex > -1) list.splice(selectedIndex, 1)
   const customIndex = customTags.value.indexOf(tagToRemove)
   if (customIndex > -1) customTags.value.splice(customIndex, 1)
@@ -179,7 +188,9 @@ async function handleDailySubmit() {
   try {
     let finalNotes = dailyForm.value.notes
     if (dailyForm.value.extras.length > 0) {
-      finalNotes = `[日常状态: ${dailyForm.value.extras.join('、')}] ` + finalNotes
+      // 保存时把前缀去掉，用纯文本保存
+      const cleanedExtras = dailyForm.value.extras.map(str => str.split(':').pop())
+      finalNotes = `[日常状态: ${cleanedExtras.join('、')}] ` + finalNotes
     }
     const submitData = {
       start_date: dailyForm.value.record_date, end_date: null, flow_level: null,
@@ -219,7 +230,7 @@ onMounted(loadData)
       <button :class="{ active: activeTab === 'daily' }" @click="activeTab = 'daily'">日常状态</button>
     </div>
 
-    <!-- ================= 经期记录表单 ================= -->
+    <!-- 经期记录 -->
     <form v-if="activeTab === 'cycle'" class="cycle-form" @submit.prevent="handleCycleSubmit">
       <div class="form-row">
         <label><span>开始日期 *</span><input v-model="cycleForm.start_date" type="date" required /></label>
@@ -240,8 +251,7 @@ onMounted(loadData)
         <div v-for="(group, gIndex) in symptomGroups" :key="group.title" class="sub-group">
           <span class="sub-title">{{ group.title }}</span>
           <div class="tag-container">
-            <!-- 通过 SVG 渲染图标 -->
-            <button type="button" v-for="item in group.items" :key="item.label" class="tag-btn with-svg" :class="{ active: cycleForm.symptoms.includes(item.label) }" @click="toggleTag(cycleForm.symptoms, item)">
+            <button type="button" v-for="item in group.items" :key="item.label" class="tag-btn with-svg" :class="{ active: isActive(cycleForm.symptoms, item, '症状') }" @click="toggleTag(cycleForm.symptoms, item, '症状')">
               <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path v-if="item.icon === 'smile'" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm-3-7c1 1 2.5 1.5 3 1.5s2-.5 3-1.5M9 9h.01M15 9h.01"/>
                 <path v-if="item.icon === 'battery'" d="M5 18H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2M9 18v2m6-2v2"/>
@@ -259,9 +269,9 @@ onMounted(loadData)
                 <path v-if="item.icon === 'tag'" d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82zM7 7h.01"/>
               </svg>
               {{ item.label }}
-              <span v-if="customTags.includes(item.label)" class="del-icon" @click.stop="removeCustomTag(cycleForm.symptoms, group.items, item.label)">×</span>
+              <span v-if="customTags.includes(item.label)" class="del-icon" @click.stop="removeCustomTag(cycleForm.symptoms, group.items, item.label, '症状')">×</span>
             </button>
-            <button type="button" class="tag-btn custom-btn" @click="addCustomTag(cycleForm.symptoms, symptomGroups[gIndex].items)">
+            <button type="button" class="tag-btn custom-btn" @click="addCustomTag(cycleForm.symptoms, symptomGroups[gIndex].items, '症状')">
               + 自定义
             </button>
           </div>
@@ -275,7 +285,7 @@ onMounted(loadData)
       <button class="button primary" type="submit">保存经期记录 <AppIcon name="check" /></button>
     </form>
 
-    <!-- ================= 日常状态表单 ================= -->
+    <!-- 日常状态 -->
     <form v-if="activeTab === 'daily'" class="cycle-form" @submit.prevent="handleDailySubmit">
       <div class="form-row">
         <label><span>记录日期 *</span><input v-model="dailyForm.record_date" type="date" required /></label>
@@ -284,7 +294,7 @@ onMounted(loadData)
       <div class="form-group">
         <span class="group-title">心情记录 (可多选)</span>
         <div class="tag-container">
-          <button type="button" v-for="item in moodOptions" :key="item.label" class="tag-btn with-svg" :class="{ active: dailyForm.mood.includes(item.label) }" @click="toggleTag(dailyForm.mood, item)">
+          <button type="button" v-for="item in moodOptions" :key="item.label" class="tag-btn with-svg" :class="{ active: isActive(dailyForm.mood, item, '心情') }" @click="toggleTag(dailyForm.mood, item, '心情')">
              <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path v-if="item.icon === 'star'" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                 <path v-if="item.icon === 'smile'" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm-3-7c1 1 2.5 1.5 3 1.5s2-.5 3-1.5M9 9h.01M15 9h.01"/>
@@ -297,16 +307,17 @@ onMounted(loadData)
                 <path v-if="item.icon === 'tag'" d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82zM7 7h.01"/>
              </svg>
             {{ item.label }}
-            <span v-if="customTags.includes(item.label)" class="del-icon" @click.stop="removeCustomTag(dailyForm.mood, moodOptions, item.label)">×</span>
+            <span v-if="customTags.includes(item.label)" class="del-icon" @click.stop="removeCustomTag(dailyForm.mood, moodOptions, item.label, '心情')">×</span>
           </button>
-          <button type="button" class="tag-btn custom-btn" @click="addCustomTag(dailyForm.mood, moodOptions)">+ 自定义</button>
+          <button type="button" class="tag-btn custom-btn" @click="addCustomTag(dailyForm.mood, moodOptions, '心情')">+ 自定义</button>
         </div>
       </div>
 
       <div v-for="(group, gIndex) in extraGroups" :key="group.title" class="form-group">
         <span class="group-title">{{ group.title }}</span>
         <div class="tag-container">
-          <button type="button" v-for="item in group.items" :key="item.label" class="tag-btn with-svg" :class="{ active: dailyForm.extras.includes(item.label) }" @click="toggleTag(dailyForm.extras, item)">
+          <!-- 传入 group.title 作为分类隔离 -->
+          <button type="button" v-for="item in group.items" :key="item.label" class="tag-btn with-svg" :class="{ active: isActive(dailyForm.extras, item, group.title) }" @click="toggleTag(dailyForm.extras, item, group.title)">
             <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                <path v-if="item.icon === 'slash'" d="M4 4l16 16M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
                <path v-if="item.icon === 'shield'" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
@@ -321,9 +332,9 @@ onMounted(loadData)
                <path v-if="item.icon === 'tag'" d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82zM7 7h.01"/>
             </svg>
             {{ item.label }}
-            <span v-if="customTags.includes(item.label)" class="del-icon" @click.stop="removeCustomTag(dailyForm.extras, group.items, item.label)">×</span>
+            <span v-if="customTags.includes(item.label)" class="del-icon" @click.stop="removeCustomTag(dailyForm.extras, group.items, item.label, group.title)">×</span>
           </button>
-          <button type="button" class="tag-btn custom-btn" @click="addCustomTag(dailyForm.extras, extraGroups[gIndex].items)">+ 自定义</button>
+          <button type="button" class="tag-btn custom-btn" @click="addCustomTag(dailyForm.extras, extraGroups[gIndex].items, group.title)">+ 自定义</button>
         </div>
       </div>
 
@@ -398,7 +409,7 @@ onMounted(loadData)
 </template>
 
 <style scoped>
-/* Tab 样式 */
+/* 粉色主题样式 */
 .tab-nav { display: flex; gap: 1rem; margin-bottom: 1.5rem; border-bottom: 1px solid #eee; padding-bottom: 0.5rem; }
 .tab-nav button { padding: 0.5rem 1.5rem; border: none; background: transparent; font-size: 1rem; cursor: pointer; border-radius: 20px; color: #666; transition: 0.2s; }
 .tab-nav button.active { background: #fde8ec; color: #b23a52; font-weight: 500; }
@@ -414,7 +425,6 @@ onMounted(loadData)
 .cycle-form input { padding: 0.6rem 0.8rem; border: 1px solid #eee; border-radius: 8px; font-size: 0.95rem; background: #fafafa; }
 .cycle-form input:focus { outline: none; border-color: #e8a5b5; background: #fff; }
 
-/* 加大标签之间的间距 gap: 1rem */
 .tag-container { display: flex; flex-wrap: wrap; gap: 1rem; }
 
 .tag-btn {
@@ -422,7 +432,7 @@ onMounted(loadData)
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px; /* 图标和文字的距离 */
+  gap: 8px;
   padding: 0.6rem 1.2rem;
   border: 1px solid #f0e6ea;
   border-radius: 12px;
@@ -441,7 +451,6 @@ onMounted(loadData)
   font-weight: 500;
 }
 
-/* 专门为 SVG 图标留的样式 */
 .with-svg {
   padding-left: 0.8rem;
 }
@@ -451,7 +460,7 @@ onMounted(loadData)
   opacity: 0.8;
 }
 .tag-btn.active .svg-icon {
-  opacity: 1; /* 选中时图标颜色更实 */
+  opacity: 1;
 }
 
 .custom-btn {
@@ -474,7 +483,6 @@ onMounted(loadData)
   color: #b23a52;
 }
 
-/* 其他基础样式 */
 .prediction-card { padding: 1.25rem 1.5rem; background: #fdf2f4; border-radius: 12px; margin-bottom: 1.5rem; }
 .prediction-card h3 { margin: 0 0 0.5rem; }
 .prediction-card p { margin: 0.25rem 0; font-size: 0.9rem; }
