@@ -47,6 +47,8 @@ export function listExercise(filters = {}) {
 
 export const getExercise = (id) => request(`/${id}`)
 
+export const getExerciseRecommendation = () => request('/recommendation')
+
 export const createExercise = (data) =>
   request('', { method: 'POST', body: JSON.stringify(data) })
 
