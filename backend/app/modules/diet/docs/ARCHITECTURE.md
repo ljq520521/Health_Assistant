@@ -1,5 +1,11 @@
 # 前后端组件与依赖关系
 
+## 公共目录扩展
+
+当前饮食模块采用独立只读公共目录 + 私人业务库 + 按需公共食品引用缓存，详见 [PUBLIC-CATALOG.md](PUBLIC-CATALOG.md)。公开分类、搜索、详情不需要账号或档案；私人接口使用成员 A 的真实认证与健康数据授权。`CatalogPanel.vue` 默认展示公共资源，`PublicFoodPicker.vue` 在明确选择时建立本地引用；`api/catalog.js` 不直接传公共字符串键给原整数 ID 接口。
+
+`catalog_repository.py` 相对模块文件定位随包发布的 SQLite，并以只读方式校验和查询；`catalog_links.py` 在私人事务中建立引用或复制私人食谱；`migration_006.py` 使用独立登记表，不修改 001～004、不自动迁移、不提前实现 005。推荐仍复用既有硬过滤与评分，历史营养快照不更新。下文组件表与旧统计属于原六项功能基线。
+
 ## 请求链
 
 `/diet → DietView.vue → 功能组件 → frontend/src/api/饮食封装 → FastAPI diet/router.py → 子路由 → schemas + service → app.database.connect → SQLite`

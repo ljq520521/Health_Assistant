@@ -9,10 +9,11 @@ import RecipeSource from './RecipeSource.vue'
 const props=defineProps({timeZone:{type:String,required:true}})
 const {busy,error,code,run}=useRecipeAction()
 const categories=ref([]),result=ref(null)
-const form=ref({date:localParts(new Date(),props.timeZone).day,portions:1,ratio:'',category_id:'',minutes:'',include_examples:false})
+const form=ref({date:localParts(new Date(),props.timeZone).day,meal_type:'',portions:1,ratio:'',category_id:'',minutes:'',include_examples:false})
+const mealNames={breakfast:'早餐',lunch:'午餐',dinner:'晚餐',snack:'加餐'}
 const dimensionNames={nutrition:'营养匹配',inventory:'库存匹配',preference:'偏好匹配'}
 const statusNames={target_unset:'目标未设置',ratio_unset:'未设置目标占比',target_not_computable:'目标太小，无法计算',nutrition_unknown:'营养未知，未参与此项评分',computed:'已计算'}
-function payload(){return {date:form.value.date,portions:form.value.portions,target_ratio:form.value.ratio===''?null:form.value.ratio/100,category_id:form.value.category_id||null,max_preparation_minutes:form.value.minutes===''?null:form.value.minutes,include_examples:form.value.include_examples,limit:10}}
+function payload(){return {date:form.value.date,meal_type:form.value.meal_type||null,portions:form.value.portions,target_ratio:form.value.ratio===''?null:form.value.ratio/100,category_id:form.value.category_id||null,max_preparation_minutes:form.value.minutes===''?null:form.value.minutes,include_examples:form.value.include_examples,limit:10}}
 const changed=computed(()=>result.value&&JSON.stringify(payload())!==JSON.stringify(result.value.conditions))
 const percent=value=>value==null?'未计算':percentText(value*100)
 const quantity=value=>value>0&&value<.01?'< 0.01':displayNumber(value)
@@ -25,21 +26,24 @@ onMounted(load)
 <p class="recipe-notice">推荐分用于产品排序，不是医学健康评分。请按实际食物标签核对配料与交叉接触信息，推荐不能保证绝对过敏安全。</p>
 <form class="recipe-panel" @submit.prevent="submit"><fieldset :disabled="busy"><div class="recipe-grid">
 <label>推荐日期<input v-model="form.date" type="date" required></label>
+<label>用餐类型<select v-model="form.meal_type"><option value="">不限餐次</option><option v-for="(name,key) in mealNames" :key="key" :value="key">{{name}}</option></select></label>
 <label>用餐份数<input v-model.number="form.portions" type="number" min="0.0001" max="10000" step="any" required></label>
 <label>本次占每日目标（%，可留空）<input v-model.number="form.ratio" type="number" min="0.01" max="100" step="any" placeholder="由你设置，不默认分配"></label>
-<label>食谱分类<select v-model="form.category_id"><option value="">全部分类</option><option v-for="c in categories" :key="c.id" :value="c.id">{{c.name}}</option></select></label>
+<label>私人食谱分类（选定后仅推荐私人食谱）<select v-model="form.category_id"><option value="">全部公共与私人食谱</option><option v-for="c in categories" :key="c.id" :value="c.id">{{c.name}}</option></select></label>
 <label>最长制作时间（分钟，可留空）<input v-model.number="form.minutes" type="number" min="0" max="100000" step="1" placeholder="不限制"></label>
 <label class="recipe-check"><input v-model="form.include_examples" type="checkbox">包含示例食谱（仅用于演示）</label>
 </div><p class="recipe-note">比较的是所选份数的总营养与“当日目标 × 占比”；不自动按人数放大个人目标，也不扣除已记录摄入。目标请在“营养摄入分析”中设置。制作时间未知的食谱不会通过时间上限筛选。</p><button class="btn btn-primary" type="submit">{{busy?'正在筛选…':'获取推荐'}}</button></fieldset></form>
 <div v-if="error" class="recipe-error" role="alert">{{error}} <RouterLink v-if="code==='PROFILE_REQUIRED'" to="/profile">前往建档</RouterLink><button class="btn" :disabled="busy" @click="load">重新加载分类</button></div>
 <p v-if="!result&&!busy&&!error" class="recipe-note">设置条件后点击“获取推荐”。没有库存或偏好时，对应维度不会参与评分。</p>
 <section v-if="result" aria-live="polite">
+<p class="recipe-note">用餐类型：{{mealNames[result.conditions.meal_type] || '不限餐次'}}。按食谱已有分类筛选，未标注餐次的食谱仍可参与；不会自动设定各餐热量占比。</p>
 <p v-if="changed" class="recipe-notice">条件已修改，下方仍为上次查询结果；请重新获取推荐。</p>
 <p class="recipe-note">查询日期 {{result.conditions.date}} · {{result.conditions.portions}} 份 · 每日目标占比 {{percent(result.conditions.target_ratio)}} · 目标生效日 {{result.goal?.effective_from||'尚未设置'}} · 符合条件 {{result.eligible_count}} 道，最多展示 10 道</p>
 <ul class="recipe-notice"><li v-for="w in result.warnings" :key="w">{{w}}</li></ul>
 <div v-if="!result.items.length" class="recipe-panel"><h3>暂无符合条件的食谱</h3><p>{{result.excluded.length?'请查看下方排除原因，调整筛选条件或完善食材资料。禁忌过滤不会因高分而跳过。':'食谱库中没有有效食谱，请先在食谱库创建食谱。'}}</p></div>
 <article v-for="item in result.items" :key="item.recipe.id" class="recipe-panel recommendation-card">
-<div class="recipe-heading"><div><h3>{{item.recipe.name}}</h3><p class="recipe-note">{{item.portions}} 份 · {{preparationText(item.recipe.preparation_minutes)}} <span v-if="item.recipe.is_example" class="recipe-badge">示例数据</span></p></div><div class="ranking-score"><span>{{item.score==null?'暂无评分':displayNumber(item.score)}}</span><small>推荐排序分 / 100</small></div></div>
+<span class="recipe-badge">{{mealNames[item.recipe.meal_type] || '餐次未标注'}}</span>
+<div class="recipe-heading"><div><h3>{{item.recipe.name}}</h3><p class="recipe-note">{{item.portions}} 份 · {{preparationText(item.recipe.preparation_minutes)}} <span class="recipe-badge">{{item.recipe.origin === 'public' ? '公共参考数据' : '我的食谱'}}</span> <span v-if="item.recipe.is_example" class="recipe-badge">示例数据</span></p></div><div class="ranking-score"><span>{{item.score==null?'暂无评分':displayNumber(item.score)}}</span><small>推荐排序分 / 100</small></div></div>
 <p class="brief-reason">{{Object.keys(dimensionNames).filter(k=>item.scores[k]!=null).length ? '本次依据'+Object.keys(dimensionNames).filter(k=>item.scores[k]!=null).map(k=>dimensionNames[k]).join('、')+'排序。' : '当前条件不足，暂无可参与评分的维度。'}}</p>
 <RecipeNutrition :data="item.nutrition"/>
 <p v-if="!item.composition_verified" class="recipe-notice">部分成分/过敏原信息未知、不完整或核对已过期，食用前请核对实际配料。</p>

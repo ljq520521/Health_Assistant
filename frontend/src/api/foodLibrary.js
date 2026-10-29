@@ -1,10 +1,11 @@
+import { getToken } from './profile.js'
 const baseUrl = (import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '')
 const labels = { name: '名称', category_id: '分类', calories_per_100g: '热量', protein_g_per_100g: '蛋白质', fat_g_per_100g: '脂肪', carbohydrate_g_per_100g: '碳水化合物', source_type: '来源类型', source_note: '来源说明', source_url: '来源链接' }
 export async function request(path, options = {}) {
   const controller = new AbortController()
   const timer = setTimeout(() => controller.abort(), 10000)
   try {
-    const response = await fetch(`${baseUrl}/api/diet${path}`, { ...options, signal: controller.signal, headers: { 'Content-Type': 'application/json' } })
+    const response = await fetch(`${baseUrl}/api/diet${path}`, { ...options, signal: controller.signal, headers: { 'Content-Type': 'application/json', ...(getToken() ? { Authorization: `Bearer ${getToken()}` } : {}), ...options.headers } })
     if (!response.ok) {
       const body = await response.json().catch(() => ({}))
       const message = Array.isArray(body.detail) ? body.detail.map(item => `${labels[item.loc?.at(-1)] || '输入'}不合法，请检查必填项和来源信息`).join('；') : body.detail || `请求失败（${response.status}）`

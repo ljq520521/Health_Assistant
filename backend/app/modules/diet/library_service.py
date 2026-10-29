@@ -68,7 +68,8 @@ def food_row(connection, food_id):
     row = connection.execute('SELECT * FROM food_items WHERE id=? AND profile_id=1 AND deleted_at IS NULL', (food_id,)).fetchone()
     if row is None:
         raise LibraryError(404, 'FOOD_NOT_FOUND', '食物不存在或已归档')
-    return dict(row)
+    from app.modules.diet.catalog_links import annotate
+    return annotate(connection,dict(row))
 
 
 def foods(path, q='', category_id=None, uncategorized=False):
@@ -85,7 +86,8 @@ def foods(path, q='', category_id=None, uncategorized=False):
             params.append(category_id)
         if uncategorized:
             sql += ' AND category_id IS NULL'
-        return {'items': [dict(row) for row in connection.execute(sql + ' ORDER BY updated_at DESC,id DESC', params)]}
+        from app.modules.diet.catalog_links import annotate
+        return {'items': [annotate(connection,dict(row)) for row in connection.execute(sql + ' ORDER BY updated_at DESC,id DESC', params)]}
 
 
 def get_food(path, food_id):
@@ -106,6 +108,8 @@ def save_food_in_connection(connection, data, food_id=None):
     values.update(is_example=int(data.source_type == 'example'), updated_at=utc_now())
     ready(connection)
     if food_id is not None:
+        from app.modules.diet.catalog_links import assert_editable
+        assert_editable(connection,food_id)
         food_row(connection, food_id)
     if data.category_id is not None:
         category_row(connection, data.category_id)
@@ -125,6 +129,8 @@ def archive_food(path, food_id):
     with connect(path) as connection:
         connection.execute('BEGIN IMMEDIATE')
         ready(connection)
+        from app.modules.diet.catalog_links import assert_editable
+        assert_editable(connection,food_id)
         food_row(connection, food_id)
         now = utc_now()
         connection.execute('UPDATE food_items SET deleted_at=?,updated_at=? WHERE id=? AND profile_id=1', (now,now,food_id))

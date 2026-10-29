@@ -1,4 +1,5 @@
 <script setup>
+import PublicFoodPicker from './PublicFoodPicker.vue'
 import { computed, nextTick, onMounted, reactive, ref } from 'vue'
 import { createDiet, deleteDiet, listDiet, updateDiet } from '../../api/diet.js'
 
@@ -133,7 +134,7 @@ onMounted(load)
           <label>饮食日期<input v-model="form.record_date" type="date" required /></label>
           <label>餐次<select v-model="form.meal_type" required><option v-for="(label, key) in meals" :key="key" :value="key">{{ label }}</option></select></label>
           <label class="wide">录入模式<select v-model="mode"><option value="manual">手动录入</option><option value="catalog">从食物营养库选择</option></select></label>
-          <template v-if="mode === 'catalog'">
+          <template v-if="mode === 'catalog'"><PublicFoodPicker class="wide" @selected="f => { if (!foods.some(x => x.id === f.id)) foods.push(f); foodId = f.id }"/>
             <p v-if="foodLoading" class="wide">正在读取食物库…</p><p v-if="foodError" class="wide failure">{{ foodError }}；已有记录仍可使用原快照。</p>
             <label class="wide">选择食物<select v-model="foodId" :disabled="foodLoading"><option value="">请选择</option><option v-if="original?.food_id && !foods.some(f=>f.id===original.food_id)" :value="original.food_id">{{ original.food_name }}（保留历史快照）</option><option v-for="food in foods" :key="food.id" :value="food.id">{{ food.name }}{{ food.is_example ? '（示例）' : '' }}</option></select></label>
             <label v-if="original?.nutrition_mode === 'catalog' && Number(foodId) === original.food_id" class="wide check"><input type="checkbox" v-model="refreshSnapshot" :disabled="!selectedFood" />主动刷新为食物库最新数据（会替换本条历史快照）</label>

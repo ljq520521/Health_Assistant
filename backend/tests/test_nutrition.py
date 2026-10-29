@@ -5,10 +5,10 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 from concurrent.futures import ThreadPoolExecutor
-from fastapi.testclient import TestClient
+from diet_test_runtime import TestClient
 from app.config import Settings
 from app.database import connect, init_database
-from app.main import create_app
+from diet_test_runtime import create_app
 from app.modules.diet import migration_002 as m2
 from app.modules.diet import migrations as m1
 import test_diet

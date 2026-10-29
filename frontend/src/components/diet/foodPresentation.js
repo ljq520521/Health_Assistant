@@ -26,7 +26,7 @@ export function foodSource(food, demo = null) {
     label: usda ? '数据来源：USDA FoodData Central' : (human || href)
       ? `数据来源：${sourceLabels[food.source_type] || '其他资料'}` : '来源未填写',
     // A marker identifies an import, not its review or verification status.
-    review: isApprovedRecord(food, 'food', demo) ? `${COURSE_APPROVAL_NOTICE}；食品来源已技术核验；成分与过敏原未完整核验。`
+    review: (food.origin === 'public' && food.editable === false && food.food_key) || isApprovedRecord(food, 'food', demo) ? `${COURSE_APPROVAL_NOTICE}；食品来源已技术核验；成分与过敏原未完整核验。`
       : verified && pending ? '已核验来源，待团队正式审核' : imported || pending ? '审核状态未确认，请核对来源' : '',
     href,
   }

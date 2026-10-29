@@ -48,6 +48,9 @@ class FoodInput(BaseModel):
 
 
 class FoodRecord(FoodInput):
+    origin: Literal['public','private'] = 'private'
+    editable: bool = True
+    food_key: str | None = None
     id: int
     profile_id: int
     is_example: bool

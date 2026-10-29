@@ -1,13 +1,14 @@
 <script setup>
 import { onMounted,onBeforeUnmount,ref } from 'vue'
 import { getWaterReminder,waterSummary } from '../../api/water.js'
+import { getToken } from '../../api/profile.js'
 import { localParts } from './waterTime.js'
 import { takeReminder,notifyIfAllowed,snoozeReminder,clearSnooze,startReminderChecks } from './waterReminder.js'
 const props=defineProps({timeZone:{type:String,required:true}}),emit=defineEmits(['record'])
 const notice=ref(false),error=ref('')
 let stopped=false,busy=false,stop=()=>{}
 async function check(){
-  if(stopped||busy||document.visibilityState!=='visible')return
+  if(stopped||busy||document.visibilityState!=='visible'||!getToken())return
   busy=true
   try {
     const settings=await getWaterReminder()

@@ -18,7 +18,7 @@ const updated = computed(() => dateTimeText(props.food.updated_at,props.timeZone
 <template>
   <article class="food-card">
     <header class="food-title"><h3>{{ food.name }}</h3><span class="badge" :class="{ example: food.is_example }">{{ sourceLabels[food.source_type] || '来源未填写' }}</span></header>
-    <p class="category">{{ category }}</p>
+    <p class="category">{{ food.origin === 'public' ? '公共参考数据 · 私人引用' : '我的食物' }} · {{ category }}</p>
     <p class="nutrition-caption">每100g可食部分营养含量</p>
     <dl class="nutrients">
       <div v-for="item in nutrients" :key="item.key" class="nutrient" :class="{ unknown: !item.known }">
@@ -32,7 +32,7 @@ const updated = computed(() => dateTimeText(props.food.updated_at,props.timeZone
       <p v-if="source.review" class="review-note">{{ source.review }}</p>
       <a v-if="source.href" :href="source.href" target="_blank" rel="noopener noreferrer" class="source-link" :aria-label="`查看来源：${food.name}`">查看来源 <span aria-hidden="true">↗</span></a>
     </div>
-    <div class="card-footer"><small>更新于 {{ updated }}</small><div class="actions"><button class="button secondary" :disabled="busy" :aria-label="`编辑食物 ${food.name}`" @click="$emit('edit', food)">编辑</button><button class="button danger" :disabled="busy" :aria-label="`归档食物 ${food.name}`" @click="$emit('archive', food)">归档</button></div></div>
+    <div class="card-footer"><small>更新于 {{ updated }}</small><div v-if="food.editable !== false" class="actions"><button class="button secondary" :disabled="busy" :aria-label="`编辑食物 ${food.name}`" @click="$emit('edit', food)">编辑</button><button class="button danger" :disabled="busy" :aria-label="`归档食物 ${food.name}`" @click="$emit('archive', food)">归档</button></div></div>
   </article>
 </template>
 
