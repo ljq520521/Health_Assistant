@@ -7,6 +7,7 @@ import sqlite3
 import tempfile
 import unittest
 from concurrent.futures import ThreadPoolExecutor
+from contextlib import closing
 from unittest.mock import patch
 from fastapi.testclient import TestClient
 from app.config import Settings
@@ -22,14 +23,88 @@ def initialize(path, extension=True):
     if extension: m6.migrate_catalog(path)
 
 class CatalogArtifactTests(unittest.TestCase):
+    def catalog_snapshot(self, path):
+        # Read both artifacts without touching their bytes. Canonical JSON keeps
+        # NULL, zero, numeric values and payload strings distinct; no rounding.
+        with closing(sqlite3.connect(path.resolve().as_uri()+'?mode=ro',uri=True)) as c:
+            self.assertEqual(c.execute('PRAGMA integrity_check').fetchall(),[('ok',)])
+            self.assertEqual(c.execute('PRAGMA foreign_key_check').fetchall(),[])
+            schema=c.execute('SELECT type,name,tbl_name,sql FROM sqlite_master ORDER BY type,name').fetchall()
+            tables={}
+            for (table,) in c.execute("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name"):
+                identifier='"'+table.replace('"','""')+'"'
+                tables[table]=sorted(build_catalog.canonical(list(row)) for row in c.execute('SELECT * FROM '+identifier))
+            return {'schema':schema,'tables':tables,'logical_hash':build_catalog.content_hash(c),
+                    'page_size':c.execute('PRAGMA page_size').fetchone()[0]}
+
     def test_reproducible_bytes_and_logical_hash(self):
         with tempfile.TemporaryDirectory() as d:
             a=Path(d)/'a/food_catalog.db';b=Path(d)/'b/food_catalog.db'
             ra=build_catalog.build(a);rb=build_catalog.build(b)
+            # Same runtime and input must still produce identical bytes.
             self.assertEqual(a.read_bytes(),b.read_bytes())
-            self.assertEqual(a.read_bytes(),catalog.DEFAULT_PATH.read_bytes())
             self.assertEqual(ra,rb)
+            release=json.loads(catalog.DEFAULT_PATH.with_name('catalog-release.json').read_bytes())
+            published=self.catalog_snapshot(catalog.DEFAULT_PATH)
+            rebuilt=self.catalog_snapshot(a)
+            self.assertEqual(rebuilt['schema'],published['schema'])
+            self.assertEqual(rebuilt['page_size'],published['page_size'])
+            self.assertEqual(set(rebuilt['tables']),set(published['tables']))
+            for table, rows in published['tables'].items():
+                with self.subTest(table=table):
+                    self.assertEqual(len(rebuilt['tables'][table]),len(rows))
+                    self.assertEqual(rebuilt['tables'][table],rows)
+            self.assertEqual(rebuilt['logical_hash'],published['logical_hash'])
+            self.assertEqual(rebuilt['logical_hash'],ra['logical_content_sha256'])
+            self.assertEqual(published['logical_hash'],release['logical_content_sha256'])
+            self.assertEqual(ra['counts'],release['counts'])
+            for field,table in [('foods','catalog_foods'),('recipes','catalog_recipes'),
+                                ('ingredients','catalog_recipe_ingredients'),
+                                ('food_categories','catalog_food_categories'),('recipe_categories','catalog_recipe_categories')]:
+                self.assertEqual(len(rebuilt['tables'][table]),release['counts'][field])
+            # Cross-platform SQLite versions may change headers/page layout, not
+            # business content. Each file must match its OWN release checksum.
+            for path in (a,b,catalog.DEFAULT_PATH):
+                metadata=json.loads(path.with_name('catalog-release.json').read_bytes())
+                actual=hashlib.sha256(path.read_bytes()).hexdigest()
+                self.assertEqual(actual,metadata['database_sha256'])
+                self.assertEqual(path.with_name('SHA256SUMS.txt').read_text().split(),[actual,'food_catalog.db'])
+                with catalog.catalog(path) as c:
+                    self.assertEqual(dict(c.execute('SELECT key,value FROM catalog_metadata'))['logical_content_sha256'],rebuilt['logical_hash'])
+            print('Catalog comparison: '+json.dumps({'runtime_sqlite':sqlite3.sqlite_version,
+                'published_sqlite':release['sqlite_version'],'rebuilt_sha256':ra['database_sha256'],
+                'published_sha256':release['database_sha256'],'logical_sha256':rebuilt['logical_hash'],
+                'schema_equal':True,'all_rows_equal':True,'counts':ra['counts']},sort_keys=True))
             with self.assertRaises(ValueError):build_catalog.build(a)
+
+    def test_file_checksum_still_rejects_byte_changes_with_identical_content(self):
+        with tempfile.TemporaryDirectory() as d:
+            path=Path(d)/'food_catalog.db'
+            shutil.copy(catalog.DEFAULT_PATH,path)
+            shutil.copy(catalog.DEFAULT_PATH.with_name('catalog-release.json'),path.with_name('catalog-release.json'))
+            before=self.catalog_snapshot(path)
+            with closing(sqlite3.connect(path)) as c:c.execute('PRAGMA user_version=123')
+            self.assertEqual(self.catalog_snapshot(path),before)
+            self.assertNotEqual(path.read_bytes(),catalog.DEFAULT_PATH.read_bytes())
+            with self.assertRaises(LibraryError) as error:catalog.foods(path=path)
+            self.assertEqual(error.exception.code,'CATALOG_CORRUPT')
+
+    def test_logical_hash_distinguishes_null_zero_and_nutrition_changes(self):
+        with tempfile.TemporaryDirectory() as d:
+            path=Path(d)/'food_catalog.db'
+            shutil.copy(catalog.DEFAULT_PATH,path)
+            with closing(sqlite3.connect(path)) as c:
+                food_key,payload=c.execute('SELECT food_key,payload_json FROM catalog_foods ORDER BY food_key LIMIT 1').fetchone()
+                food=json.loads(payload)
+                original_hash=build_catalog.content_hash(c)
+                original_calories=food['calories_per_100g']
+                hashes=[]
+                for calories in (None,0,(original_calories or 0)+1):
+                    food['calories_per_100g']=calories
+                    c.execute('UPDATE catalog_foods SET payload_json=? WHERE food_key=?',(build_catalog.canonical(food),food_key))
+                    hashes.append(build_catalog.content_hash(c))
+                self.assertEqual(len(set(hashes)),3)
+                self.assertNotEqual(hashes[-1],original_hash)
 
     def test_exact_v3_payload_source_and_approval(self):
         package,foods,recipes,approval,checks=build_catalog.verified_input()
