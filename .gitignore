@@ -38,3 +38,6 @@ Thumbs.db
 .idea/
 .vscode/
 artifacts/
+
+# Only the reviewed, reproducibly built public catalog is distributable.
+!/backend/app/modules/diet/catalog_data/food_catalog.db

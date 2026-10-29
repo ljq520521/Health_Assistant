@@ -43,10 +43,14 @@ class ImportedRecommendationTests(RecipeFixture):
                 result=self.recommend()
             self.assertEqual(result['items'],[]);self.assertIn('命中',result['excluded'][0]['reason'])
             self.assertEqual(self.client.delete('/api/diet/food-preferences/'+str(rule['id'])).status_code,204)
-    def test_unknown_composition_and_possible_allergen_never_relaxed(self):
+    def test_unknown_composition_allowed_but_recorded_possible_allergen_excluded(self):
         term=self.post('/api/diet/ingredient-terms',{'name':'纯测试过敏原'})
         self.post('/api/diet/food-preferences',{'term_id':term['id'],'rule_type':'allergy'})
-        self.assertIn('保守排除',self.recommend()['excluded'][0]['reason'])
+        result=self.recommend()
+        self.assertEqual(len(result['items']),1)
+        self.assertEqual(result['excluded'],[])
+        self.assertFalse(result['items'][0]['composition_verified'])
+        self.assertTrue(any('不单独排除' in warning for warning in result['warnings']))
         ingredient=self.post('/api/diet/ingredient-terms',{'name':'纯测试实际成分'})
         food=self.client.get('/api/diet/foods/'+str(self.fid)).json()
         r=self.client.put('/api/diet/foods/'+str(self.fid)+'/composition',json={

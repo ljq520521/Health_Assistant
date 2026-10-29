@@ -1,10 +1,10 @@
 import tempfile
 import unittest
 from pathlib import Path
-from fastapi.testclient import TestClient
+from diet_test_runtime import TestClient
 from app.config import Settings
 from app.database import connect, init_database
-from app.main import create_app
+from diet_test_runtime import create_app
 from app.modules.diet.migrations import migrate_diet
 
 

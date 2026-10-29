@@ -1,4 +1,5 @@
 <script setup>
+import PublicFoodPicker from './PublicFoodPicker.vue'
 import { ref,onMounted } from 'vue'
 import { recipeRequest as request,writeRecipeResource as save,removeRecipeResource as remove } from '../../api/recipes'
 import { useRecipeAction } from './recipeUI'
@@ -15,7 +16,7 @@ onMounted(()=>run(load))
 <template><section>
 <h2>食材库存</h2><p class="recipe-note">统一以克记录可用量。未登记库存时不参与库存评分；登记部分库存后，其余所需食材视为暂无可用库存。推荐不会自动扣减库存。</p>
 <p v-if="error" role="alert" class="recipe-error">{{error}}</p><p v-if="success" role="status">{{success}}</p><p v-if="busy">正在处理…</p>
-<form class="recipe-panel" @submit.prevent="submit"><fieldset :disabled="busy"><h3>{{editing?'编辑库存':'登记库存'}}</h3><div class="recipe-row">
+<PublicFoodPicker @selected="f => { if (!foods.some(x => x.id === f.id)) foods.push(f); form.food_id=f.id }"/><form class="recipe-panel" @submit.prevent="submit"><fieldset :disabled="busy"><h3>{{editing?'编辑库存':'登记库存'}}</h3><div class="recipe-row">
 <label>食物<select v-model="form.food_id" required><option disabled value="">选择食物库食物</option><option v-for="f in foods" :key="f.id" :value="f.id">{{f.name}}</option></select></label>
 <label>可用重量（g）<input v-model.number="form.quantity_g" type="number" min="0" max="1000000000" step="any" required></label><label>备注<input v-model="form.notes" maxlength="1000"></label>
 <button class="btn btn-primary" type="submit">保存库存</button><button v-if="editing" class="btn" type="button" @click="reset">取消编辑</button></div></fieldset></form>

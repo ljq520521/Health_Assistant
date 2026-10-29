@@ -2,6 +2,12 @@ import { httpsSourceUrl, sourceLabels } from './foodPresentation.js'
 import { isApprovedRecord, COURSE_APPROVAL_NOTICE } from './demoContext.js'
 
 export function recipeSource(recipe, demo = null) {
+  if (recipe.origin === 'public' && recipe.editable === false && recipe.recipe_key) return {
+    label: '公共参考数据 · 课程演示数据已获团队批准',
+    review: '成分及过敏原未全面核验，不代表医学或生产用途批准。',
+    trial: '团队自编、AI辅助、未经实际试做。',
+    description: '营养为食材投料估算，不等于成品实测。', href: '',
+  }
   const note = typeof recipe.source_note === 'string' ? recipe.source_note : ''
   const human = note.split(/HAIMPORT1\s*:/i)[0].split(/[\r\n]/)
     .filter(line => !/[{}\[\]]|content_sha256|run_id|\bkey\s*[:=]|\bSHA256\b/i.test(line)).join(' ').trim()

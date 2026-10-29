@@ -1,10 +1,11 @@
+import { getToken } from './profile.js'
 const baseUrl = (import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '')
 const fields = { record_date: '日期', meal_type: '餐次', food_name: '食物名称', amount_g: '克重', calories_kcal: '热量', notes: '备注', date_from: '开始日期', date_to: '结束日期' }
 async function request(path = '', options = {}) {
   const controller = new AbortController()
   const timeout = setTimeout(() => controller.abort(), 10000)
   try {
-    const response = await fetch(`${baseUrl}/api/diet-records${path}`, { ...options, signal: controller.signal, headers: { 'Content-Type': 'application/json' } })
+    const response = await fetch(`${baseUrl}/api/diet-records${path}`, { ...options, signal: controller.signal, headers: { 'Content-Type': 'application/json', ...(getToken() ? { Authorization: `Bearer ${getToken()}` } : {}), ...options.headers } })
     if (!response.ok) {
       const body = await response.json().catch(() => ({}))
       const detail = body.detail

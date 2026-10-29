@@ -3,6 +3,21 @@ from test_recipes import RecipeFixture
 from app.database import connect
 
 class RecommendationTests(RecipeFixture):
+    def test_meal_filter_respects_categories_keeps_unclassified_and_hard_rules(self):
+        food=self.food()
+        breakfast=self.client.post('/api/diet/recipe-categories',json={'name':'早餐'}).json()
+        lunch=self.client.post('/api/diet/recipe-categories',json={'name':'午餐'}).json()
+        morning,_=self.recipe(food,name='早餐配方',category_id=breakfast['id'])
+        midday,_=self.recipe(food,name='午餐配方',category_id=lunch['id'])
+        unspecified,_=self.recipe(food,name='尚未分类配方')
+        result=self.recommend(meal_type='breakfast')
+        self.assertEqual({item['recipe']['id'] for item in result['items']},{morning['id'],unspecified['id']})
+        self.assertEqual([item['recipe_id'] for item in result['excluded']],[midday['id']])
+        self.assertEqual(len(self.recommend()['items']),3)
+        self.assertEqual(self.client.post('/api/diet/recipe-recommendations/preview',json={'date':'2026-10-14','meal_type':'invalid'}).status_code,422)
+        self.rule(food_id=food['id'],rule_type='forbidden')
+        self.assertEqual(self.recommend(meal_type='breakfast')['items'],[])
+
     def recommend(self,**kw):
         r=self.client.post('/api/diet/recipe-recommendations/preview',json={'date':'2026-10-14',**kw})
         self.assertEqual(r.status_code,200,r.text);return r.json()
@@ -29,13 +44,29 @@ class RecommendationTests(RecipeFixture):
         for relation in ('contains','may_contain'):
             self.composition(f,t,terms=[{'term_id':t['id'],'relation':'contains'},{'term_id':allergen['id'],'relation':relation}])
             r=self.recommend();self.assertEqual(r['items'],[]);self.assertIn('命中',r['excluded'][0]['reason'])
-    def test_unknown_partial_and_stale_conservatively_excluded(self):
+    def test_unknown_partial_and_stale_remain_candidates_without_safety_approval(self):
         f=self.food();self.recipe(f);t=self.term();avoid=self.term('另一个禁忌');self.rule(term_id=avoid['id'],rule_type='forbidden')
-        self.assertIn('保守排除',self.recommend()['excluded'][0]['reason'])
+        result=self.recommend();self.assertEqual(len(result['items']),1)
+        self.assertFalse(result['items'][0]['composition_verified'])
+        self.assertTrue(any('不单独排除' in w for w in result['warnings']))
         self.composition(f,t,allergen_status='partial')
-        self.assertEqual(self.recommend()['items'],[])
-        self.composition(f,t);self.assertEqual(len(self.recommend()['items']),1)
+        self.assertFalse(self.recommend()['items'][0]['composition_verified'])
+        self.composition(f,t);self.assertTrue(self.recommend()['items'][0]['composition_verified'])
         self.client.put('/api/diet/foods/'+str(f['id']),json={'name':f['name'],'calories_per_100g':99})
+        self.assertFalse(self.recommend()['items'][0]['composition_verified'])
+        self.rule(term_id=t['id'],rule_type='forbidden')
+        self.assertEqual(self.recommend()['items'],[])  # Known matches survive stale metadata.
+
+    def test_declared_ingredient_name_matches_without_guessing_substrings(self):
+        egg=self.food('鸡蛋（全蛋，去壳，生）');egg_recipe,_=self.recipe(egg)
+        other=self.food('无鸡蛋测试食品');other_recipe,_=self.recipe(other,name='非名称相等的配方')
+        rule=self.term('鸡蛋');self.rule(term_id=rule['id'],rule_type='forbidden')
+        result=self.recommend()
+        self.assertEqual([r['recipe_id'] for r in result['excluded']],[egg_recipe['id']])
+        self.assertEqual([r['recipe']['id'] for r in result['items']],[other_recipe['id']])
+        self.assertFalse(result['items'][0]['composition_verified'])
+        alias=self.client.post('/api/diet/ingredient-terms',json={'name':'明确另一个名称','aliases':['无鸡蛋测试食品']}).json()
+        self.rule(term_id=alias['id'],rule_type='forbidden')
         self.assertEqual(self.recommend()['items'],[])
     def test_no_rules_inventory_or_targets_all_dimensions_null(self):
         self.recipe();r=self.recommend();item=r['items'][0]

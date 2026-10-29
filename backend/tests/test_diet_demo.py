@@ -7,7 +7,6 @@ from unittest.mock import patch
 from fastapi.testclient import TestClient
 from app.config import Settings
 from app.database import connect
-from app.main import create_app
 from app.modules.diet import demo_environment as demo, import_service as importer
 from app.modules.diet.demo_server import create_demo_app
 from diet_import_fixtures import fixture
@@ -60,6 +59,7 @@ class DemoTests(unittest.TestCase):
         with self.assertRaises(ValueError):demo.read_context(self.path)
 
     def test_demo_config_and_normal_config_separate(self):
+        from app.main import create_app
         self.ready()
         with patch.dict(os.environ,{'HEALTH_DIET_DEMO_DB':str(self.path)}):
             with TestClient(create_demo_app()) as client:

@@ -1,5 +1,7 @@
 # 饮食模块 API 清单（由当前 FastAPI OpenAPI 提取）
 
+公共目录扩展新增的 9 个操作、身份键及权限规则见 [PUBLIC-CATALOG.md](PUBLIC-CATALOG.md#api)。下表保留原 60 个操作清单，不能作为本次新增 API 的完整描述；私人接口现要求有效登录和健康数据授权，写操作限管理员，公共目录 GET 与时区配置允许匿名。原 `openapi-diet.json` 是历史交付快照，当前接口以源码和运行中的 `/docs` 为准。
+
 仅列真实已注册路由。请求模型完整字段/枚举见 [openapi-diet.json](openapi-diet.json) 的 components.schemas；参数约束以该文件及实际 /docs 为准。动态字典响应请结合服务函数与模块 README。
 
 | 方法 | 路径 | Query / Path 参数 | 请求模型 | 响应状态 |
