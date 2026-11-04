@@ -1,6 +1,8 @@
 <script setup>
 import AppIcon from './components/AppIcon.vue'
 import { modules } from './data/modules'
+import SleepReminder from './components/sleep/SleepReminder.vue'
+import './components/sleep/sleep.css'
 </script>
 
 <template>
@@ -21,8 +23,9 @@ import { modules } from './data/modules'
       <div class="sidebar-note"><span class="small-dot"></span>一点一滴，记录健康日常。<small>本地运行 · v0.1.0</small></div>
     </aside>
     <div class="workspace">
-      <header class="topbar"><span>个人健康管理系统</span><span class="version-badge">v0.1 初始预览</span></header>
+      <header class="topbar"><span>个人健康管理系统</span><span class="version-badge">睡眠模块已开放</span></header>
       <main id="main-content" tabindex="-1"><RouterView /></main>
+      <SleepReminder />
       <footer>HEALTH JOURNAL <span>用记录，连接每一天。</span></footer>
     </div>
   </div>
