@@ -1,0 +1,3 @@
+food_catalog.db binary
+*.json text eol=lf
+SHA256SUMS.txt text eol=lf

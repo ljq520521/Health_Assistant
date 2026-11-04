@@ -1,0 +1,551 @@
+[
+  {
+    "path": "backend/app/modules/diet/demo_environment.py",
+    "occurrences": [
+      {
+        "line": 45,
+        "text": "profile = c.execute('SELECT * FROM profiles WHERE id=1').fetchone()"
+      },
+      {
+        "line": 81,
+        "text": "c.execute('INSERT INTO profiles(id,display_name) VALUES(1,?)', (PROFILE_NAME,))"
+      }
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/dev_database.py",
+    "occurrences": [
+      {
+        "line": 20,
+        "text": "with connect(path) as c:c.execute(\"INSERT INTO profiles(id,display_name) VALUES(1,'食谱临时验收档案')\")"
+      }
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/import_service.py",
+    "occurrences": [
+      {
+        "line": 166,
+        "text": "found = c.execute('SELECT id FROM '+table+' WHERE profile_id=1 AND name_key=?',(normalized,)).fetchone()"
+      },
+      {
+        "line": 170,
+        "text": "return c.execute('INSERT INTO '+table+'(profile_id,name,name_key,created_at,updated_at) VALUES(1,?,?,?,?)',"
+      },
+      {
+        "line": 203,
+        "text": "rows = [dict(r) for r in c.execute('SELECT * FROM '+table+' WHERE profile_id=1')]"
+      },
+      {
+        "line": 248,
+        "text": "row=c.execute('SELECT * FROM '+table+' WHERE id=? AND profile_id=1',(saved['id'],)).fetchone()"
+      }
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/library_service.py",
+    "occurrences": [
+      {
+        "line": 13,
+        "text": "if connection.execute('SELECT id FROM profiles WHERE id=1').fetchone() is None:"
+      },
+      {
+        "line": 20,
+        "text": "row = connection.execute('SELECT id,profile_id,name,created_at,updated_at FROM food_categories WHERE id=? AND profile_id=1', (category_id,)).fetchone()"
+      },
+      {
+        "line": 29,
+        "text": "return {'items': [dict(row) for row in connection.execute('SELECT id,profile_id,name,created_at,updated_at FROM food_categories WHERE profile_id=1 ORDER BY name_key,id')]}"
+      },
+      {
+        "line": 45,
+        "text": "existing = connection.execute('SELECT id FROM food_categories WHERE profile_id=1 AND name_key=?', (key,)).fetchone()"
+      },
+      {
+        "line": 50,
+        "text": "category_id = connection.execute('INSERT INTO food_categories(profile_id,name,name_key,created_at,updated_at) VALUES(1,?,?,?,?)', (data.name,key,now,now)).lastrowid"
+      },
+      {
+        "line": 52,
+        "text": "connection.execute('UPDATE food_categories SET name=?,name_key=?,updated_at=? WHERE id=? AND profile_id=1', (data.name,key,now,category_id))"
+      },
+      {
+        "line": 61,
+        "text": "if connection.execute('SELECT id FROM food_items WHERE profile_id=1 AND category_id=? AND deleted_at IS NULL LIMIT 1', (category_id,)).fetchone():"
+      },
+      {
+        "line": 64,
+        "text": "connection.execute('DELETE FROM food_categories WHERE id=? AND profile_id=1', (category_id,))"
+      },
+      {
+        "line": 68,
+        "text": "row = connection.execute('SELECT * FROM food_items WHERE id=? AND profile_id=1 AND deleted_at IS NULL', (food_id,)).fetchone()"
+      },
+      {
+        "line": 77,
+        "text": "sql = 'SELECT * FROM food_items WHERE profile_id=1 AND deleted_at IS NULL'"
+      },
+      {
+        "line": 116,
+        "text": "food_id = connection.execute(f'INSERT INTO food_items(profile_id,{columns}) VALUES(1,{placeholders})', values).lastrowid"
+      },
+      {
+        "line": 120,
+        "text": "connection.execute(f'UPDATE food_items SET {assignments} WHERE id=:id AND profile_id=1', values)"
+      },
+      {
+        "line": 130,
+        "text": "connection.execute('UPDATE food_items SET deleted_at=?,updated_at=? WHERE id=? AND profile_id=1', (now,now,food_id))"
+      }
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/nutrition_service.py",
+    "occurrences": [
+      {
+        "line": 19,
+        "text": "row = c.execute('SELECT * FROM diet_daily_goals WHERE profile_id=1 AND effective_from<=? ORDER BY effective_from DESC LIMIT 1',(str(day),)).fetchone()"
+      },
+      {
+        "line": 30,
+        "text": "return {'items':[dict(r) for r in c.execute('SELECT * FROM diet_daily_goals WHERE profile_id=1 ORDER BY effective_from DESC')]}"
+      },
+      {
+        "line": 42,
+        "text": "existing=c.execute('SELECT id FROM diet_daily_goals WHERE profile_id=1 AND effective_from=?',(day,)).fetchone()"
+      },
+      {
+        "line": 45,
+        "text": "c.execute('UPDATE diet_daily_goals SET '+','.join(k+'=:'+k for k in GOALS)+',updated_at=:updated_at WHERE id=:id AND profile_id=1',values)"
+      },
+      {
+        "line": 48,
+        "text": "c.execute('INSERT INTO diet_daily_goals(profile_id,'+','.join(values)+') VALUES(1,'+','.join(':'+k for k in values)+')',values)"
+      },
+      {
+        "line": 67,
+        "text": "records=[dict(r) for r in c.execute('SELECT * FROM diet_records WHERE profile_id=1 AND record_date BETWEEN ? AND ? ORDER BY record_date,id',(str(start),str(end)))]"
+      },
+      {
+        "line": 68,
+        "text": "goals=[dict(r) for r in c.execute('SELECT * FROM diet_daily_goals WHERE profile_id=1 AND effective_from<=? ORDER BY effective_from',(str(end),))]"
+      }
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/recipe_preference_service.py",
+    "occurrences": [
+      {
+        "line": 20,
+        "text": "return {'items':[dict(r) for r in c.execute('SELECT i.*,f.name AS food_name,f.deleted_at AS food_archived_at FROM diet_inventory_items i JOIN food_items f ON i.food_id=f.id AND i.profile_id=f.profile_id WHERE i.profile_id=1 ORDER BY i.updated_at DESC,i.id DESC')]}"
+      },
+      {
+        "line": 27,
+        "text": "c.execute('UPDATE diet_inventory_items SET food_id=:food_id,quantity_g=:quantity_g,notes=:notes,updated_at=:updated_at,revision=revision+1 WHERE id=:id AND profile_id=1',v|{'id':id})"
+      },
+      {
+        "line": 29,
+        "text": "id=c.execute('INSERT INTO diet_inventory_items(profile_id,food_id,quantity_g,notes,updated_at,created_at) VALUES(1,:food_id,:quantity_g,:notes,:updated_at,:updated_at)',v).lastrowid"
+      },
+      {
+        "line": 33,
+        "text": "one(c,'diet_inventory_items',id);c.execute('DELETE FROM diet_inventory_items WHERE id=? AND profile_id=1',(id,))"
+      },
+      {
+        "line": 36,
+        "text": "r['aliases']=[a[0] for a in c.execute('SELECT alias FROM diet_ingredient_aliases WHERE profile_id=1 AND term_id=? AND alias_key<>? ORDER BY alias_key',(id,r['name_key']))]"
+      },
+      {
+        "line": 42,
+        "text": "sql='SELECT DISTINCT t.id FROM diet_ingredient_terms t JOIN diet_ingredient_aliases a ON a.term_id=t.id AND a.profile_id=t.profile_id WHERE t.profile_id=1 AND t.archived_at IS NULL'"
+      },
+      {
+        "line": 49,
+        "text": "row=c.execute('SELECT term_id FROM diet_ingredient_aliases WHERE profile_id=1 AND alias_key=?',(key(name),)).fetchone()"
+      },
+      {
+        "line": 56,
+        "text": "used=c.execute('SELECT 1 FROM diet_food_composition_terms WHERE profile_id=1 AND term_id=? UNION ALL SELECT 1 FROM diet_food_preferences WHERE profile_id=1 AND term_id=?',(id,id)).fetchone()"
+      },
+      {
+        "line": 59,
+        "text": "if id is None:id=c.execute('INSERT INTO diet_ingredient_terms(profile_id,name,name_key,kind,created_at,updated_at) VALUES(1,?,?,?,?,?)',(data.name,key(data.name),data.kind,now,now)).lastrowid"
+      },
+      {
+        "line": 60,
+        "text": "else:c.execute('UPDATE diet_ingredient_terms SET name=?,name_key=?,kind=?,updated_at=? WHERE id=? AND profile_id=1',(data.name,key(data.name),data.kind,now,id))"
+      },
+      {
+        "line": 61,
+        "text": "c.execute('DELETE FROM diet_ingredient_aliases WHERE profile_id=1 AND term_id=?',(id,))"
+      },
+      {
+        "line": 63,
+        "text": "c.executemany('INSERT INTO diet_ingredient_aliases(profile_id,term_id,alias,alias_key) VALUES(1,?,?,?)',[(id,a,k) for k,a in aliases.items()])"
+      },
+      {
+        "line": 67,
+        "text": "term_row(c,id);c.execute('DELETE FROM diet_ingredient_terms WHERE profile_id=1 AND id=?',(id,))"
+      },
+      {
+        "line": 70,
+        "text": "row=c.execute('SELECT * FROM diet_food_composition WHERE profile_id=1 AND food_id=?',(food_id,)).fetchone()"
+      },
+      {
+        "line": 73,
+        "text": "r['terms']=[dict(x) for x in c.execute('SELECT x.term_id,x.relation,t.name,t.kind FROM diet_food_composition_terms x JOIN diet_ingredient_terms t ON t.id=x.term_id AND t.profile_id=x.profile_id WHERE x.profile_id=1 AND x.food_id=? ORDER BY x.term_id,x.relation',(food_id,))]"
+      },
+      {
+        "line": 86,
+        "text": "c.execute('DELETE FROM diet_food_composition_terms WHERE profile_id=1 AND food_id=?',(food_id,))"
+      },
+      {
+        "line": 87,
+        "text": "c.executemany('INSERT INTO diet_food_composition_terms(profile_id,food_id,term_id,relation) VALUES(1,?,?,?)',[(food_id,t.term_id,t.relation) for t in data.terms])"
+      },
+      {
+        "line": 93,
+        "text": "return {'items':[dict(r) for r in c.execute('SELECT p.*,coalesce(f.name,t.name) AS target_name FROM diet_food_preferences p LEFT JOIN food_items f ON f.id=p.food_id LEFT JOIN diet_ingredient_terms t ON t.id=p.term_id WHERE p.profile_id=1 ORDER BY p.id DESC')]}"
+      },
+      {
+        "line": 100,
+        "text": "if id is None:id=c.execute('INSERT INTO diet_food_preferences(profile_id,food_id,term_id,rule_type,notes,updated_at,created_at) VALUES(1,:food_id,:term_id,:rule_type,:notes,:updated_at,:updated_at)',v).lastrowid"
+      },
+      {
+        "line": 101,
+        "text": "else:c.execute('UPDATE diet_food_preferences SET '+','.join(k+'=:'+k for k in v)+' WHERE id=:id AND profile_id=1',v|{'id':id})"
+      },
+      {
+        "line": 105,
+        "text": "one(c,'diet_food_preferences',id);c.execute('DELETE FROM diet_food_preferences WHERE profile_id=1 AND id=?',(id,))"
+      }
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/recipe_recommendation.py",
+    "occurrences": [
+      {
+        "line": 32,
+        "text": "rules=[dict(r) for r in c.execute('SELECT * FROM diet_food_preferences WHERE profile_id=1 ORDER BY id')]"
+      },
+      {
+        "line": 35,
+        "text": "stock={r['food_id']:r['quantity_g'] for r in c.execute('SELECT * FROM diet_inventory_items WHERE profile_id=1')}"
+      },
+      {
+        "line": 36,
+        "text": "ids=[r[0] for r in c.execute('SELECT id FROM diet_recipes WHERE profile_id=1 AND archived_at IS NULL ORDER BY id')]"
+      }
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/recipe_service.py",
+    "occurrences": [
+      {
+        "line": 17,
+        "text": "r=c.execute('SELECT * FROM '+table+' WHERE id=? AND profile_id=1'+(' AND archived_at IS NULL' if active else ''),(id,)).fetchone()"
+      },
+      {
+        "line": 22,
+        "text": "require_recipes(c);return {'items':[dict(r) for r in c.execute('SELECT * FROM diet_recipe_categories WHERE profile_id=1 ORDER BY name_key,id')]}"
+      },
+      {
+        "line": 29,
+        "text": "exists=c.execute('SELECT id FROM diet_recipe_categories WHERE profile_id=1 AND name_key=?',(key(data.name),)).fetchone()"
+      },
+      {
+        "line": 32,
+        "text": "if id is None: id=c.execute('INSERT INTO diet_recipe_categories(profile_id,name,name_key,created_at,updated_at) VALUES(1,?,?,?,?)',(data.name,key(data.name),now,now)).lastrowid"
+      },
+      {
+        "line": 38,
+        "text": "if c.execute('SELECT 1 FROM diet_recipes WHERE profile_id=1 AND category_id=? AND archived_at IS NULL',(id,)).fetchone():"
+      },
+      {
+        "line": 40,
+        "text": "c.execute('UPDATE diet_recipes SET category_id=NULL WHERE profile_id=1 AND category_id=?',(id,))"
+      },
+      {
+        "line": 41,
+        "text": "c.execute('DELETE FROM diet_recipe_categories WHERE id=? AND profile_id=1',(id,))"
+      },
+      {
+        "line": 56,
+        "text": "r['ingredients']=[dict(x) for x in c.execute('SELECT i.*,f.deleted_at AS food_archived_at,f.updated_at AS current_food_updated_at FROM diet_recipe_ingredients i JOIN food_items f ON f.id=i.food_id AND f.profile_id=i.profile_id WHERE i.recipe_id=? AND i.profile_id=1 ORDER BY position',(id,))]"
+      },
+      {
+        "line": 57,
+        "text": "r['steps']=[x[0] for x in c.execute('SELECT instruction FROM diet_recipe_steps WHERE recipe_id=? AND profile_id=1 ORDER BY position',(id,))]"
+      },
+      {
+        "line": 67,
+        "text": "sql='SELECT id FROM diet_recipes WHERE profile_id=1 AND archived_at IS NULL';args=[]"
+      },
+      {
+        "line": 84,
+        "text": "values.update(profile_id=1,created_at=now,updated_at=now)"
+      },
+      {
+        "line": 88,
+        "text": "c.execute('UPDATE diet_recipes SET '+','.join(k+'=:'+k for k in values)+' WHERE id=:id AND profile_id=1',values|{'id':id})"
+      },
+      {
+        "line": 100,
+        "text": "c.execute('DELETE FROM diet_recipe_ingredients WHERE recipe_id=? AND profile_id=1',(id,))"
+      },
+      {
+        "line": 101,
+        "text": "c.execute('DELETE FROM diet_recipe_steps WHERE recipe_id=? AND profile_id=1',(id,))"
+      },
+      {
+        "line": 103,
+        "text": "c.executemany('INSERT INTO diet_recipe_steps(profile_id,recipe_id,position,instruction) VALUES(1,?,?,?)',[(id,pos,s) for pos,s in enumerate(data.steps,1)])"
+      },
+      {
+        "line": 116,
+        "text": "now=utc_now();c.execute('UPDATE diet_recipes SET archived_at=?,updated_at=?,revision=revision+1 WHERE id=? AND profile_id=1',(now,now,id))"
+      }
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/report_service.py",
+    "occurrences": [
+      {
+        "line": 23,
+        "text": "records=[dict(r) for r in c.execute('SELECT * FROM diet_records WHERE profile_id=1 AND record_date BETWEEN ? AND ? ORDER BY record_date,id',(str(start),str(end)))]"
+      },
+      {
+        "line": 24,
+        "text": "goals=[dict(r) for r in c.execute('SELECT * FROM diet_daily_goals WHERE profile_id=1 AND effective_from<=? ORDER BY effective_from',(str(end),))]"
+      },
+      {
+        "line": 25,
+        "text": "waters=[dict(r) for r in c.execute('SELECT drank_at,amount_ml FROM water_records WHERE profile_id=1 AND drank_at>=? AND drank_at<? ORDER BY drank_at,id',(water_service.boundary(start),water_service.boundary(end,True)))]"
+      }
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/service.py",
+    "occurrences": [
+      {
+        "line": 9,
+        "text": "if connection.execute('SELECT id FROM profiles WHERE id=1').fetchone() is None:"
+      },
+      {
+        "line": 14,
+        "text": "row = connection.execute('SELECT * FROM diet_records WHERE id=? AND profile_id=1', (record_id,)).fetchone()"
+      },
+      {
+        "line": 23,
+        "text": "sql = 'SELECT * FROM diet_records WHERE profile_id=1'"
+      },
+      {
+        "line": 78,
+        "text": "record_id = c.execute(f'INSERT INTO diet_records(profile_id,{keys}) VALUES(1,{params})',values).lastrowid"
+      },
+      {
+        "line": 82,
+        "text": "c.execute(f'UPDATE diet_records SET {assignments} WHERE id=:id AND profile_id=1',values)"
+      },
+      {
+        "line": 91,
+        "text": "c.execute('DELETE FROM diet_records WHERE id=? AND profile_id=1',(record_id,))"
+      }
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/verify_import_preview.py",
+    "occurrences": [
+      {
+        "line": 21,
+        "text": "c.execute(\"INSERT INTO profiles(id,display_name) VALUES(1,'独立临时库技术验收档案')\")"
+      }
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/water_service.py",
+    "occurrences": [
+      {
+        "line": 30,
+        "text": "result=c.execute('SELECT * FROM water_records WHERE id=? AND profile_id=1',(id,)).fetchone()"
+      },
+      {
+        "line": 45,
+        "text": "sql='SELECT * FROM water_records WHERE profile_id=1'; params=[]"
+      },
+      {
+        "line": 57,
+        "text": "id=c.execute('INSERT INTO water_records(profile_id,drank_at,amount_ml,notes,updated_at,created_at) VALUES(1,?,?,?,?,?)',values+(values[-1],)).lastrowid"
+      },
+      {
+        "line": 60,
+        "text": "c.execute('UPDATE water_records SET drank_at=?,amount_ml=?,notes=?,updated_at=? WHERE id=? AND profile_id=1',values+(id,))"
+      },
+      {
+        "line": 66,
+        "text": "c.execute('DELETE FROM water_records WHERE id=? AND profile_id=1',(id,))"
+      },
+      {
+        "line": 71,
+        "text": "amounts=[r[0] for r in c.execute('SELECT amount_ml FROM water_records WHERE profile_id=1 AND drank_at>=? AND drank_at<?',(boundary(day),boundary(day,True)))]"
+      },
+      {
+        "line": 87,
+        "text": "r=c.execute('SELECT * FROM water_reminder_settings WHERE profile_id=1').fetchone()"
+      },
+      {
+        "line": 104,
+        "text": "if c.execute('SELECT 1 FROM water_reminder_settings WHERE profile_id=1').fetchone():"
+      },
+      {
+        "line": 105,
+        "text": "c.execute('UPDATE water_reminder_settings SET '+','.join(k+'=:'+k for k in values)+' WHERE profile_id=1',values)"
+      },
+      {
+        "line": 108,
+        "text": "c.execute('INSERT INTO water_reminder_settings(profile_id,'+','.join(values)+') VALUES(1,'+','.join(':'+k for k in values)+')',values)"
+      }
+    ]
+  },
+  {
+    "path": "backend/tests/test_diet.py",
+    "occurrences": [
+      {
+        "line": 19,
+        "text": "connection.execute(\"INSERT INTO profiles(id, display_name) VALUES (1, '测试档案')\")"
+      }
+    ]
+  },
+  {
+    "path": "backend/tests/test_diet_migrations.py",
+    "occurrences": [
+      {
+        "line": 39,
+        "text": "db.execute(\"INSERT INTO profiles(id,display_name) VALUES(1,'test')\")"
+      },
+      {
+        "line": 88,
+        "text": "db.execute(\"INSERT INTO profiles(id,display_name) VALUES(1,'test')\")"
+      }
+    ]
+  },
+  {
+    "path": "backend/tests/test_food_library.py",
+    "occurrences": [
+      {
+        "line": 19,
+        "text": "db.execute(\"INSERT INTO profiles(id,display_name) VALUES(1,'临时测试档案')\")"
+      }
+    ]
+  },
+  {
+    "path": "backend/tests/test_nutrition.py",
+    "occurrences": [
+      {
+        "line": 22,
+        "text": "with connect(self.path) as c:c.execute(\"INSERT INTO profiles(id,display_name) VALUES(1,'示例测试档案')\")"
+      },
+      {
+        "line": 164,
+        "text": "c.execute(\"INSERT INTO profiles(id,display_name) VALUES(1,'示例')\")"
+      },
+      {
+        "line": 184,
+        "text": "self.assertFalse(m2.ready(c));c.execute(\"INSERT INTO profiles(id,display_name) VALUES(1,'示例')\")"
+      }
+    ]
+  },
+  {
+    "path": "backend/tests/test_recipes.py",
+    "occurrences": [
+      {
+        "line": 16,
+        "text": "with connect(self.path) as c:c.execute(\"INSERT INTO profiles(id,display_name) VALUES(1,'临时验收档案')\")"
+      },
+      {
+        "line": 78,
+        "text": "c.execute(\"INSERT INTO profiles(id,display_name) VALUES(1,'旧档案')\")"
+      },
+      {
+        "line": 94,
+        "text": "with connect(self.path) as c:c.execute(\"INSERT INTO profiles(id,display_name) VALUES(1,'旧档案')\")"
+      },
+      {
+        "line": 111,
+        "text": "with connect(self.path) as c:c.execute(\"INSERT INTO profiles(id,display_name) VALUES(1,'旧档案')\")"
+      },
+      {
+        "line": 127,
+        "text": "c.execute(\"INSERT INTO profiles(id,display_name) VALUES(1,'测试')\")"
+      },
+      {
+        "line": 128,
+        "text": "c.execute(\"INSERT INTO food_items(profile_id,name,source_type,created_at,updated_at) VALUES(1,'食物','user_entered','t','t')\")"
+      },
+      {
+        "line": 130,
+        "text": "with self.assertRaises(sqlite3.IntegrityError):c.execute(\"INSERT INTO diet_inventory_items(profile_id,food_id,quantity_g,created_at,updated_at) VALUES(1,?,?,'t','t')\",(food,quantity))"
+      },
+      {
+        "line": 131,
+        "text": "with self.assertRaises(sqlite3.IntegrityError):c.execute(\"INSERT INTO diet_food_preferences(profile_id,rule_type,created_at,updated_at) VALUES(1,'allergy','t','t')\")"
+      }
+    ]
+  },
+  {
+    "path": "backend/tests/test_smoke.py",
+    "occurrences": [
+      {
+        "line": 33,
+        "text": "connection.execute(\"INSERT INTO profiles (id, display_name) VALUES (1, '测试档案')\")"
+      }
+    ]
+  },
+  {
+    "path": "backend/tests/test_water.py",
+    "occurrences": [
+      {
+        "line": 17,
+        "text": "with connect(self.path) as c:c.execute(\"INSERT INTO profiles(id,display_name) VALUES(1,'临时测试档案')\")"
+      },
+      {
+        "line": 104,
+        "text": "c.execute(\"INSERT INTO profiles(id,display_name) VALUES(1,'历史')\")"
+      },
+      {
+        "line": 106,
+        "text": "c.execute(\"INSERT INTO diet_daily_goals(profile_id,effective_from,calories_kcal,water_ml,created_at,updated_at) VALUES(1,'2026-10-14',1800,1000,'old','old')\")"
+      },
+      {
+        "line": 127,
+        "text": "with connect(self.path) as c:c.execute(\"INSERT INTO profiles(id,display_name) VALUES(1,'测试')\")"
+      }
+    ]
+  },
+  {
+    "path": "frontend/src/components/diet/waterReminder.js",
+    "occurrences": [
+      {
+        "line": 23,
+        "text": "const key='health-diet-water-reminder-v1'"
+      },
+      {
+        "line": 45,
+        "text": "const key='health-diet-water-reminder-v1',day=localParts(now,zone).day"
+      },
+      {
+        "line": 51,
+        "text": "const key='health-diet-water-reminder-v1',state=JSON.parse(storage.getItem(key)||'null')"
+      }
+    ]
+  },
+  {
+    "path": "frontend/src/components/diet/WaterReminderHost.vue",
+    "occurrences": [
+      {
+        "line": 25,
+        "text": "if(navigator.locks)await navigator.locks.request('diet-water-reminder',claim)"
+      }
+    ]
+  }
+]

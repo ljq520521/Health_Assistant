@@ -11,6 +11,7 @@ htmlcov/
 
 # Frontend
 node_modules/
+.pnpm-store/
 dist/
 coverage/
 .vite/
@@ -26,6 +27,7 @@ backend/data/*
 *.db
 *.db-*
 *.sqlite
+*.sqlite-*
 *.sqlite3
 *.sqlite3-*
 *.log
@@ -36,3 +38,6 @@ Thumbs.db
 .idea/
 .vscode/
 artifacts/
+
+# Only the reviewed, reproducibly built public catalog is distributable.
+!/backend/app/modules/diet/catalog_data/food_catalog.db

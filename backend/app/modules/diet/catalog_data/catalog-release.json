@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "release_id": "usda-course-v3-catalog-1",
+  "source_manifest_sha256": "e2d45d1e5e2652ad86769281c330380779ce2738e207c520c68db73e87d11b2b",
+  "logical_content_sha256": "de5866e95e9476229adffbe2c9c49325a2c753f1110782700388339fb77aa107",
+  "database_sha256": "4ce321d96ee69fb277b1f7b1fd1fd70b078f5d4f00980d5e3c97811be328782c",
+  "sqlite_version": "3.45.3",
+  "counts": {
+    "foods": 134,
+    "recipes": 12,
+    "ingredients": 48,
+    "food_categories": 9,
+    "recipe_categories": 4
+  }
+}

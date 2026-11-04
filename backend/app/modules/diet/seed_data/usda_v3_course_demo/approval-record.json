@@ -1,0 +1,1546 @@
+{
+  "artifact_type": "course_demo_approval_record",
+  "schema_version": 1,
+  "decision": "approved_for_team_course_demonstration",
+  "implementation_status": "implemented_as_separate_v3_package",
+  "approver": {
+    "signature": "食物板块负责人",
+    "signature_type": "user_supplied_role_signature",
+    "personal_name": null
+  },
+  "recorded_at": "2026-10-15T23:41:09+08:00",
+  "time_meaning": "本次会话确认后的实际记录时间；不冒充消息精确发送时刻或历史Excel签署时间",
+  "authority": "用户在当前会话明确批准v2中的134种USDA食物和12道中文菜谱用于本项目课程设计，并提供署名；并非从旧Excel取得已签署批准",
+  "approval_scope": "team_course_demonstration_only",
+  "formal_production_use_approved": false,
+  "technical_verification": "本轮重新核对来源身份、SHA256、原始营养映射、Excel内容及48条依赖",
+  "allergen_safety_verification": "未完成；本次批准不代表通过",
+  "recipe_origin": "团队自编、AI辅助草案、未经实际试做",
+  "trial_evidence": null,
+  "parent": {
+    "package_id": "common-food-cn-preview",
+    "package_version": 2,
+    "manifest_sha256": "bdc647117fe396ee04d7bac93bd0ef5b1d1cf22e7b8fd02047565470bb2321a6",
+    "foods_sha256": "a46e5a14fabf1cd62a3c943ad06b3fa144e13f2734e59f7c9fd530e74eba70cc",
+    "recipes_sha256": "e498d548d3baed52e2469c3c3aada0dbc8020de6b08cd2700b51a00b09653a03",
+    "seed_manifest_sha256": "2391951c2738a0b5ca181c441a216d872731f9eed8fc8290b2e6001610f4e29b"
+  },
+  "historical_workbook": {
+    "path": "C:\\Users\\Administrator\\Documents\\Codex\\2026-10-14\\health-assistant-b-vue-3-vite\\outputs\\final-approval-v2-20261015\\v2食物与中文菜谱最终人工审批表.xlsx",
+    "sha256": "1dbb16cbac1394c7de391e76240ee707e09aefed0020aa633e4dfa4df602db09",
+    "signed_rows": 0,
+    "pending_rows": 146,
+    "unchanged": true
+  },
+  "approved_counts": {
+    "foods": 134,
+    "recipes": 12,
+    "ingredient_dependencies": 48
+  },
+  "foods": [
+    {
+      "id": "F001",
+      "source_key": "usda:fdc:2512381",
+      "fdc_id": 2512381,
+      "name_zh": "白米（长粒，生，未强化）",
+      "original_record_sha256": "099562b499682250c3e1824609e8ec1dd61f806e788d8d7e3ce4f7806545b422",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F002",
+      "source_key": "usda:fdc:168930",
+      "fdc_id": 168930,
+      "name_zh": "白米饭（中粒，熟，未强化）",
+      "original_record_sha256": "5128b3181647bd17a6b21bc9bc5b29f62ae73de5d7e20152e01400cf5e47b372",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F003",
+      "source_key": "usda:fdc:2512380",
+      "fdc_id": 2512380,
+      "name_zh": "糙米（长粒，生，未强化）",
+      "original_record_sha256": "b287feabab46f76ce3310f48f48c6e791517fbf71acbf188ca3190046541d85e",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F004",
+      "source_key": "usda:fdc:169704",
+      "fdc_id": 169704,
+      "name_zh": "糙米饭（长粒，熟）",
+      "original_record_sha256": "8cf69680da6566a7c0ba4f37348c037108b4309860b110a6fc8258e3141f328b",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F006",
+      "source_key": "usda:fdc:173905",
+      "fdc_id": 173905,
+      "name_zh": "燕麦粥（普通或快熟，未强化，水煮或微波，无盐）",
+      "original_record_sha256": "a53a10b9e2218637f01f314bbf95a59689ef34e693e76c49f3fa7a09ba20160f",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F009",
+      "source_key": "usda:fdc:169998",
+      "fdc_id": 169998,
+      "name_zh": "甜玉米粒（生）",
+      "original_record_sha256": "02c12da1bdce72092da84ea30197a68715dfec53e9ab20c454f8877a67374d25",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F010",
+      "source_key": "usda:fdc:169999",
+      "fdc_id": 169999,
+      "name_zh": "甜玉米粒（水煮，无盐）",
+      "original_record_sha256": "e0e3b68c855cf94cb4c402446f17a6839d51e9c9fbd7fc5476886b54b67848b7",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F011",
+      "source_key": "usda:fdc:168893",
+      "fdc_id": 168893,
+      "name_zh": "全麦面粉",
+      "original_record_sha256": "13e337729e24c75932c84efa72666488f77aac7ecc820fe6204b97dc3be92ec6",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F012",
+      "source_key": "usda:fdc:169761",
+      "fdc_id": 169761,
+      "name_zh": "小麦面粉（通用，未强化）",
+      "original_record_sha256": "e4b42118324a90dff05256ca780924d4a72528717917f219c54d27d1f8a6abb0",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F017",
+      "source_key": "usda:fdc:2346401",
+      "fdc_id": 2346401,
+      "name_zh": "土豆（Russet品种，去皮，生）",
+      "original_record_sha256": "ac9c0b2ef339245fe02b49abc857b5d4c58505f30b67c3c4d1128138e197eb25",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F018",
+      "source_key": "usda:fdc:170440",
+      "fdc_id": 170440,
+      "name_zh": "土豆（去皮，水煮，无盐）",
+      "original_record_sha256": "72bc10b6686aca013b8de4d6c5d48d6fb9d03db5b63b5a7cf47037000a06157a",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F019",
+      "source_key": "usda:fdc:2346404",
+      "fdc_id": 2346404,
+      "name_zh": "红薯（橙肉，去皮，生）",
+      "original_record_sha256": "97155beacef8a0c3ffbf02daa2cf4ba69bde271c382b0aae11b303379c79d2f2",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F020",
+      "source_key": "usda:fdc:168483",
+      "fdc_id": 168483,
+      "name_zh": "红薯（烤熟，薯肉，无盐）",
+      "original_record_sha256": "d4a10c614159618cf77570a9484c50c559b8162043de54a1367b11b04ea60898",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F021",
+      "source_key": "usda:fdc:2646170",
+      "fdc_id": 2646170,
+      "name_zh": "鸡胸肉（去皮，生）",
+      "original_record_sha256": "16ba467e419c75932bc51433e63190b8fa896eb22e4d5beba60d47d2f19e72be",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F022",
+      "source_key": "usda:fdc:171477",
+      "fdc_id": 171477,
+      "name_zh": "鸡胸肉（去皮，烤熟）",
+      "original_record_sha256": "a571e8d15ba2c62a71a13906b01a5380d27f09b3974c77cb9815269427b7bc78",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F023",
+      "source_key": "usda:fdc:173627",
+      "fdc_id": 173627,
+      "name_zh": "鸡腿肉（大腿，去皮，生）",
+      "original_record_sha256": "ac59c559bc597638a8e7fa3917bf27c2c7661d6f20654fe40e0915771c1a815f",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F024",
+      "source_key": "usda:fdc:172388",
+      "fdc_id": 172388,
+      "name_zh": "鸡腿肉（大腿，去皮，烤熟）",
+      "original_record_sha256": "738d5bc20a22faf544fe79ccdbc6a4c9fc7fa38ebde45f589fb69ee45da9b5c9",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F025",
+      "source_key": "usda:fdc:173632",
+      "fdc_id": 173632,
+      "name_zh": "鸡翅肉（去皮，生）",
+      "original_record_sha256": "6a1aedec2c11cd33c4312d72d29d1f1aab3606f4acc3c927d443fb74d3b4cd90",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F026",
+      "source_key": "usda:fdc:171060",
+      "fdc_id": 171060,
+      "name_zh": "鸡肝（生）",
+      "original_record_sha256": "bef85a84e9a488cc02b9ea70c9561b27d16ae714b9f84cbd3c26fffce68809b7",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F027",
+      "source_key": "usda:fdc:172408",
+      "fdc_id": 172408,
+      "name_zh": "鸭肉（带皮，生）",
+      "original_record_sha256": "d7574f6048283e0e80ba5e3a65cc4c52619352aed63aa187a843bf06900407fc",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F028",
+      "source_key": "usda:fdc:172409",
+      "fdc_id": 172409,
+      "name_zh": "鸭肉（带皮，烤熟）",
+      "original_record_sha256": "d2d44976551d89988871c8ba1055d60f6f921e2bfbb85e5447b5e19a96aba3b6",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F030",
+      "source_key": "usda:fdc:171098",
+      "fdc_id": 171098,
+      "name_zh": "火鸡胸肉（整禽部位，去皮，生）",
+      "original_record_sha256": "1621ea92918198d5b4c4e54706e128ed38a6ebda550d991e3ef918eb325c3d0c",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F031",
+      "source_key": "usda:fdc:168249",
+      "fdc_id": 168249,
+      "name_zh": "猪里脊（瘦肉，生）",
+      "original_record_sha256": "66ed297652cc6a1a4f76b24874e648689b2a7ba7ec22db57f4df60ccd874819f",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F032",
+      "source_key": "usda:fdc:168250",
+      "fdc_id": 168250,
+      "name_zh": "猪里脊（瘦肉，烤熟）",
+      "original_record_sha256": "619bfe8046ba003d056e34739d26d836e3f97636e148887f2b10aadf087873df",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F033",
+      "source_key": "usda:fdc:168230",
+      "fdc_id": 168230,
+      "name_zh": "猪腰脊肉（瘦肉，生）",
+      "original_record_sha256": "8425a487dba5ac02689623a602d613b627c345a5f31579d7056bf34199a365b5",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F034",
+      "source_key": "usda:fdc:167862",
+      "fdc_id": 167862,
+      "name_zh": "猪肝（生）",
+      "original_record_sha256": "5935dc65d49f1db4bcf0477d82e29896b70084d2f7b072fa5d1787dbeaee09b2",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F035",
+      "source_key": "usda:fdc:174736",
+      "fdc_id": 174736,
+      "name_zh": "牛里脊（新西兰进口，可分离瘦肉，生）",
+      "original_record_sha256": "b364ece60957329c7677fc14d34ba84c6cf4ed1e95497fccc2d3f6e33fe06922",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F037",
+      "source_key": "usda:fdc:2514743",
+      "fdc_id": 2514743,
+      "name_zh": "牛肉末（90%瘦肉、10%脂肪，生）",
+      "original_record_sha256": "3f02d66e736550527c21034db5685ab02edbdb17b9d60508af99e025d2fa7673",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F038",
+      "source_key": "usda:fdc:169451",
+      "fdc_id": 169451,
+      "name_zh": "牛肝（生）",
+      "original_record_sha256": "7c1475be61128b6bcf6e165855b94aae3106a2b43c310a97a5b3d2c2f7d0f2db",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F039",
+      "source_key": "usda:fdc:174452",
+      "fdc_id": 174452,
+      "name_zh": "羊腰脊肉（新西兰进口，去骨瘦肉，生）",
+      "original_record_sha256": "fa921818f6b7fb4f0b7e2da5b7d73a6288a42496337105c2030e70800abae820",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F040",
+      "source_key": "usda:fdc:174314",
+      "fdc_id": 174314,
+      "name_zh": "羊腿肉（整腿，可分离瘦肉，USDA Choice，烤熟；原切块修脂规格1/4英寸）",
+      "original_record_sha256": "566c70fd1e3a9ff723f2d6a8b0a386e0c06871b479288f24be27aecb93886131",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F041",
+      "source_key": "usda:fdc:175167",
+      "fdc_id": 175167,
+      "name_zh": "大西洋三文鱼（养殖，生）",
+      "original_record_sha256": "70afeb60db97be04759eaba27d21933631d0142f1ba5c01352b1aab7472ca818",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F042",
+      "source_key": "usda:fdc:175168",
+      "fdc_id": 175168,
+      "name_zh": "大西洋三文鱼（养殖，干热熟制）",
+      "original_record_sha256": "eaf0d99043f9cd2d2556c1ccb664cf60661a604b54527010411daf4639bba49c",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F043",
+      "source_key": "usda:fdc:174191",
+      "fdc_id": 174191,
+      "name_zh": "太平洋鳕鱼（生，可能曾冷冻）",
+      "original_record_sha256": "5a103bad5ac175b9dbaf0e2b2eca75eb47ed841ce76b8cf255412b037c903bc4",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F044",
+      "source_key": "usda:fdc:171990",
+      "fdc_id": 171990,
+      "name_zh": "太平洋鳕鱼（干热熟制，可能含保水添加剂）",
+      "original_record_sha256": "26fbe1edb31ec646683e1f67828f47501fe4d14c03451b9b41b70e132d53fd04",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F045",
+      "source_key": "usda:fdc:175176",
+      "fdc_id": 175176,
+      "name_zh": "罗非鱼（生）",
+      "original_record_sha256": "e5ca7577c80314c712f954bbd062f8b2e95de37b6b3ec97afef471faaff97c2c",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F046",
+      "source_key": "usda:fdc:175177",
+      "fdc_id": 175177,
+      "name_zh": "罗非鱼（干热熟制）",
+      "original_record_sha256": "5ee9bcf3ed292dc750869a14d6744f5a329c8a87a33d747a1d5f63fa82e375c2",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F047",
+      "source_key": "usda:fdc:171952",
+      "fdc_id": 171952,
+      "name_zh": "鲤鱼（生，可食鱼肉）",
+      "original_record_sha256": "ddc0ed128ba044ebe339dcf1c5c1b507e9f0b64fde5a523e03a2827476c960b2",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F048",
+      "source_key": "usda:fdc:173717",
+      "fdc_id": 173717,
+      "name_zh": "虹鳟鱼（养殖，生）",
+      "original_record_sha256": "7e8b69e64a4ceb97c94c697019fca1e82108340474fdb4cb5dded97c5382a9fe",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F049",
+      "source_key": "usda:fdc:175159",
+      "fdc_id": 175159,
+      "name_zh": "黄鳍金枪鱼（生）",
+      "original_record_sha256": "caa71562c2f9dcd1788892a65fbf0256d6813cd5ace600f87d10a7f5e4d85423",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F050",
+      "source_key": "usda:fdc:174210",
+      "fdc_id": 174210,
+      "name_zh": "虾仁（混合种类，生，可能含保水添加剂）",
+      "original_record_sha256": "70da6abe4e2193719180d911f6d5cc8e3cf427d7a493e43134bc5df42fd21af4",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F051",
+      "source_key": "usda:fdc:171971",
+      "fdc_id": 171971,
+      "name_zh": "虾仁（混合种类，湿热熟制，可能含保水添加剂）",
+      "original_record_sha256": "1b1d0a1d2b7dedb78ce4532da90607fbde0c3cf5c2d3e4aa0edca36c20cd6397",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F052",
+      "source_key": "usda:fdc:174223",
+      "fdc_id": 174223,
+      "name_zh": "鱿鱼（生，可食部分）",
+      "original_record_sha256": "55f936fa2d39884c4f4e2d790677c552d476c32c9f6245b4404aed075c482be5",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F053",
+      "source_key": "usda:fdc:174214",
+      "fdc_id": 174214,
+      "name_zh": "蛤蜊肉（生，混合种类）",
+      "original_record_sha256": "7c7dae7af19030cee493788cf601c63aa009052422dd606688f9a36c04a5c089",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F054",
+      "source_key": "usda:fdc:174216",
+      "fdc_id": 174216,
+      "name_zh": "蓝贻贝肉（生）",
+      "original_record_sha256": "81bdeaf48030d048a62cf732769bd6e868a7e5128fa891d86a8321150ef85dca",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F055",
+      "source_key": "usda:fdc:174219",
+      "fdc_id": 174219,
+      "name_zh": "太平洋牡蛎肉（生）",
+      "original_record_sha256": "333c5e802be70a82f5958d31cad2223414fd6f15b300ca5659cf417fe33dc501",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F056",
+      "source_key": "usda:fdc:171287",
+      "fdc_id": 171287,
+      "name_zh": "鸡蛋（全蛋，去壳，生）",
+      "original_record_sha256": "4967a766d01c220b9e2996efeaff1264b2460f68c2782707def86a82f088a128",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F057",
+      "source_key": "usda:fdc:173424",
+      "fdc_id": 173424,
+      "name_zh": "鸡蛋（全蛋，去壳，水煮熟）",
+      "original_record_sha256": "9239625b00c90a46ff276c37d4291a8ffd248b809173b8a44e985bd10f998b0e",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F058",
+      "source_key": "usda:fdc:172183",
+      "fdc_id": 172183,
+      "name_zh": "鸡蛋蛋白（生）",
+      "original_record_sha256": "87cc0240533fc0bd24c34af6591c3c51ec86df05f3aa6860234fd4d0e1863b5b",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F059",
+      "source_key": "usda:fdc:172184",
+      "fdc_id": 172184,
+      "name_zh": "鸡蛋蛋黄（生）",
+      "original_record_sha256": "5a11043e7ea8d748f95d66141f769879663d519dd790550e04cde3c37d14a319",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F060",
+      "source_key": "usda:fdc:172189",
+      "fdc_id": 172189,
+      "name_zh": "鸭蛋（全蛋，去壳，生）",
+      "original_record_sha256": "5d43ec6f359e35dda47e981dd7b80442e6f0abb54fa40c6486addd13e07dbed4",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F061",
+      "source_key": "usda:fdc:172191",
+      "fdc_id": 172191,
+      "name_zh": "鹌鹑蛋（全蛋，去壳，生）",
+      "original_record_sha256": "28bed2989d6bc7a139d302c3a774fb5445cfffb7d2d5849a501e2589baa1e317",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F062",
+      "source_key": "usda:fdc:171265",
+      "fdc_id": 171265,
+      "name_zh": "全脂牛奶（3.25%乳脂，添加维生素D）",
+      "original_record_sha256": "8f116c325c9cd322e64c4542d7c1b25ef6e96d02ac500b38271a7f7ce05b86ff",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F063",
+      "source_key": "usda:fdc:171267",
+      "fdc_id": 171267,
+      "name_zh": "减脂牛奶（2%乳脂，添加维生素A和D）",
+      "original_record_sha256": "597cf0067c1e44626462c0ed1005883cab0be648f7677113d7759551c52c4694",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F064",
+      "source_key": "usda:fdc:170872",
+      "fdc_id": 170872,
+      "name_zh": "低脂牛奶（1%乳脂，添加维生素A和D）",
+      "original_record_sha256": "0afe651199642b8dcff9f19f86c3aafcde7ccd00fa9540327649d6aed98a1f64",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F065",
+      "source_key": "usda:fdc:171269",
+      "fdc_id": 171269,
+      "name_zh": "脱脂牛奶（添加维生素A和D）",
+      "original_record_sha256": "3e44ed6c6182b84ee2eb78ace5940239ae48cb0bba26af27585b36e6189b376b",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F069",
+      "source_key": "usda:fdc:173414",
+      "fdc_id": 173414,
+      "name_zh": "切达奶酪",
+      "original_record_sha256": "c3ee1a7c920bab6dbd1930f239a8fbe57fa58d296931cd0ae3804ebf53b5d5fd",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F070",
+      "source_key": "usda:fdc:173430",
+      "fdc_id": 173430,
+      "name_zh": "黄油（无盐）",
+      "original_record_sha256": "32ed5730f028311747162cfe2f7fc1b6e8eb689e51ca90cf4730eafc5d3e9397",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F071",
+      "source_key": "usda:fdc:170457",
+      "fdc_id": 170457,
+      "name_zh": "番茄（红熟，生）",
+      "original_record_sha256": "0b4d1b5ce4ccce984940659a07983f6c8e49daddecda847ee775f52fe4dc4b1d",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F072",
+      "source_key": "usda:fdc:2346406",
+      "fdc_id": 2346406,
+      "name_zh": "黄瓜（带皮，生）",
+      "original_record_sha256": "c4401cf7749b765ac9ea0796e0a9d1c2dda080a9c97d45121ea9624664870441",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F073",
+      "source_key": "usda:fdc:2258586",
+      "fdc_id": 2258586,
+      "name_zh": "胡萝卜（成熟，生）",
+      "original_record_sha256": "420f63422cf900c85c232d5631ca37d401baf0120dcdf4a950067e9730814a97",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F074",
+      "source_key": "usda:fdc:170379",
+      "fdc_id": 170379,
+      "name_zh": "西兰花（生）",
+      "original_record_sha256": "9c450c0d2371b659910401c095ad3544cefdf3b1f4b5275d40c17c9d51d46ae3",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F075",
+      "source_key": "usda:fdc:168462",
+      "fdc_id": 168462,
+      "name_zh": "菠菜（生）",
+      "original_record_sha256": "64b41bd7e9707216a80ba4c4a83048208fb1e6db840327ad92ce5dbb145440c5",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F076",
+      "source_key": "usda:fdc:2346407",
+      "fdc_id": 2346407,
+      "name_zh": "绿卷心菜（生）",
+      "original_record_sha256": "6d4f83afa31663e4846dd9d9db5c2754dadc3178753780744c2a406b3a42116a",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F077",
+      "source_key": "usda:fdc:169979",
+      "fdc_id": 169979,
+      "name_zh": "大白菜（生）",
+      "original_record_sha256": "2b55affb679610304342ddbbed8749e73fea6229accd6cbcdaa8446069d78a31",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F078",
+      "source_key": "usda:fdc:170390",
+      "fdc_id": 170390,
+      "name_zh": "小白菜（生）",
+      "original_record_sha256": "a2a8c61fed4fbaaab24f53ca3ce54e617a3389af82b9dff173d5131e82a3c0a2",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F079",
+      "source_key": "usda:fdc:2685573",
+      "fdc_id": 2685573,
+      "name_zh": "菜花（生）",
+      "original_record_sha256": "57beffc06d7db04779d3766650161cbe19f43cd179042beb2c39134509d09aef",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F080",
+      "source_key": "usda:fdc:2346391",
+      "fdc_id": 2346391,
+      "name_zh": "绿叶生菜（生）",
+      "original_record_sha256": "c61dc0f465a448189f8d62fa00f168e80c4aa8244c562672d24b5537b5c4f1c0",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F081",
+      "source_key": "usda:fdc:2258590",
+      "fdc_id": 2258590,
+      "name_zh": "红灯笼甜椒（生）",
+      "original_record_sha256": "c2b39c0e5c105b9abbb213afb80e201573261dc8d0ba75644931a17ebea29010",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F082",
+      "source_key": "usda:fdc:2258588",
+      "fdc_id": 2258588,
+      "name_zh": "青灯笼甜椒（生）",
+      "original_record_sha256": "227626709578063f87403826f26779c53d7f48066f216ddeb654af3133282817",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F083",
+      "source_key": "usda:fdc:170000",
+      "fdc_id": 170000,
+      "name_zh": "洋葱（生）",
+      "original_record_sha256": "1f6d9071c3b98eb5cd8dbc2cb2614c87ff19bb97a6bd45e6e77618899123424f",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F084",
+      "source_key": "usda:fdc:170005",
+      "fdc_id": 170005,
+      "name_zh": "小葱（葱白及葱绿，生）",
+      "original_record_sha256": "c6bfd80d1e2049d85ee4263759b7ab8f27f4a4f8f303d8c72fbd2b7d9ebebc54",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F085",
+      "source_key": "usda:fdc:169246",
+      "fdc_id": 169246,
+      "name_zh": "韭葱（葱白与浅绿部，生）",
+      "original_record_sha256": "ffb0e4aecae90628ca1c3c40105f3d5e34c64b0be5cbd5a577ae403ca59f64ca",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F087",
+      "source_key": "usda:fdc:2346405",
+      "fdc_id": 2346405,
+      "name_zh": "芹菜（生）",
+      "original_record_sha256": "cbcf1e83151d5041d6c66de67d48ade6a2447a15986ec29e9e2db7805cd204cb",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F088",
+      "source_key": "usda:fdc:2685577",
+      "fdc_id": 2685577,
+      "name_zh": "茄子（生）",
+      "original_record_sha256": "c17a117bedaa5921d0defa16fee0473b5b97dae0fa0dbf99dabe90962b7b4caf",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F089",
+      "source_key": "usda:fdc:2685568",
+      "fdc_id": 2685568,
+      "name_zh": "绿西葫芦（带皮，生）",
+      "original_record_sha256": "07290d2bac0d73e2f2e4a05c9a6c7f12287ab064226705a8d9b04df5481a8f2d",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F090",
+      "source_key": "usda:fdc:168448",
+      "fdc_id": 168448,
+      "name_zh": "南瓜（生）",
+      "original_record_sha256": "89d1010e72eb7382364335880ef07900346f9264eebc98a20990e7054d99e89b",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F091",
+      "source_key": "usda:fdc:170069",
+      "fdc_id": 170069,
+      "name_zh": "冬瓜（生）",
+      "original_record_sha256": "3100f98564b32149f3d0bc3c977ee31ce8cc987c2ff6986748cead98966f4b4c",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F092",
+      "source_key": "usda:fdc:169210",
+      "fdc_id": 169210,
+      "name_zh": "竹笋（生，可食部分）",
+      "original_record_sha256": "de4316ea9e2e1e0ebad425568f9e220902338e6d54dc558731bda26c9cb1fc7f",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F093",
+      "source_key": "usda:fdc:169250",
+      "fdc_id": 169250,
+      "name_zh": "莲藕（生）",
+      "original_record_sha256": "9f2ecc46e9fe0ad78bf1b22a9c977d500dfda17a74763a926d20160004d2694c",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F094",
+      "source_key": "usda:fdc:168451",
+      "fdc_id": 168451,
+      "name_zh": "白萝卜（生）",
+      "original_record_sha256": "0fc69fad70a654b8003d01e5357c08ffc4caab848cc368f581fd681f204dbd8f",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F095",
+      "source_key": "usda:fdc:169242",
+      "fdc_id": 169242,
+      "name_zh": "香菇（鲜，生）",
+      "original_record_sha256": "c32820c667aab1d785c8ac86800c6d09a8f3781dd0c1eae270658c18ea316e18",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F096",
+      "source_key": "usda:fdc:169251",
+      "fdc_id": 169251,
+      "name_zh": "白蘑菇（鲜，生）",
+      "original_record_sha256": "11167c42a171a73f1e7f2ef44c5a4b4cb4a39ac780ba052ee896bd2e94424f57",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F097",
+      "source_key": "usda:fdc:169382",
+      "fdc_id": 169382,
+      "name_zh": "金针菇（鲜，生）",
+      "original_record_sha256": "2f48b6db929143f2ff335af8d08e887c97023f84ee49576b07c2990bf4cc1a32",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F098",
+      "source_key": "usda:fdc:169230",
+      "fdc_id": 169230,
+      "name_zh": "大蒜（生）",
+      "original_record_sha256": "75a4778b22f0d18a574e7c1084dcda3a1d8346e46af298f425177e724e1609e0",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F099",
+      "source_key": "usda:fdc:169231",
+      "fdc_id": 169231,
+      "name_zh": "生姜（生）",
+      "original_record_sha256": "38a1931b4502250f2b5b51b1716ce90184c5f7d4a2756ae3dd523e0cf9d9bd59",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F100",
+      "source_key": "usda:fdc:2346400",
+      "fdc_id": 2346400,
+      "name_zh": "四季豆（嫩荚，生）",
+      "original_record_sha256": "a38ef09b9692b73a41efea25ae51b938264afc4e5e133bb0fceea7258ab5ec76",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F101",
+      "source_key": "usda:fdc:171688",
+      "fdc_id": 171688,
+      "name_zh": "苹果（带皮，去核，生）",
+      "original_record_sha256": "e9b3db6de32833575be459f77227e1474e42d1c42b07c765eb915dca89596738",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F102",
+      "source_key": "usda:fdc:173944",
+      "fdc_id": 173944,
+      "name_zh": "香蕉（去皮，生）",
+      "original_record_sha256": "3700307f28ebf5cfd5636b9a15b4e7a820c15f02c8f8404923f407d8606866cf",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F103",
+      "source_key": "usda:fdc:169097",
+      "fdc_id": 169097,
+      "name_zh": "橙（去皮，可食部分）",
+      "original_record_sha256": "aff34bd2a358a3cfed3a89786175314cf6d694ae3bdc67a6774a966dbd49c278",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F104",
+      "source_key": "usda:fdc:169105",
+      "fdc_id": 169105,
+      "name_zh": "柑橘（去皮，可食部分）",
+      "original_record_sha256": "0ef652a91cbd616caf4ba338075e3f77227f8961815aacb22b7d860023408198",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F105",
+      "source_key": "usda:fdc:169118",
+      "fdc_id": 169118,
+      "name_zh": "梨（生，可食部分）",
+      "original_record_sha256": "1c2d3774664656b75ffb658baaa87e7d52a5d91273d8f92659be32b18b9d87fd",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F106",
+      "source_key": "usda:fdc:174683",
+      "fdc_id": 174683,
+      "name_zh": "葡萄（红或绿，欧洲类型，生）",
+      "original_record_sha256": "504795a02b25021049047d4d1ff7c697c422b986481505341cf4a34e2d36f193",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F107",
+      "source_key": "usda:fdc:2346409",
+      "fdc_id": 2346409,
+      "name_zh": "草莓（生）",
+      "original_record_sha256": "3e58abb64389f1ba7a7e129f0129f3c76272fa94c817f6ed7df3743bfbea85f8",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F108",
+      "source_key": "usda:fdc:2346411",
+      "fdc_id": 2346411,
+      "name_zh": "蓝莓（生）",
+      "original_record_sha256": "02eba482490793ebedc52cb1c0285ee9851d8114ca4abc26d0b97682f622a22e",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F109",
+      "source_key": "usda:fdc:2346410",
+      "fdc_id": 2346410,
+      "name_zh": "树莓（生）",
+      "original_record_sha256": "5fbad4ce72dc40b29091defb8cf68763e84f8c13ed715b3e98cea6c5ca59c977",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F110",
+      "source_key": "usda:fdc:2710831",
+      "fdc_id": 2710831,
+      "name_zh": "绿肉猕猴桃（去皮，生）",
+      "original_record_sha256": "dc4c0a3b44049167b8cec049dec1ff12a56bf2384ca96855db63a96a8866ec3e",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F111",
+      "source_key": "usda:fdc:169910",
+      "fdc_id": 169910,
+      "name_zh": "芒果（生，可食部分）",
+      "original_record_sha256": "6343a29c22f01f3ac0c839c327faba1ea8885fe4f9d67f052fb6b65df4df2d8e",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F112",
+      "source_key": "usda:fdc:2346398",
+      "fdc_id": 2346398,
+      "name_zh": "菠萝（生，可食部分）",
+      "original_record_sha256": "fdef47ad3b94172bc51c6ec92fca0ba5eda8ca258ea2d062c14437e8c826b02c",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F113",
+      "source_key": "usda:fdc:167765",
+      "fdc_id": 167765,
+      "name_zh": "西瓜（生，可食部分）",
+      "original_record_sha256": "d7f0172de3087cfee0746cf8f7abcc741961f31095c3df2c4ec896ede44e15d9",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F114",
+      "source_key": "usda:fdc:169092",
+      "fdc_id": 169092,
+      "name_zh": "甜瓜（cantaloupe类型，生）",
+      "original_record_sha256": "09fff94b142062a5e734a64ab1e6794ea53fe10703d39b5a0e367575595ee201",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F115",
+      "source_key": "usda:fdc:169928",
+      "fdc_id": 169928,
+      "name_zh": "黄桃（生，可食部分）",
+      "original_record_sha256": "2f72f607906dfbb98a362475e0bf999f71ebd28e53ab0925a9e3eac06f7343f3",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F116",
+      "source_key": "usda:fdc:169949",
+      "fdc_id": 169949,
+      "name_zh": "李子（生，可食部分）",
+      "original_record_sha256": "64c96fba16d96097b6e513b55f96f4970d8715b27b7b233e0053813ecd8ebb66",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F117",
+      "source_key": "usda:fdc:171719",
+      "fdc_id": 171719,
+      "name_zh": "甜樱桃（生，可食部分）",
+      "original_record_sha256": "1709e9d3f65ac158483c3056f9bd5bed3725e43761fc8f5fb341facaa487d275",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F118",
+      "source_key": "usda:fdc:171697",
+      "fdc_id": 171697,
+      "name_zh": "杏（生，可食部分）",
+      "original_record_sha256": "f3a8d5c1832c2842f636e1469de54331e24d3b1fa25e47b3047d137d3a0f08b5",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F119",
+      "source_key": "usda:fdc:167754",
+      "fdc_id": 167754,
+      "name_zh": "柚子（生，可食部分）",
+      "original_record_sha256": "c5941f178fa36ef02a7d6fd84a7f95ca9f3f21997a3139c5108237b3a474f8b3",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F120",
+      "source_key": "usda:fdc:167746",
+      "fdc_id": 167746,
+      "name_zh": "柠檬（去皮，生）",
+      "original_record_sha256": "391e7172f18783b6040bbf3d944cf03e1496bc8c6f72c5ac1aee0e9eea2a1e57",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F121",
+      "source_key": "usda:fdc:174270",
+      "fdc_id": 174270,
+      "name_zh": "黄豆（成熟干豆，生）",
+      "original_record_sha256": "4f167ad2325ede615e66b48f2d7a24c60b198df76894b62af66b97ede4caff57",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F122",
+      "source_key": "usda:fdc:174271",
+      "fdc_id": 174271,
+      "name_zh": "黄豆（水煮熟，无盐）",
+      "original_record_sha256": "30df168eaaa692e55765138d498cca6a3907fb770ee64068e7c3b79ec4f154c3",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F123",
+      "source_key": "usda:fdc:168411",
+      "fdc_id": 168411,
+      "name_zh": "毛豆（冷冻后制熟，去荚）",
+      "original_record_sha256": "e6ba257eabe330881b52cebd66cdcf44915905b3e1f9eea7e9e9b4c5e95b46f0",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F127",
+      "source_key": "usda:fdc:173727",
+      "fdc_id": 173727,
+      "name_zh": "红小豆（成熟干豆，生）",
+      "original_record_sha256": "82f065c90560c888e62d6e3d3c8cad67cca04d7c4ed53515f95d29b5476e8c77",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F128",
+      "source_key": "usda:fdc:173728",
+      "fdc_id": 173728,
+      "name_zh": "红小豆（水煮熟，无盐）",
+      "original_record_sha256": "c9adbbde2e54b7b29809de381a0ebe04abeb71d58972e5b9f0af84fa93b2b993",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F129",
+      "source_key": "usda:fdc:174256",
+      "fdc_id": 174256,
+      "name_zh": "绿豆（成熟干豆，生）",
+      "original_record_sha256": "90cdae206f75ff1bc9d13fe4753f8ff27cfad022245d302f5ca15868c3c6b762",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F130",
+      "source_key": "usda:fdc:174257",
+      "fdc_id": 174257,
+      "name_zh": "绿豆（水煮熟，无盐）",
+      "original_record_sha256": "6a5cd756198ba0255e202b7b39302112552aa34dfc327c621dc63630872458f4",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F131",
+      "source_key": "usda:fdc:173757",
+      "fdc_id": 173757,
+      "name_zh": "鹰嘴豆（水煮熟，无盐）",
+      "original_record_sha256": "3652197ddc637bc8db35804d63c7d40a2a63132814777aaf681bb672febb01b4",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F132",
+      "source_key": "usda:fdc:172421",
+      "fdc_id": 172421,
+      "name_zh": "小扁豆籽（成熟籽粒，水煮熟，无盐）",
+      "original_record_sha256": "94ab4638596296f27b9273338ab2730a3cc6a0c39e5eb36b2928a882a74b6f35",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F133",
+      "source_key": "usda:fdc:2515376",
+      "fdc_id": 2515376,
+      "name_zh": "花生仁（生）",
+      "original_record_sha256": "5d459c8d2609370bc4ff3de1b4186f7fcb5de020bb6dba01ec93ce2e24573af1",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F134",
+      "source_key": "usda:fdc:2346393",
+      "fdc_id": 2346393,
+      "name_zh": "巴旦木（扁桃仁，完整果仁，生）",
+      "original_record_sha256": "0512b115dde9e62502d6e4178b1e12c6c77764ecc2f4dd343f1d9f32580e7ec1",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F135",
+      "source_key": "usda:fdc:2346394",
+      "fdc_id": 2346394,
+      "name_zh": "核桃仁（英格兰核桃，半仁，生）",
+      "original_record_sha256": "7f9e1a545944287b97fec159a5a576c1505274f3f0c5913513e8296138b240d9",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F136",
+      "source_key": "usda:fdc:2515374",
+      "fdc_id": 2515374,
+      "name_zh": "腰果仁（生）",
+      "original_record_sha256": "48eb9643114f5cb83e07da8c58f20c18ab7d4f05217424c22b6e5d0f90300571",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F137",
+      "source_key": "usda:fdc:2515379",
+      "fdc_id": 2515379,
+      "name_zh": "开心果仁（生）",
+      "original_record_sha256": "5a6bf9803591787e8c075f5f3569d957509e4c8782b1e435e29949a7e46bb072",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F138",
+      "source_key": "usda:fdc:2515375",
+      "fdc_id": 2515375,
+      "name_zh": "榛子仁（生）",
+      "original_record_sha256": "42555a5c7fd454ad9bd029639e636b8a3aac3e1a4d4d2545b1f616a3ccffa152",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F139",
+      "source_key": "usda:fdc:170562",
+      "fdc_id": 170562,
+      "name_zh": "葵花籽仁（干）",
+      "original_record_sha256": "75c9141750baaa2e7347c72be3e0ca9024453e5f013265bb3e618e7fc6711c13",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F140",
+      "source_key": "usda:fdc:170556",
+      "fdc_id": 170556,
+      "name_zh": "南瓜籽仁（干）",
+      "original_record_sha256": "12a1c29b19ecfe9b1da3a230af271a79cbf5cb1a02bbd03bf5933fa0de021553",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F141",
+      "source_key": "usda:fdc:171413",
+      "fdc_id": 171413,
+      "name_zh": "橄榄油",
+      "original_record_sha256": "a52000578d11ec1d5259ab5b9a03794c9ae51d5f8d558fa7934c9327e72712de",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F142",
+      "source_key": "usda:fdc:172336",
+      "fdc_id": 172336,
+      "name_zh": "菜籽油（低芥酸，Canola）",
+      "original_record_sha256": "0496376bc6973d022e944f57ad40be462c9afed8150c2f0e2d5e7e11b88d86a9",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F143",
+      "source_key": "usda:fdc:171016",
+      "fdc_id": 171016,
+      "name_zh": "芝麻油",
+      "original_record_sha256": "81d0b85f4807d01b777752c4497b0faff2fb770812a5904a36ac65329eeb1408",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F144",
+      "source_key": "usda:fdc:174277",
+      "fdc_id": 174277,
+      "name_zh": "酱油（shoyu，大豆和小麦制）",
+      "original_record_sha256": "fbb810cb262196b0a7d949975c709f1065535d40ca70744d399c727964f0c537",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F145",
+      "source_key": "usda:fdc:173468",
+      "fdc_id": 173468,
+      "name_zh": "食盐",
+      "original_record_sha256": "05ab6c8ded5811d63fc32ccb265c2c03b9bf0c6d3e2c18267201cabe73fe57f1",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F146",
+      "source_key": "usda:fdc:169655",
+      "fdc_id": 169655,
+      "name_zh": "白砂糖",
+      "original_record_sha256": "a5b3f93abd9f876b5de9b6baa36ebcac5c01a0244376591ff2d4c41f230ec60e",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F147",
+      "source_key": "usda:fdc:172237",
+      "fdc_id": 172237,
+      "name_zh": "蒸馏食醋（不得标作中式陈醋）",
+      "original_record_sha256": "ebbc63931d5db60c6d2af198f454bd5500a0ca8bd18dfe748ec39c7eab49cc7f",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F148",
+      "source_key": "usda:fdc:170931",
+      "fdc_id": 170931,
+      "name_zh": "黑胡椒粉",
+      "original_record_sha256": "08f55e2b6436542aa09680c60f947c2475b6fd904011b9217e6ed07d86446a27",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F149",
+      "source_key": "usda:fdc:169698",
+      "fdc_id": 169698,
+      "name_zh": "玉米淀粉",
+      "original_record_sha256": "f4b547c3201726e53db40dde2c326b2dfc03157797222bffb7b970867d10dd28",
+      "decision": "approved_for_course_demo"
+    },
+    {
+      "id": "F150",
+      "source_key": "usda:fdc:174158",
+      "fdc_id": 174158,
+      "name_zh": "饮用水（瓶装通用条目）",
+      "original_record_sha256": "63d1fbd3c578b3bd9d9c96866cea2ae3f083ffcf6d2ccc7fb2e31ee05ebfbed7",
+      "decision": "approved_for_course_demo"
+    }
+  ],
+  "recipes": [
+    {
+      "id": "R007",
+      "recipe_key": "health-assistant:recipe:daily-cn-007",
+      "name": "玉米牛奶鸡蛋组合",
+      "original_record_sha256": "a5516edfcd4f7d859c5aa0116f2e32c8e0fa487fdd71a810cef6ffb1207fd31a",
+      "decision": "approved_for_course_demo",
+      "trial_status": "未经实际试做"
+    },
+    {
+      "id": "R009",
+      "recipe_key": "health-assistant:recipe:daily-cn-009",
+      "name": "番茄鸡蛋盖饭",
+      "original_record_sha256": "72eb4a002e402cd7f4c3c2c81838921a810e9f7368c2108c02bd8e1f16fd6ef3",
+      "decision": "approved_for_course_demo",
+      "trial_status": "未经实际试做"
+    },
+    {
+      "id": "R011",
+      "recipe_key": "health-assistant:recipe:daily-cn-011",
+      "name": "青椒肉丝米饭",
+      "original_record_sha256": "d710f02e8223169313929bd60e2a19d695dd27078bc8b0eaa5f4fc9736d9bae9",
+      "decision": "approved_for_course_demo",
+      "trial_status": "未经实际试做"
+    },
+    {
+      "id": "R015",
+      "recipe_key": "health-assistant:recipe:daily-cn-015",
+      "name": "鹰嘴豆杂蔬糙米碗",
+      "original_record_sha256": "707b0034f1baebf01c57ff8be9bb4b763a8563757aad07ad9cb01d8ad34dc5e9",
+      "decision": "approved_for_course_demo",
+      "trial_status": "未经实际试做"
+    },
+    {
+      "id": "R016",
+      "recipe_key": "health-assistant:recipe:daily-cn-016",
+      "name": "清蒸鳕鱼配米饭",
+      "original_record_sha256": "139916a8a3af985c23a3b7ff22e41731ad95180b93ea2073638bab4608e7db82",
+      "decision": "approved_for_course_demo",
+      "trial_status": "未经实际试做"
+    },
+    {
+      "id": "R019",
+      "recipe_key": "health-assistant:recipe:daily-cn-019",
+      "name": "香菇蒸鸡腿肉",
+      "original_record_sha256": "0755ee324a369faea99e7af690f3e93e209161c832b56ca28da5411d9eec33d5",
+      "decision": "approved_for_course_demo",
+      "trial_status": "未经实际试做"
+    },
+    {
+      "id": "R021",
+      "recipe_key": "health-assistant:recipe:daily-cn-021",
+      "name": "卷心菜炒瘦肉",
+      "original_record_sha256": "c2500723cf51cbe7beea29d01022b64bc387e3e89d25d6928229421fb297eff3",
+      "decision": "approved_for_course_demo",
+      "trial_status": "未经实际试做"
+    },
+    {
+      "id": "R022",
+      "recipe_key": "health-assistant:recipe:daily-cn-022",
+      "name": "三文鱼土豆拼盘",
+      "original_record_sha256": "1f5b8c361209133968e17c0d2df2a512da0d8e135e9fd0b1e19a4ee06c2f02f2",
+      "decision": "approved_for_course_demo",
+      "trial_status": "未经实际试做"
+    },
+    {
+      "id": "R026",
+      "recipe_key": "health-assistant:recipe:daily-cn-026",
+      "name": "香蕉牛奶杯",
+      "original_record_sha256": "f4b5f1aae40747bdc8a7377add10fd4f167398ac867159806e8b789894eba001",
+      "decision": "approved_for_course_demo",
+      "trial_status": "未经实际试做"
+    },
+    {
+      "id": "R027",
+      "recipe_key": "health-assistant:recipe:daily-cn-027",
+      "name": "橙子核桃组合",
+      "original_record_sha256": "a8e51c2ebbb069c5b43d2ad3a79510d3724f0631e30c3a8296d81851377aa899",
+      "decision": "approved_for_course_demo",
+      "trial_status": "未经实际试做"
+    },
+    {
+      "id": "R029",
+      "recipe_key": "health-assistant:recipe:daily-cn-029",
+      "name": "水煮鸡蛋黄瓜组合",
+      "original_record_sha256": "6a8bfd1fab54d9fd193e50eed9411b7ca813f3a0ebdb7a679948cbe870299aaf",
+      "decision": "approved_for_course_demo",
+      "trial_status": "未经实际试做"
+    },
+    {
+      "id": "R030",
+      "recipe_key": "health-assistant:recipe:daily-cn-030",
+      "name": "红小豆牛奶羹",
+      "original_record_sha256": "941980fb72bd724b6a970f7793a029b084352a278849cefcc314c6fef1bdf3bb",
+      "decision": "approved_for_course_demo",
+      "trial_status": "未经实际试做"
+    }
+  ],
+  "dependencies": [
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-007",
+      "food_source_key": "usda:fdc:169999",
+      "amount_g": 120,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-007",
+      "food_source_key": "usda:fdc:171265",
+      "amount_g": 200,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-007",
+      "food_source_key": "usda:fdc:173424",
+      "amount_g": 50,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-009",
+      "food_source_key": "usda:fdc:168930",
+      "amount_g": 150,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-009",
+      "food_source_key": "usda:fdc:171287",
+      "amount_g": 100,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-009",
+      "food_source_key": "usda:fdc:170457",
+      "amount_g": 200,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-009",
+      "food_source_key": "usda:fdc:172336",
+      "amount_g": 8,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-009",
+      "food_source_key": "usda:fdc:173468",
+      "amount_g": 1,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-011",
+      "food_source_key": "usda:fdc:168230",
+      "amount_g": 120,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-011",
+      "food_source_key": "usda:fdc:2258588",
+      "amount_g": 150,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-011",
+      "food_source_key": "usda:fdc:168930",
+      "amount_g": 150,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-011",
+      "food_source_key": "usda:fdc:172336",
+      "amount_g": 6,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-011",
+      "food_source_key": "usda:fdc:174277",
+      "amount_g": 5,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-011",
+      "food_source_key": "usda:fdc:174158",
+      "amount_g": 30,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-015",
+      "food_source_key": "usda:fdc:173757",
+      "amount_g": 120,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-015",
+      "food_source_key": "usda:fdc:169704",
+      "amount_g": 100,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-015",
+      "food_source_key": "usda:fdc:2346406",
+      "amount_g": 100,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-015",
+      "food_source_key": "usda:fdc:170457",
+      "amount_g": 100,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-015",
+      "food_source_key": "usda:fdc:171413",
+      "amount_g": 5,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-015",
+      "food_source_key": "usda:fdc:173468",
+      "amount_g": 0.5,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-016",
+      "food_source_key": "usda:fdc:174191",
+      "amount_g": 150,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-016",
+      "food_source_key": "usda:fdc:168930",
+      "amount_g": 150,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-016",
+      "food_source_key": "usda:fdc:170379",
+      "amount_g": 150,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-016",
+      "food_source_key": "usda:fdc:169231",
+      "amount_g": 5,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-016",
+      "food_source_key": "usda:fdc:174277",
+      "amount_g": 5,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-019",
+      "food_source_key": "usda:fdc:173627",
+      "amount_g": 180,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-019",
+      "food_source_key": "usda:fdc:169242",
+      "amount_g": 100,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-019",
+      "food_source_key": "usda:fdc:169231",
+      "amount_g": 5,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-019",
+      "food_source_key": "usda:fdc:174277",
+      "amount_g": 5,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-019",
+      "food_source_key": "usda:fdc:174158",
+      "amount_g": 30,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-021",
+      "food_source_key": "usda:fdc:2346407",
+      "amount_g": 200,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-021",
+      "food_source_key": "usda:fdc:168230",
+      "amount_g": 100,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-021",
+      "food_source_key": "usda:fdc:172336",
+      "amount_g": 6,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-021",
+      "food_source_key": "usda:fdc:173468",
+      "amount_g": 1,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-022",
+      "food_source_key": "usda:fdc:175167",
+      "amount_g": 150,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-022",
+      "food_source_key": "usda:fdc:170440",
+      "amount_g": 180,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-022",
+      "food_source_key": "usda:fdc:170379",
+      "amount_g": 150,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-022",
+      "food_source_key": "usda:fdc:171413",
+      "amount_g": 5,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-022",
+      "food_source_key": "usda:fdc:173468",
+      "amount_g": 1,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-026",
+      "food_source_key": "usda:fdc:173944",
+      "amount_g": 100,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-026",
+      "food_source_key": "usda:fdc:171265",
+      "amount_g": 200,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-027",
+      "food_source_key": "usda:fdc:169097",
+      "amount_g": 150,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-027",
+      "food_source_key": "usda:fdc:2346394",
+      "amount_g": 15,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-029",
+      "food_source_key": "usda:fdc:173424",
+      "amount_g": 50,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-029",
+      "food_source_key": "usda:fdc:2346406",
+      "amount_g": 150,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-030",
+      "food_source_key": "usda:fdc:173728",
+      "amount_g": 100,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-030",
+      "food_source_key": "usda:fdc:171265",
+      "amount_g": 200,
+      "in_approved_scope": true
+    },
+    {
+      "recipe_key": "health-assistant:recipe:daily-cn-030",
+      "food_source_key": "usda:fdc:174158",
+      "amount_g": 50,
+      "in_approved_scope": true
+    }
+  ],
+  "excluded_ids": [
+    "F005",
+    "F007",
+    "F008",
+    "F015",
+    "F016",
+    "F066",
+    "F067",
+    "F068",
+    "F125",
+    "F126",
+    "R001",
+    "R002",
+    "R004",
+    "R010",
+    "R012",
+    "R013",
+    "R017",
+    "R018",
+    "R020",
+    "R023",
+    "R024",
+    "R028",
+    "F013",
+    "F014",
+    "F029",
+    "F036",
+    "F086",
+    "F124",
+    "R003",
+    "R008",
+    "R014",
+    "R005",
+    "R006",
+    "R025"
+  ],
+  "limits": [
+    "仅用于课程演示，不含真实用户及健康记录",
+    "不代表过敏原、成分安全、临床适用性或菜谱试做验证",
+    "原temporary_review包及原审批表不变",
+    "正式数据库不在授权范围内"
+  ],
+  "approved_use": "Health_Assistant软件工程课程设计演示",
+  "approval_preview_sha256": "3e20e7a8cb8dde8444d32a0ce606da824ba207c8f4f19b3b576f964f8c01721b"
+}

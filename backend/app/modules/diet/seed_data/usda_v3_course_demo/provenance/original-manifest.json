@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "package_id": "common-food-cn-preview",
+  "package_version": 2,
+  "purpose": "temporary_review",
+  "review_status": "pending_final_confirmation",
+  "reviewer": "Codex：A类文字已按用户授权澄清，全部候选仍待用户最终确认",
+  "reviewed_at": "2026-10-15T02:13:30.079321+00:00",
+  "mapping_policy": "usda-per100-v1",
+  "format": "json",
+  "sources": [
+    {
+      "path": "sources/FoodData_Central_foundation_food_json_2026-04-30.zip",
+      "sha256": "186e988ec542e913f51ef62b86a47758e8cdd0d1dc3889e7b055581f3c09c77a",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_foundation_food_json_2026-04-30.zip",
+      "release": "2026-04-30",
+      "data_type": "Foundation",
+      "retrieved_at": "2026-10-14T14:52:38.310403+00:00"
+    },
+    {
+      "path": "sources/FoodData_Central_sr_legacy_food_json_2018-04.zip",
+      "sha256": "0fe8ae486a2c8eb42cb96413f058deb51863a46c8fb8eeb4b1fb45006dd338ef",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_json_2018-04.zip",
+      "release": "2018-04",
+      "data_type": "SR Legacy",
+      "retrieved_at": "2026-10-14T14:52:38.310403+00:00"
+    }
+  ],
+  "documentation": [
+    {
+      "path": "sources/Download_Field_Descriptions_Oct2020.pdf",
+      "sha256": "e21d658d4d3fa583aceaa78e23efd4e64dbf9010fd0210a87b94edbcfb56928a"
+    },
+    {
+      "path": "review/a_changes.json",
+      "sha256": "55ce1fef01bea82d53bd0b489d8dbea863b27705f65023f4f25c338ba79e5010"
+    },
+    {
+      "path": "review/b_food_tasks.json",
+      "sha256": "fcd251eb5d9439efce9d7c10f1598127b6458f8ccad1d7af8976d4f485635289"
+    },
+    {
+      "path": "review/b_recipe_tasks.json",
+      "sha256": "59af0c139b5fb6d431d2627cd03cae14186f73642007b16e9268a8e664fd2705"
+    },
+    {
+      "path": "review/c_foods.json",
+      "sha256": "894a372b40970307c65ad41204cd728333664c1a709e488398b79ee1afa2873e"
+    },
+    {
+      "path": "review/c_recipes.json",
+      "sha256": "26ef310d5b29ae107944831dd05ff096404869e96fb7feb6a69bbb55d9c3a1c8"
+    },
+    {
+      "path": "review/dependency_held_recipes.json",
+      "sha256": "06b058ff7cc542fb04d4db354e8aeb150a8ef9bd2a6d4759170a1fdbc86ced4d"
+    },
+    {
+      "path": "review/candidate_report.json",
+      "sha256": "ccea0643ca01d171901d0e8d3328c89850ca307cc9d5ecf524744c50c6049eb0"
+    },
+    {
+      "path": "review/source_record_hashes.json",
+      "sha256": "13d9dda8dbd4e49ba8c76e87ce416e2958e3b7dd23471c6418baa37f726fbf5a"
+    },
+    {
+      "path": "review/authorization.json",
+      "sha256": "529ff38e8ff91524d91a6e4fa5954e1bb76de275a9bf1789c9598ede5f701f7b"
+    },
+    {
+      "path": "review/summary.json",
+      "sha256": "c721aef5bfabbfa200bca49b80945587cc763e0a5cdfef0815b33f0a399544d9"
+    }
+  ],
+  "files": {
+    "foods": {
+      "path": "foods.json",
+      "sha256": "a46e5a14fabf1cd62a3c943ad06b3fa144e13f2734e59f7c9fd530e74eba70cc"
+    },
+    "recipes": {
+      "path": "recipes.json",
+      "sha256": "e498d548d3baed52e2469c3c3aada0dbc8020de6b08cd2700b51a00b09653a03"
+    }
+  }
+}

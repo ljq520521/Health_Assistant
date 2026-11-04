@@ -1,0 +1,877 @@
+[
+  {
+    "path": "backend/app/modules/diet/__init__.py",
+    "imports": []
+  },
+  {
+    "path": "backend/app/modules/diet/build_import_preview.py",
+    "imports": [
+      "import argparse",
+      "import json",
+      "from datetime import datetime, timezone",
+      "from pathlib import Path",
+      "from app.modules.diet.source_mapping import SOURCE_URLS, archive_records, mapped_nutrients, sha, digest",
+      "from app.modules.diet.import_service import load_package"
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/data/import_preparation/food.schema.json",
+    "imports": []
+  },
+  {
+    "path": "backend/app/modules/diet/data/import_preparation/food_candidates_150.json",
+    "imports": []
+  },
+  {
+    "path": "backend/app/modules/diet/data/import_preparation/food_matches.json",
+    "imports": []
+  },
+  {
+    "path": "backend/app/modules/diet/data/import_preparation/manifest.schema.json",
+    "imports": []
+  },
+  {
+    "path": "backend/app/modules/diet/data/import_preparation/recipe.schema.json",
+    "imports": []
+  },
+  {
+    "path": "backend/app/modules/diet/data/import_preparation/recipe_drafts_30.json",
+    "imports": []
+  },
+  {
+    "path": "backend/app/modules/diet/demo_environment.py",
+    "imports": [
+      "import argparse",
+      "import json",
+      "import tempfile",
+      "from contextlib import contextmanager",
+      "from datetime import datetime, timezone",
+      "from pathlib import Path",
+      "from unittest.mock import patch",
+      "from app.database import connect, init_database",
+      "from app.modules.diet import import_service as importer",
+      "from app.modules.diet.migrations import migrate_diet, migration_ready",
+      "from app.modules.diet.migration_002 import migrate_goals",
+      "from app.modules.diet.migration_003 import migrate_water",
+      "from app.modules.diet.migration_004 import migrate_recipes"
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/demo_server.py",
+    "imports": [
+      "import os",
+      "from pathlib import Path",
+      "from app.config import Settings",
+      "from app.modules.diet.demo_environment import read_context, NOTICE",
+      "from app.main import create_app"
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/dev_database.py",
+    "imports": [
+      "import argparse",
+      "import json",
+      "import tempfile",
+      "from pathlib import Path",
+      "from app.database import init_database, connect",
+      "from app.modules.diet.migrations import migrate_diet",
+      "from app.modules.diet.migration_002 import migrate_goals",
+      "from app.modules.diet.migration_003 import migrate_water",
+      "from app.modules.diet.migration_004 import migrate_recipes",
+      "from app.modules.diet.library_schemas import FoodInput",
+      "from app.modules.diet.library_service import save_food"
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/import_data.py",
+    "imports": [
+      "import argparse",
+      "import json",
+      "from pathlib import Path",
+      "from app.modules.diet.import_service import load_package, dry_run, apply_package"
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/import_schemas.py",
+    "imports": [
+      "from typing import Annotated, Literal",
+      "from pydantic import BaseModel, ConfigDict, Field, StringConstraints, model_validator"
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/import_service.py",
+    "imports": [
+      "import csv",
+      "import io",
+      "import json",
+      "import os",
+      "import sqlite3",
+      "import tempfile",
+      "import uuid",
+      "from collections import Counter",
+      "from contextlib import contextmanager",
+      "from datetime import datetime, timezone",
+      "from pathlib import Path",
+      "from pydantic import ValidationError",
+      "from app.modules.diet import library_service as library, recipe_service as recipes",
+      "from app.modules.diet.library_schemas import FoodInput",
+      "from app.modules.diet.recipe_schemas import RecipeInput",
+      "from app.modules.diet.import_schemas import Manifest, Food, Recipe, Ingredient",
+      "from app.modules.diet.source_mapping import ImportRejected, canonical, digest, sha, json_read, verified_bytes, verify_foods, FIELDS"
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/library_router.py",
+    "imports": [
+      "from typing import Annotated",
+      "from fastapi import APIRouter, Depends, Query, Request, Response",
+      "from fastapi.exceptions import RequestValidationError",
+      "from fastapi.responses import JSONResponse",
+      "from fastapi.routing import APIRoute",
+      "from app.modules.diet import library_service as service",
+      "from app.modules.diet.library_schemas import CategoryInput, CategoryList, CategoryRecord, FoodInput, FoodList, FoodRecord",
+      "from app.modules.diet.settings import BUSINESS_TIME_ZONE"
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/library_schemas.py",
+    "imports": [
+      "from typing import Annotated, Literal",
+      "from pydantic import BaseModel, ConfigDict, Field, HttpUrl, StringConstraints, TypeAdapter, field_validator, model_validator"
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/library_service.py",
+    "imports": [
+      "from fastapi import HTTPException",
+      "from app.database import connect",
+      "from app.modules.diet.migrations import migration_ready",
+      "from app.modules.diet.settings import utc_now"
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/migration_002.py",
+    "imports": [
+      "import argparse",
+      "import hashlib",
+      "from pathlib import Path",
+      "from app.database import connect",
+      "from app.modules.diet.settings import utc_now",
+      "from app.modules.diet.migrations import migration_ready",
+      "from app.modules.diet.migrations import migration_ready"
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/migration_003.py",
+    "imports": [
+      "import argparse",
+      "import hashlib",
+      "from pathlib import Path",
+      "from app.database import connect",
+      "from app.modules.diet.settings import utc_now",
+      "from app.modules.diet.migration_002 import ready as goals_ready",
+      "from app.modules.diet.migration_002 import ready as goals_ready"
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/migration_004.py",
+    "imports": [
+      "import argparse",
+      "import hashlib",
+      "from pathlib import Path",
+      "from app.database import connect",
+      "from app.modules.diet.settings import utc_now",
+      "from app.modules.diet.migration_003 import ready as water_ready",
+      "from app.modules.diet.migration_003 import ready as water_ready"
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/migrations.py",
+    "imports": [
+      "import argparse",
+      "import hashlib",
+      "import os",
+      "from pathlib import Path",
+      "from app.database import connect, init_database",
+      "from app.modules.diet.settings import utc_now",
+      "from app.modules.diet.migration_002 import VERSION as V2, CHECKSUM as C2, verify_schema",
+      "from app.modules.diet.migration_003 import VERSION as V3, CHECKSUM as C3, verify_schema as verify_water",
+      "from app.modules.diet.migration_004 import VERSION as V4, CHECKSUM as C4, verify_schema as verify_recipes"
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/nutrition_math.py",
+    "imports": [
+      "from decimal import Decimal, InvalidOperation, localcontext, ROUND_HALF_UP",
+      "import math",
+      "from app.modules.diet.library_service import LibraryError"
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/nutrition_router.py",
+    "imports": [
+      "from typing import Literal",
+      "from fastapi import APIRouter, Depends",
+      "from app.modules.diet.library_router import LibraryRoute, database_path",
+      "from app.modules.diet.schemas import CalendarDate",
+      "from app.modules.diet.nutrition_schemas import GoalChanges",
+      "from app.modules.diet import nutrition_service as service",
+      "from app.modules.diet.library_service import LibraryError"
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/nutrition_schemas.py",
+    "imports": [
+      "from typing import Annotated",
+      "from pydantic import BaseModel, ConfigDict, Field, model_validator",
+      "from app.modules.diet.schemas import CalendarDate"
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/nutrition_service.py",
+    "imports": [
+      "from datetime import date, timedelta",
+      "from collections import defaultdict",
+      "from calendar import monthrange",
+      "from app.database import connect",
+      "from app.modules.diet.service import require_profile",
+      "from app.modules.diet.library_service import LibraryError",
+      "from app.modules.diet.migration_002 import ready",
+      "from app.modules.diet.settings import utc_now",
+      "from app.modules.diet.nutrition_math import NUTRIENTS, total, percent",
+      "from app.modules.diet.service import list_records"
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/prepare_sources.py",
+    "imports": [
+      "import argparse",
+      "from difflib import SequenceMatcher",
+      "import json",
+      "from pathlib import Path",
+      "from app.modules.diet.source_mapping import SOURCE_URLS, archive_records, mapped_nutrients, sha"
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/recipe_preference_router.py",
+    "imports": [
+      "from fastapi import APIRouter, Depends, Response, Query",
+      "from app.modules.diet.library_router import LibraryRoute, database_path",
+      "from app.modules.diet.recipe_preference_schemas import InventoryInput, TermInput, CompositionInput, PreferenceInput",
+      "from app.modules.diet import recipe_preference_service as service"
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/recipe_preference_schemas.py",
+    "imports": [
+      "from typing import Annotated, Literal",
+      "from pydantic import Field, model_validator",
+      "from app.modules.diet.recipe_schemas import Input, ID, Nonnegative, Text",
+      "from app.modules.diet.library_schemas import Name"
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/recipe_preference_service.py",
+    "imports": [
+      "import sqlite3",
+      "from contextlib import contextmanager",
+      "from app.database import connect",
+      "from app.modules.diet.recipe_service import require_recipes, one, key, conflict",
+      "from app.modules.diet.library_service import food_row, LibraryError",
+      "from app.modules.diet.settings import utc_now"
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/recipe_recommendation.py",
+    "imports": [
+      "from typing import Annotated",
+      "from pydantic import Field",
+      "from app.database import connect",
+      "from app.modules.diet.recipe_schemas import Input, ID",
+      "from app.modules.diet.schemas import CalendarDate",
+      "from app.modules.diet.recipe_service import require_recipes, detail, nutrition",
+      "from app.modules.diet.recipe_preference_service import composition_row",
+      "from app.modules.diet.nutrition_service import effective",
+      "from app.modules.diet.nutrition_math import NUTRIENTS, scale",
+      "from app.modules.diet.settings import utc_now"
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/recipe_recommendation_router.py",
+    "imports": [
+      "from fastapi import APIRouter, Depends",
+      "from app.modules.diet.library_router import LibraryRoute, database_path",
+      "from app.modules.diet.recipe_recommendation import RecommendationInput, recommend"
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/recipe_router.py",
+    "imports": [
+      "from typing import Annotated",
+      "from fastapi import APIRouter, Depends, Response, Query",
+      "from app.modules.diet.library_router import LibraryRoute, database_path",
+      "from app.modules.diet.library_schemas import CategoryInput",
+      "from app.modules.diet.recipe_schemas import RecipeInput, Revision",
+      "from app.modules.diet import recipe_service as service"
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/recipe_schemas.py",
+    "imports": [
+      "from typing import Annotated, Literal",
+      "from pydantic import BaseModel, ConfigDict, Field, StringConstraints, model_validator",
+      "from app.modules.diet.library_schemas import Name, FoodInput"
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/recipe_service.py",
+    "imports": [
+      "import json",
+      "import unicodedata",
+      "from app.database import connect",
+      "from app.modules.diet.library_service import LibraryError, food_row",
+      "from app.modules.diet.service import require_profile",
+      "from app.modules.diet.migration_004 import ready",
+      "from app.modules.diet.settings import utc_now",
+      "from app.modules.diet.nutrition_math import NUTRIENTS, PER100, scale, total",
+      "from app.modules.diet.recipe_schemas import RecipeInput"
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/report_router.py",
+    "imports": [
+      "from typing import Literal",
+      "from fastapi import APIRouter, Depends",
+      "from app.modules.diet.library_router import LibraryRoute, database_path",
+      "from app.modules.diet.schemas import CalendarDate",
+      "from app.modules.diet.report_service import report"
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/report_service.py",
+    "imports": [
+      "from collections import Counter, defaultdict",
+      "from datetime import datetime, timezone, timedelta",
+      "from decimal import Decimal",
+      "from zoneinfo import ZoneInfo",
+      "from app.database import connect",
+      "from app.modules.diet import settings, nutrition_service, water_service",
+      "from app.modules.diet.library_service import LibraryError",
+      "from app.modules.diet.nutrition_math import NUTRIENTS, total, percent, number"
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/router.py",
+    "imports": [
+      "from fastapi import APIRouter, Depends, HTTPException, Request, Response",
+      "from app.modules.diet import service",
+      "from app.modules.diet.schemas import CalendarDate, RecordInput, DietList, DietRecord",
+      "from app.modules.diet.library_router import LibraryRoute",
+      "from app.modules.diet.library_router import router as library_router",
+      "from app.modules.diet.nutrition_router import router as nutrition_router",
+      "from app.modules.diet.water_router import router as water_router",
+      "from app.modules.diet.recipe_router import router as recipe_router",
+      "from app.modules.diet.recipe_preference_router import router as recipe_preference_router",
+      "from app.modules.diet.recipe_recommendation_router import router as recipe_recommendation_router",
+      "from app.modules.diet.report_router import router as report_router"
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/schemas.py",
+    "imports": [
+      "from datetime import date",
+      "import re",
+      "from typing import Annotated, Literal",
+      "from pydantic import BaseModel, ConfigDict, Field, StringConstraints, BeforeValidator"
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/service.py",
+    "imports": [
+      "from app.modules.diet.settings import utc_now",
+      "from fastapi import HTTPException",
+      "from app.database import connect",
+      "from app.modules.diet.library_service import LibraryError, food_row",
+      "from app.modules.diet.nutrition_math import NUTRIENTS, PER100, scale"
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/settings.py",
+    "imports": [
+      "from datetime import datetime, timezone"
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/source_mapping.py",
+    "imports": [
+      "import hashlib",
+      "import io",
+      "import json",
+      "import math",
+      "import zipfile",
+      "from pathlib import Path"
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/verify_import_preview.py",
+    "imports": [
+      "import argparse",
+      "from pathlib import Path",
+      "import tempfile",
+      "from unittest.mock import patch",
+      "from fastapi.testclient import TestClient",
+      "from app.config import Settings",
+      "from app.database import init_database",
+      "from app.main import create_app",
+      "from app.modules.diet import migrations as m1, migration_002 as m2, migration_003 as m3, migration_004 as m4",
+      "from app.modules.diet.import_service import load_package, database, dry_run, apply_package, snapshot, write_audit"
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/water_router.py",
+    "imports": [
+      "from fastapi import APIRouter, Depends, Response",
+      "from app.modules.diet.library_router import LibraryRoute, database_path",
+      "from app.modules.diet.schemas import CalendarDate",
+      "from app.modules.diet.water_schemas import WaterInput, ReminderInput",
+      "from app.modules.diet import water_service as service"
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/water_schemas.py",
+    "imports": [
+      "import re",
+      "from datetime import datetime, timezone",
+      "from typing import Annotated, Literal",
+      "from pydantic import BaseModel, ConfigDict, Field, BeforeValidator, model_validator"
+    ]
+  },
+  {
+    "path": "backend/app/modules/diet/water_service.py",
+    "imports": [
+      "import json",
+      "from datetime import datetime, time, timedelta, timezone",
+      "from zoneinfo import ZoneInfo",
+      "from app.database import connect",
+      "from app.modules.diet import settings",
+      "from app.modules.diet.service import require_profile",
+      "from app.modules.diet.library_service import LibraryError",
+      "from app.modules.diet.migration_003 import ready",
+      "from app.modules.diet.nutrition_service import effective",
+      "from app.modules.diet.nutrition_math import percent",
+      "from app.modules.diet.water_schemas import ReminderInput"
+    ]
+  },
+  {
+    "path": "backend/tests/diet_import_fixtures.py",
+    "imports": [
+      "import csv",
+      "import io",
+      "import json",
+      "import zipfile",
+      "from pathlib import Path",
+      "from app.modules.diet.source_mapping import sha, SOURCE_URLS"
+    ]
+  },
+  {
+    "path": "backend/tests/test_diet.py",
+    "imports": [
+      "import tempfile",
+      "import unittest",
+      "from pathlib import Path",
+      "from fastapi.testclient import TestClient",
+      "from app.config import Settings",
+      "from app.database import connect",
+      "from app.main import create_app"
+    ]
+  },
+  {
+    "path": "backend/tests/test_diet_demo.py",
+    "imports": [
+      "import json",
+      "import os",
+      "import tempfile",
+      "import unittest",
+      "from pathlib import Path",
+      "from unittest.mock import patch",
+      "from fastapi.testclient import TestClient",
+      "from app.config import Settings",
+      "from app.database import connect",
+      "from app.main import create_app",
+      "from app.modules.diet import demo_environment as demo, import_service as importer",
+      "from app.modules.diet.demo_server import create_demo_app",
+      "from diet_import_fixtures import fixture"
+    ]
+  },
+  {
+    "path": "backend/tests/test_diet_import.py",
+    "imports": [
+      "import copy",
+      "import json",
+      "import sqlite3",
+      "import tempfile",
+      "import zipfile",
+      "from pathlib import Path",
+      "from unittest.mock import patch",
+      "from pydantic import ValidationError",
+      "from test_recipes import RecipeFixture",
+      "from diet_import_fixtures import fixture, write_json, rehash",
+      "from app.modules.diet.import_service import load_package, dry_run, apply_package, database, snapshot",
+      "from app.modules.diet.source_mapping import ImportRejected, mapped_nutrients, sha",
+      "from app.modules.diet.import_data import main",
+      "from app.modules.diet.import_service import write_audit",
+      "from app.modules.diet.import_service import write_audit"
+    ]
+  },
+  {
+    "path": "backend/tests/test_diet_import_recommendation.py",
+    "imports": [
+      "from unittest.mock import patch",
+      "from test_recipes import RecipeFixture",
+      "from diet_import_fixtures import fixture",
+      "from app.modules.diet.import_service import load_package, dry_run, apply_package, database, snapshot"
+    ]
+  },
+  {
+    "path": "backend/tests/test_diet_migrations.py",
+    "imports": [
+      "import os",
+      "import sqlite3",
+      "import tempfile",
+      "import unittest",
+      "from concurrent.futures import ThreadPoolExecutor",
+      "from pathlib import Path",
+      "from unittest.mock import patch",
+      "from fastapi.testclient import TestClient",
+      "from app.config import Settings",
+      "from app.database import connect, init_database",
+      "from app.main import create_app",
+      "from app.modules.diet import migrations",
+      "import test_diet"
+    ]
+  },
+  {
+    "path": "backend/tests/test_food_library.py",
+    "imports": [
+      "import tempfile",
+      "import unittest",
+      "from pathlib import Path",
+      "from fastapi.testclient import TestClient",
+      "from app.config import Settings",
+      "from app.database import connect, init_database",
+      "from app.main import create_app",
+      "from app.modules.diet.migrations import migrate_diet"
+    ]
+  },
+  {
+    "path": "backend/tests/test_nutrition.py",
+    "imports": [
+      "import os",
+      "import sqlite3",
+      "import tempfile",
+      "import unittest",
+      "from pathlib import Path",
+      "from unittest.mock import patch",
+      "from concurrent.futures import ThreadPoolExecutor",
+      "from fastapi.testclient import TestClient",
+      "from app.config import Settings",
+      "from app.database import connect, init_database",
+      "from app.main import create_app",
+      "from app.modules.diet import migration_002 as m2",
+      "from app.modules.diet import migrations as m1",
+      "import test_diet",
+      "import test_food_library",
+      "from app.modules.diet.nutrition_service import save_goal",
+      "from app.modules.diet.nutrition_schemas import GoalChanges"
+    ]
+  },
+  {
+    "path": "backend/tests/test_recipe_preferences.py",
+    "imports": [
+      "from test_recipes import RecipeFixture"
+    ]
+  },
+  {
+    "path": "backend/tests/test_recipe_recommendation.py",
+    "imports": [
+      "from unittest.mock import patch",
+      "from test_recipes import RecipeFixture",
+      "from app.database import connect"
+    ]
+  },
+  {
+    "path": "backend/tests/test_recipes.py",
+    "imports": [
+      "import sqlite3",
+      "import tempfile",
+      "import unittest",
+      "from pathlib import Path",
+      "from unittest.mock import patch",
+      "from fastapi.testclient import TestClient",
+      "from app.config import Settings",
+      "from app.database import connect, init_database",
+      "from app.main import create_app",
+      "from app.modules.diet import migrations as m1, migration_002 as m2, migration_003 as m3, migration_004 as m4"
+    ]
+  },
+  {
+    "path": "backend/tests/test_reports.py",
+    "imports": [
+      "from datetime import date",
+      "import sqlite3",
+      "from unittest.mock import patch",
+      "from test_recipes import RecipeFixture",
+      "from app.database import connect"
+    ]
+  },
+  {
+    "path": "backend/tests/test_smoke.py",
+    "imports": [
+      "import sqlite3",
+      "import tempfile",
+      "import unittest",
+      "from pathlib import Path",
+      "from fastapi.testclient import TestClient",
+      "from app.config import Settings",
+      "from app.database import connect, init_database",
+      "from app.main import create_app"
+    ]
+  },
+  {
+    "path": "backend/tests/test_water.py",
+    "imports": [
+      "import sqlite3",
+      "import tempfile",
+      "import unittest",
+      "from pathlib import Path",
+      "from unittest.mock import patch",
+      "from fastapi.testclient import TestClient",
+      "from app.config import Settings",
+      "from app.database import connect, init_database",
+      "from app.main import create_app",
+      "from app.modules.diet import migrations as m1, migration_002 as m2, migration_003 as m3"
+    ]
+  },
+  {
+    "path": "frontend/src/api/diet.js",
+    "imports": []
+  },
+  {
+    "path": "frontend/src/api/foodLibrary.js",
+    "imports": []
+  },
+  {
+    "path": "frontend/src/api/nutrition.js",
+    "imports": [
+      "./foodLibrary.js"
+    ]
+  },
+  {
+    "path": "frontend/src/api/recipes.js",
+    "imports": [
+      "./foodLibrary.js"
+    ]
+  },
+  {
+    "path": "frontend/src/api/reports.js",
+    "imports": [
+      "./foodLibrary.js"
+    ]
+  },
+  {
+    "path": "frontend/src/api/water.js",
+    "imports": [
+      "./foodLibrary.js"
+    ]
+  },
+  {
+    "path": "frontend/src/components/diet/DailyGoalsDialog.vue",
+    "imports": [
+      "vue",
+      "../../api/nutrition.js"
+    ]
+  },
+  {
+    "path": "frontend/src/components/diet/DietRecordsPanel.vue",
+    "imports": [
+      "vue",
+      "../../api/diet.js",
+      "../../api/foodLibrary.js",
+      "../../api/nutrition.js"
+    ]
+  },
+  {
+    "path": "frontend/src/components/diet/DietReportPanel.vue",
+    "imports": [
+      "vue",
+      "../../api/reports.js",
+      "./waterTime.js",
+      "./reportPresentation.js",
+      "./ReportChart.vue",
+      "./reportExport.js"
+    ]
+  },
+  {
+    "path": "frontend/src/components/diet/FoodLibraryPanel.vue",
+    "imports": [
+      "vue",
+      "../../api/foodLibrary.js"
+    ]
+  },
+  {
+    "path": "frontend/src/components/diet/NutritionAnalysisPanel.vue",
+    "imports": [
+      "vue",
+      "../../api/nutrition.js",
+      "./DailyGoalsDialog.vue",
+      "./NutritionTrendChart.vue"
+    ]
+  },
+  {
+    "path": "frontend/src/components/diet/NutritionTrendChart.vue",
+    "imports": [
+      "vue"
+    ]
+  },
+  {
+    "path": "frontend/src/components/diet/RecipeInventoryPanel.vue",
+    "imports": [
+      "vue",
+      "../../api/recipes",
+      "./recipeUI"
+    ]
+  },
+  {
+    "path": "frontend/src/components/diet/RecipeLibraryPanel.vue",
+    "imports": [
+      "vue",
+      "../../api/foodLibrary.js",
+      "../../api/recipes.js",
+      "./recipeUI.js",
+      "./RecipeNutrition.vue"
+    ]
+  },
+  {
+    "path": "frontend/src/components/diet/RecipeNutrition.vue",
+    "imports": [
+      "./recipeUI.js"
+    ]
+  },
+  {
+    "path": "frontend/src/components/diet/RecipePreferencePanel.vue",
+    "imports": [
+      "vue",
+      "../../api/recipes",
+      "./recipeUI"
+    ]
+  },
+  {
+    "path": "frontend/src/components/diet/RecipeRecommendationPanel.vue",
+    "imports": [
+      "vue",
+      "../../api/recipes.js",
+      "./recipeUI.js",
+      "./waterTime.js",
+      "./RecipeNutrition.vue"
+    ]
+  },
+  {
+    "path": "frontend/src/components/diet/recipeUI.js",
+    "imports": [
+      "vue"
+    ]
+  },
+  {
+    "path": "frontend/src/components/diet/RecipeWorkspace.vue",
+    "imports": [
+      "vue",
+      "./RecipeLibraryPanel.vue",
+      "./RecipeInventoryPanel.vue",
+      "./RecipePreferencePanel.vue",
+      "./RecipeRecommendationPanel.vue"
+    ]
+  },
+  {
+    "path": "frontend/src/components/diet/report.test.js",
+    "imports": [
+      "node:test",
+      "node:assert/strict",
+      "./reportPresentation.js",
+      "./reportPdf.js",
+      "./reportExport.js"
+    ]
+  },
+  {
+    "path": "frontend/src/components/diet/ReportChart.vue",
+    "imports": [
+      "vue",
+      "./reportPresentation.js"
+    ]
+  },
+  {
+    "path": "frontend/src/components/diet/reportExport.js",
+    "imports": [
+      "./reportPdf.js",
+      "./reportPresentation.js"
+    ]
+  },
+  {
+    "path": "frontend/src/components/diet/reportPdf.js",
+    "imports": []
+  },
+  {
+    "path": "frontend/src/components/diet/reportPresentation.js",
+    "imports": []
+  },
+  {
+    "path": "frontend/src/components/diet/WaterPanel.vue",
+    "imports": [
+      "vue",
+      "../../api/water.js",
+      "../../api/nutrition.js",
+      "./waterTime.js"
+    ]
+  },
+  {
+    "path": "frontend/src/components/diet/waterReminder.js",
+    "imports": [
+      "./waterTime.js"
+    ]
+  },
+  {
+    "path": "frontend/src/components/diet/waterReminder.test.js",
+    "imports": [
+      "node:test",
+      "node:assert/strict",
+      "./waterReminder.js",
+      "./waterTime.js"
+    ]
+  },
+  {
+    "path": "frontend/src/components/diet/WaterReminderHost.vue",
+    "imports": [
+      "vue",
+      "../../api/water.js",
+      "./waterTime.js",
+      "./waterReminder.js"
+    ]
+  },
+  {
+    "path": "frontend/src/components/diet/waterTime.js",
+    "imports": []
+  },
+  {
+    "path": "frontend/src/views/DietView.vue",
+    "imports": [
+      "vue",
+      "../components/diet/WaterPanel.vue",
+      "../components/diet/RecipeWorkspace.vue",
+      "../components/diet/DietReportPanel.vue",
+      "../components/diet/WaterReminderHost.vue",
+      "../components/diet/DietRecordsPanel.vue",
+      "../components/diet/NutritionAnalysisPanel.vue",
+      "../components/diet/FoodLibraryPanel.vue",
+      "../api/foodLibrary.js"
+    ]
+  }
+]

@@ -1,0 +1,22 @@
+{
+  "derived_from_package_version": 2,
+  "original_v2_manifest_sha256": "bdc647117fe396ee04d7bac93bd0ef5b1d1cf22e7b8fd02047565470bb2321a6",
+  "v2_seed_manifest_sha256": "2391951c2738a0b5ca181c441a216d872731f9eed8fc8290b2e6001610f4e29b",
+  "approval_scope": "team_course_demonstration_only",
+  "approved_use": "Health_Assistant软件工程课程设计演示",
+  "approved_at": "2026-10-15T23:41:09+08:00",
+  "approver": "食物板块负责人",
+  "built_at": "2026-10-15T15:47:25.683238+00:00",
+  "changes": [
+    "foods.review_status only",
+    "recipes.review_status and approval wording in description/source_note only"
+  ],
+  "source_archive_policy": "Selected unchanged USDA records copied byte-for-byte from v2 seed; original archive identities and hashes retained in provenance/v2-PROVENANCE.json",
+  "no_trial_or_allergen_approval": true,
+  "excluded": [
+    "profiles",
+    "health records",
+    "databases",
+    "credentials"
+  ]
+}

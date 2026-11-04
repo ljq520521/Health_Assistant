@@ -1,0 +1,49 @@
+{
+  "seed_format_version": 1,
+  "derived_from_package_id": "common-food-cn-preview",
+  "derived_from_package_version": 2,
+  "original_manifest_sha256": "bdc647117fe396ee04d7bac93bd0ef5b1d1cf22e7b8fd02047565470bb2321a6",
+  "purpose": "temporary_review",
+  "review_status": "pending_final_confirmation",
+  "original_foods_sha256": "a46e5a14fabf1cd62a3c943ad06b3fa144e13f2734e59f7c9fd530e74eba70cc",
+  "original_recipes_sha256": "e498d548d3baed52e2469c3c3aada0dbc8020de6b08cd2700b51a00b09653a03",
+  "foods_change": "none: byte-for-byte copy",
+  "recipes_change": "source_note only: append 未经实际试做。; identity, ingredients, amounts, servings and steps unchanged",
+  "source_archives_are_selected_record_subsets": true,
+  "archive_filenames": "Original names retained only to keep foods.source_archive byte-identical; these are NOT complete official ZIPs.",
+  "record_hash_algorithm": "SHA256 of UTF-8 json.dumps(record, ensure_ascii=False, sort_keys=True, separators=(comma,colon), allow_nan=False)",
+  "excluded": [
+    "complete source archives",
+    "original review documents and field-description PDF",
+    "profiles",
+    "diet/water records",
+    "databases",
+    "credentials"
+  ],
+  "sources": [
+    {
+      "path": "sources/FoodData_Central_foundation_food_json_2026-04-30.zip",
+      "sha256": "186e988ec542e913f51ef62b86a47758e8cdd0d1dc3889e7b055581f3c09c77a",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_foundation_food_json_2026-04-30.zip",
+      "release": "2026-04-30",
+      "data_type": "Foundation",
+      "retrieved_at": "2026-10-14T14:52:38.310403+00:00",
+      "original_bytes": 469303,
+      "selected_record_count": 28,
+      "subset_sha256": "ae5365ac99b7d6396ca79e24170ef0c1c1fb097d30d86acfa704a51e47e51dc8",
+      "subset_bytes": 20989
+    },
+    {
+      "path": "sources/FoodData_Central_sr_legacy_food_json_2018-04.zip",
+      "sha256": "0fe8ae486a2c8eb42cb96413f058deb51863a46c8fb8eeb4b1fb45006dd338ef",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_json_2018-04.zip",
+      "release": "2018-04",
+      "data_type": "SR Legacy",
+      "retrieved_at": "2026-10-14T14:52:38.310403+00:00",
+      "original_bytes": 13456312,
+      "selected_record_count": 106,
+      "subset_sha256": "dd4cb623cdfa76ecac40469636f3eb0c1e6b9e59446643a2dd1dca3f48124724",
+      "subset_bytes": 245470
+    }
+  ]
+}
