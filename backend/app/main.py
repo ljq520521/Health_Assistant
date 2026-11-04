@@ -34,9 +34,10 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     application = FastAPI(
         title=settings.app_name,
         version=__version__,
-        description="v0.1 项目骨架，仅开放健康检查与模块目录。业务接口见项目文档。",
+        description="睡眠监测模块已开放，其他模块仍为项目骨架。",
         lifespan=lifespan,
     )
+    application.state.settings = settings
     application.add_middleware(
         CORSMiddleware,
         allow_origins=list(settings.allowed_origins),

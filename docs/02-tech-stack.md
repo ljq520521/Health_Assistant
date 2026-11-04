@@ -1,5 +1,7 @@
 # 技术栈定版
 
+> 更新：睡眠监测已实现六项功能。以下保留初始规划；睡眠模块的当前范围、数据库增量、页面和接口以 [08 睡眠模块说明](08-sleep-module.md) 为准。
+
 **后端 Python 3.12 + FastAPI + SQLite（标准库 sqlite3），前端 Vue 3 + Vite 7 + Vue Router 4（JavaScript、原生 CSS），v0.1 本地双进程运行。**
 
 | 项目 | 约定 |

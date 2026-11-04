@@ -27,9 +27,10 @@ export const modules = [
     code: 'sleep', name: '睡眠监测', english: 'Sleep & rest', owner: '成员 D',
     route: '/sleep', color: 'purple', icon: 'sleep',
     description: '把好好休息，也放进日常计划。',
-    features: ['入睡与醒来记录', '睡眠时长计算', '主观睡眠评分'],
-    detail: '手动记录入睡和醒来时间，并用 1–5 分描述自己的睡眠感受。',
-    next: '下一版支持跨夜睡眠记录，时长由实际起止时间计算。',
+    features: ['睡眠记录与评分', '趋势与睡眠报告', '助眠音频与作息提醒'],
+    detail: '记录睡眠时间与阶段，查看个人作息趋势，并设置助眠音频和起床提醒。',
+    next: '睡眠监测模块已开放。',
+    available: true,
   },
   {
     code: 'cycle', name: '生理期管理', english: 'Cycle & wellbeing', owner: '成员 E',
