@@ -1,4 +1,4 @@
-const baseUrl = (import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '')
+const baseUrl = (import.meta.env?.VITE_API_BASE_URL || '').replace(/\/$/, '')
 const TOKEN_KEY = 'health_profile_token'
 
 let token = ''
@@ -13,6 +13,7 @@ export function getToken() {
 }
 
 export function setToken(value) {
+  const previous = token
   token = value || ''
   try {
     if (token) localStorage.setItem(TOKEN_KEY, token)
@@ -20,15 +21,25 @@ export function setToken(value) {
   } catch {
     // Private mode or blocked storage: keep the in-memory token only.
   }
+  if (previous !== token && typeof window !== 'undefined') {
+    window.dispatchEvent(new Event('health-auth-changed'))
+  }
+}
+
+if (typeof window !== 'undefined') {
+  window.addEventListener('storage', event => {
+    if (event.key === TOKEN_KEY || event.key === null) setToken(event.newValue || '')
+  })
 }
 
 async function request(path, options = {}, withAuth = true) {
+  const requestToken = token
   const controller = new AbortController()
   const timeout = setTimeout(() => controller.abort(), 10000)
   try {
     const headers = {}
     if (options.body) headers['Content-Type'] = 'application/json'
-    if (withAuth && token) headers.Authorization = `Bearer ${token}`
+    if (withAuth && requestToken) headers.Authorization = `Bearer ${requestToken}`
 
     const response = await fetch(`${baseUrl}${path}`, {
       ...options,
@@ -44,7 +55,7 @@ async function request(path, options = {}, withAuth = true) {
         : detail || `请求失败（${response.status}）`
       const error = new Error(message)
       error.status = response.status
-      if (response.status === 401 && withAuth) setToken('')
+      if (response.status === 401 && withAuth && requestToken === token) setToken('')
       throw error
     }
     return response.status === 204 ? null : response.json()
@@ -88,8 +99,10 @@ export async function changePassword(data) {
   return result
 }
 
-export function updatePrivacy(data) {
-  return request('/api/auth/privacy', { method: 'PUT', body: JSON.stringify(data) })
+export async function updatePrivacy(data) {
+  const user = await request('/api/auth/privacy', { method: 'PUT', body: JSON.stringify(data) })
+  if (typeof window !== 'undefined') window.dispatchEvent(new Event('health-permissions-changed'))
+  return user
 }
 
 export function listUsers() {

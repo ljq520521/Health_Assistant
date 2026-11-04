@@ -34,7 +34,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     application = FastAPI(
         title=settings.app_name,
         version=__version__,
-        description="睡眠监测模块已开放，其他模块仍为项目骨架。",
+        description="个人健康管理系统：健康档案、饮食、运动、睡眠与生理期管理。睡眠模块使用统一账号认证。",
         lifespan=lifespan,
     )
     application.state.settings = settings

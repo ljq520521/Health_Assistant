@@ -10,10 +10,12 @@ from fastapi import APIRouter, Depends, HTTPException, Query, Request, Response
 from fastapi.responses import FileResponse
 
 from app.database import connect
+from app.modules.profile.auth import require_admin_consent
+from .access import read_access
 from . import service
 from .schemas import ContentInput, ContentUpdate, ProfileInput, SettingsInput, SleepInput
 
-router = APIRouter(tags=["睡眠监测"])
+router = APIRouter(tags=["睡眠监测"], dependencies=[Depends(read_access)])
 
 
 def database(request: Request):
@@ -34,7 +36,7 @@ def profile(connection=Depends(database)):
     return {"profile": dict(row) if row else None}
 
 
-@router.post("/sleep/profile")
+@router.post("/sleep/profile", dependencies=[Depends(require_admin_consent)])
 def create_profile(payload: ProfileInput, connection=Depends(database)):
     connection.execute("INSERT INTO profiles(id, display_name) VALUES(1, ?) ON CONFLICT(id) DO NOTHING", (payload.display_name,))
     return profile(connection)
@@ -45,7 +47,7 @@ def records(date_from: date | None = None, date_to: date | None = None, connecti
     return {"items": service.list_records(connection, date_from, date_to)}
 
 
-@router.post("/sleep-records", status_code=201)
+@router.post("/sleep-records", status_code=201, dependencies=[Depends(require_admin_consent)])
 def create_record(payload: SleepInput, connection=Depends(database)):
     connection.execute("BEGIN IMMEDIATE")
     service.require_profile(connection)
@@ -64,7 +66,7 @@ def get_record(record_id: int, connection=Depends(database)):
     return service.describe_record(record_or_404(connection, record_id), service.get_settings(connection))
 
 
-@router.put("/sleep-records/{record_id}")
+@router.put("/sleep-records/{record_id}", dependencies=[Depends(require_admin_consent)])
 def update_record(record_id: int, payload: SleepInput, connection=Depends(database)):
     connection.execute("BEGIN IMMEDIATE")
     record_or_404(connection, record_id)
@@ -75,7 +77,7 @@ def update_record(record_id: int, payload: SleepInput, connection=Depends(databa
     return service.describe_record(record_or_404(connection, record_id), service.get_settings(connection))
 
 
-@router.delete("/sleep-records/{record_id}", status_code=204)
+@router.delete("/sleep-records/{record_id}", status_code=204, dependencies=[Depends(require_admin_consent)])
 def delete_record(record_id: int, connection=Depends(database)):
     record_or_404(connection, record_id)
     connection.execute("DELETE FROM sleep_records WHERE id=?", (record_id,))
@@ -86,7 +88,7 @@ def settings(connection=Depends(database)):
     return service.get_settings(connection)
 
 
-@router.put("/sleep/settings")
+@router.put("/sleep/settings", dependencies=[Depends(require_admin_consent)])
 def save_settings(payload: SettingsInput, connection=Depends(database)):
     service.require_profile(connection)
     data = payload.model_dump()
@@ -129,7 +131,7 @@ def report(period: Literal["week", "month"] = "week", end_date: date | None = No
     for text in data["observations"] + [service.NOTICE]:
         writer.writerow([text])
     return Response("\ufeff" + output.getvalue(), media_type="text/csv; charset=utf-8",
-                    headers={"Content-Disposition": f'attachment; filename="sleep-{data["date_from"]}-{data["date_to"]}.csv"'})
+                    headers={"Cache-Control": "no-store", "Content-Disposition": f'attachment; filename="sleep-{data["date_from"]}-{data["date_to"]}.csv"'})
 
 
 def content_result(row):
@@ -152,13 +154,13 @@ def content(connection=Depends(database)):
     return {"items": [content_result(row) for row in connection.execute("SELECT * FROM sleep_content ORDER BY favorite DESC, id ASC")]}
 
 
-@router.post("/sleep/content", status_code=201)
+@router.post("/sleep/content", status_code=201, dependencies=[Depends(require_admin_consent)])
 def create_content(payload: ContentInput, connection=Depends(database)):
     cursor = connection.execute("INSERT INTO sleep_content(title,category,source_type,source) VALUES (?,?,'url',?)", (payload.title, payload.category, str(payload.url)))
     return content_result(content_or_404(connection, cursor.lastrowid))
 
 
-@router.post("/sleep/content/upload", status_code=201)
+@router.post("/sleep/content/upload", status_code=201, dependencies=[Depends(require_admin_consent)])
 async def upload(request: Request, title: str = Query(min_length=1, max_length=100), category: Literal["noise", "meditation"] = "meditation"):
     title = title.strip()
     if not title:
@@ -207,17 +209,17 @@ def audio(content_id: int, request: Request, connection=Depends(database)):
     path = request.app.state.settings.database_path.parent / "sleep-audio" / Path(item["source"]).name
     if not path.is_file():
         raise HTTPException(404, "音频文件已丢失，请重新上传")
-    return FileResponse(path, headers={"X-Content-Type-Options": "nosniff"})
+    return FileResponse(path, headers={"X-Content-Type-Options": "nosniff", "Cache-Control": "no-store"})
 
 
-@router.put("/sleep/content/{content_id}")
+@router.put("/sleep/content/{content_id}", dependencies=[Depends(require_admin_consent)])
 def update_content(content_id: int, payload: ContentUpdate, connection=Depends(database)):
     content_or_404(connection, content_id)
     connection.execute("UPDATE sleep_content SET title=?,category=?,favorite=? WHERE id=?", (payload.title, payload.category, payload.favorite, content_id))
     return content_result(content_or_404(connection, content_id))
 
 
-@router.delete("/sleep/content/{content_id}", status_code=204)
+@router.delete("/sleep/content/{content_id}", status_code=204, dependencies=[Depends(require_admin_consent)])
 def delete_content(content_id: int, request: Request, connection=Depends(database)):
     item = content_or_404(connection, content_id)
     connection.execute("DELETE FROM sleep_content WHERE id=?", (content_id,))

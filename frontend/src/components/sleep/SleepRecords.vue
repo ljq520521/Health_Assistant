@@ -3,7 +3,7 @@ import { computed, reactive, ref } from 'vue'
 import { displayTime, hours, json, request, shanghaiInput, today } from '../../api/sleep'
 import SleepDialog from './SleepDialog.vue'
 
-const props = defineProps({ records: Array, profile: Object })
+const props = defineProps({ records: Array, profile: Object, canEdit: Boolean })
 const emit = defineEmits(['changed'])
 const editor = ref(false), editingId = ref(null), deleting = ref(null), selected = ref(null)
 const busy = ref(false), error = ref(''), query = ref('')
@@ -39,9 +39,9 @@ async function remove() {
 
 <template>
   <section class="sleep-panel">
-    <div class="sleep-section-title"><div><h2>睡眠记录</h2><p>按醒来日期归档 · {{ records.length }} 条记录</p></div><div class="sleep-actions"><label class="sr-only" for="record-date">筛选醒来日期</label><input id="record-date" v-model="query" type="date" /><button v-if="query" class="sleep-text-button" @click="query = ''">清除</button><button class="button primary" :disabled="!profile" @click="open()">＋ 记录睡眠</button></div></div>
+    <div class="sleep-section-title"><div><h2>睡眠记录</h2><p>按醒来日期归档 · {{ records.length }} 条记录</p></div><div class="sleep-actions"><label class="sr-only" for="record-date">筛选醒来日期</label><input id="record-date" v-model="query" type="date" /><button v-if="query" class="sleep-text-button" @click="query = ''">清除</button><button class="button primary" :disabled="!profile || !canEdit" @click="open()">＋ 记录睡眠</button></div></div>
     <div v-if="!filtered.length" class="sleep-empty"><h3>还没有这段时间的记录</h3><p>记下昨晚的入睡与醒来时间，让每一次休息都有迹可循。</p></div>
-    <div v-else class="sleep-table-wrap"><table class="sleep-table"><thead><tr><th>醒来日期</th><th>入睡 → 醒来（上海）</th><th>时长</th><th>深 / 浅睡</th><th>作息分</th><th>操作</th></tr></thead><tbody><tr v-for="row in filtered" :key="row.id"><td><strong>{{ row.wake_date }}</strong><small v-if="row.alerts.length" class="sleep-warning">{{ row.alerts.length }} 项偏离提示</small></td><td>{{ displayTime(row.sleep_at) }}<br />→ {{ displayTime(row.wake_at) }}</td><td>{{ hours(row.duration_minutes) }}</td><td>{{ row.deep_minutes ?? '—' }} / {{ row.light_minutes ?? '—' }} 分钟</td><td><button class="sleep-score-link" @click="selected = row">{{ row.score }} 分 ↗</button></td><td><div class="sleep-actions"><button class="sleep-text-button" :aria-label="`编辑 ${row.wake_date} 的记录`" @click="open(row)">编辑</button><button class="sleep-text-button danger" :aria-label="`删除 ${row.wake_date} 的记录`" @click="deleting = row; error = ''">删除</button></div></td></tr></tbody></table></div>
+    <div v-else class="sleep-table-wrap"><table class="sleep-table"><thead><tr><th>醒来日期</th><th>入睡 → 醒来（上海）</th><th>时长</th><th>深 / 浅睡</th><th>作息分</th><th>操作</th></tr></thead><tbody><tr v-for="row in filtered" :key="row.id"><td><strong>{{ row.wake_date }}</strong><small v-if="row.alerts.length" class="sleep-warning">{{ row.alerts.length }} 项偏离提示</small></td><td>{{ displayTime(row.sleep_at) }}<br />→ {{ displayTime(row.wake_at) }}</td><td>{{ hours(row.duration_minutes) }}</td><td>{{ row.deep_minutes ?? '—' }} / {{ row.light_minutes ?? '—' }} 分钟</td><td><button class="sleep-score-link" @click="selected = row">{{ row.score }} 分 ↗</button></td><td><div class="sleep-actions"><button :disabled="!canEdit" class="sleep-text-button" :aria-label="`编辑 ${row.wake_date} 的记录`" @click="open(row)">编辑</button><button :disabled="!canEdit" class="sleep-text-button danger" :aria-label="`删除 ${row.wake_date} 的记录`" @click="deleting = row; error = ''">删除</button></div></td></tr></tbody></table></div>
   </section>
   <SleepDialog v-if="editor" :title="editingId ? '编辑睡眠记录' : '记录一次睡眠'" :busy="busy" @close="editor = false">
     <form class="sleep-form" @submit.prevent="save"><p class="sleep-muted">所有时间按北京时间（Asia/Shanghai）填写，可记录跨夜睡眠。</p><div class="sleep-form-grid">

@@ -21,6 +21,10 @@ class SleepModuleTests(unittest.TestCase):
         self.client = TestClient(create_app(Settings('Sleep test', self.path, ())))
         self.client.__enter__()
         self.addCleanup(self.client.__exit__, None, None, None)
+        credentials = {'username': 'sleep_test_admin', 'password': 'TemporarySleep2026!'}
+        self.assertEqual(self.client.post('/api/auth/register', json=credentials).status_code, 201)
+        login = self.client.post('/api/auth/login', json=credentials)
+        self.client.headers['Authorization'] = 'Bearer ' + login.json()['access_token']
 
     def profile(self):
         self.assertEqual(self.client.post('/api/sleep/profile', json={'display_name': '测试档案'}).status_code, 200)

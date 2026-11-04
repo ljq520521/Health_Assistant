@@ -160,3 +160,6 @@
   #sleep-report .sleep-report-foot { margin-top: 18px; padding-top: 12px; }
   @page { margin: 10mm; }
 }
+
+.sleep-settings-fields { padding: 0; margin: 0; border: 0; min-width: 0; }
+.sleep-page button:disabled { cursor: not-allowed; }

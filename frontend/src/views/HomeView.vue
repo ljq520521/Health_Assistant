@@ -25,7 +25,7 @@ onMounted(refreshHealth)
     <div><span class="hero-label">记录日常 · 看见变化</span><h2>让健康管理，<br />成为生活的小习惯。</h2><p>饮食、运动、睡眠与身体变化，<br />从每一条简单的记录开始。</p><RouterLink to="/profile" class="button light">了解个人档案<AppIcon name="arrow" /></RouterLink></div>
     <div class="hero-art" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="heart-core"><AppIcon /></div><span class="floating-icon leaf"><AppIcon name="diet" /></span><span class="floating-icon moon"><AppIcon name="sleep" /></span><span class="floating-label">A LITTLE BETTER, EVERY DAY</span></div>
   </section>
-  <div class="section-heading"><div><h2>五个模块，一份完整的关照</h2><p>睡眠监测已开放，其余模块正在准备中。</p></div><span class="section-count">01 — 05</span></div>
+  <div class="section-heading"><div><h2>五个模块，一份完整的关照</h2><p>从健康档案登录，继续记录饮食、运动、睡眠与身体变化。</p></div><span class="section-count">01 — 05</span></div>
   <section class="module-grid" aria-label="健康模块">
     <RouterLink v-for="(module, index) in modules" :key="module.code" :to="module.route" class="module-card" :class="module.color">
       <div class="card-top"><span class="module-icon"><AppIcon :name="module.icon" /></span><span class="card-number">0{{ index + 1 }}</span></div>
